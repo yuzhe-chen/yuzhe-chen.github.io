@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: farting
 permalink: /
 subtitle: <a href='#'>Biography</a>. Who I am...
 
