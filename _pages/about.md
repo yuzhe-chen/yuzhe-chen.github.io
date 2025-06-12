@@ -27,5 +27,11 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Other than music, I love `reading, hiking, and painting`. I love visiting art museums; they not only provide inspiration for paintings but also help my musical interpretation. For example, looking at the original Nymphéas by Monet at the Musée de L'Orangerie was a huge inspiration when I started polishing [Ravel's Jeux d'eau](https://www.youtube.com/watch?v=jnKFIp7CahY&pp=0gcJCdgAo7VqN5tD). I am also interested in `space travel and architecture`, which happen to be convenient interests to explain to my teachers why I doodled buildings (made of grand staves stacked on top of each other with windows that look like quarter rests) on the back sides of my exam sheets.
-My favorite hobby by far, however, is `learning new languages` (this year, it was Latin). I believe that languages not only serve as means of communication but also as bridges to understanding different cultures. With the universal language of music, I look forward to working with many talented musicians in a chamber music setting and, together, learning how to connect the pieces of the giant puzzle that life truly is.
+Yuzhe (Julian) Chen (13 years) is a `rising sophomore` at Langley High School in Virginia. He is currently studying piano with [Dr. Dmitri Nazarenko](google.com), music theory with [Ms. Lora Baronian](google.com), and violin with [Ms. Olga Khroulevitch](google.com).
+
+Julian has won several awards in piano and violin competitions, including the 51st Annual Joseph and Goldie Feder Memorial String Competition (2022), the `Kaufman Music Center International Youth Piano Competition` (2022) the AAMS International Competition (2022), the `MTNA Piano Competition` (2023, 2024), and the James A. Bland Piano Scholarship Competition (2025).
+
+Julian is enthusiastic about performing on stage. His most recent performances include playing at the Kennedy Center’s Millennium Stage, the `Kaufman Center’s Merkin Hall`, the UMBC’s Earl and Darielle Linehan Concert Hall, and the Beethoven House in Bonn.
+
+In addition to music, Julian likes `reading science fiction, painting, sculpting, and hiking`. He speaks `English, French, and Chinese`, and is looking forward to practicing his research skills at the MSOM conference in London in the upcoming summer. 
+
