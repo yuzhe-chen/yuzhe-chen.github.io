@@ -1,6 +1,6 @@
 ---
 layout: about
-title: farting
+title: about
 permalink: /
 subtitle: <a href='#'>Biography</a>. Who I am...
 
@@ -11,7 +11,7 @@ profile:
   more_info: >
     <p>Yuzhe Chen</p>
     <p>Langley High School</p>
-    <p>Expert Flatulist</p>
+    <p>Piano Player</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
