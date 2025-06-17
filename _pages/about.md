@@ -6,7 +6,7 @@ subtitle: <a href='#'>Biography</a>. Who I am...
 
 profile:
   align: right
-  image: profile-pic.jpeg
+  image: MVC_4948.jpg # profile picture
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>Yuzhe Chen</p>
