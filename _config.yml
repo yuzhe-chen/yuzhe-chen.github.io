@@ -187,7 +187,14 @@ exclude:
   - purgecss.config.js
   - README.md
   - readme_preview/
-  - vendor
+  - vendor 
+  # Yuzhe Chen added anything below
+  - _pages/blog.md # removes "blog"
+  - _pages/publications.md # removes "publications"
+  - _pages/repositories.md # removes "repos"
+  - _pages/teaching.md # removes "teaching"
+  - _pages/profiles.md # removes "people"
+  
 keep_files:
   - CNAME
   - .nojekyll
