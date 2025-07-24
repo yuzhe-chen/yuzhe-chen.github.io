@@ -167,7 +167,7 @@ kramdown:
       start_line: 1
 
 # Includes & excludes
-include: ["_pages", "_scripts"]
+include: ["_pages", "_scripts", "_pages/books.md]
 exclude:
   - bin/
   - CONTRIBUTING.md
@@ -189,11 +189,12 @@ exclude:
   - readme_preview/
   - vendor 
   # Yuzhe Chen added anything below
-  - _pages/blog.md # removes "blog"
+  # - _pages/blog.md # removes "blog"
   - _pages/publications.md # removes "publications"
   - _pages/repositories.md # removes "repos"
   # - _pages/teaching.md # removes "teaching"
   - _pages/profiles.md # removes "people"
+  - _pages/dropdown.md
   
 keep_files:
   - CNAME
