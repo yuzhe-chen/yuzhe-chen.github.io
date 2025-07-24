@@ -189,12 +189,10 @@ exclude:
   - readme_preview/
   - vendor 
   # Yuzhe Chen added anything below
-  # - _pages/blog.md # removes "blog"
   - _pages/publications.md # removes "publications"
   - _pages/repositories.md # removes "repos"
-  # - _pages/teaching.md # removes "awards"
   - _pages/profiles.md # removes "people"
-  - _pages/dropdown.md
+  - _pages/dropdown.md # removes "submenus"
   
 keep_files:
   - CNAME
