@@ -7,8 +7,10 @@ nav: true
 nav_order: 6
 ---
 
-Music: 
+`Music:`
+
 1st place: Elizabeth R. Davis Memorial Piano Competition High School Division, 2025
+
 1st place: Evelyn Swarthout and Patrick Hayes Competition for Piano, 2025
 1st place: Lions of Virginia James Bland Music Scholarship Foundation Competition, 2025
 Advanced & Senior Awards: MSMTA Theory, 2025
