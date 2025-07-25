@@ -30,12 +30,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "nav-awards",
-          title: "awards",
-          description: "",
+        },{id: "nav-music",
+          title: "music",
+          description: "achievements and highlighted performances",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/awards/";
+            window.location.href = "/music/";
           },
         },{id: "nav-bookshelf",
           title: "bookshelf",
