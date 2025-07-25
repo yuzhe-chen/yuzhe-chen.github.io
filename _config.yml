@@ -192,7 +192,6 @@ exclude:
   - _pages/publications.md # removes "publications"
   - _pages/repositories.md # removes "repos"
   - _pages/profiles.md # removes "people"
-  - _pages/dropdown.md # removes "submenus"
   
 keep_files:
   - CNAME
