@@ -193,6 +193,8 @@ exclude:
   - _pages/repositories.md # removes "repos"
   - _pages/profiles.md # removes "people"
   - _pages/cv.md # temporarily removes "cv"
+  - _pages/blog.md # temporarily removes "blog"
+  - _pages/projects.md # temporarily removes "projects"
   
 keep_files:
   - CNAME
