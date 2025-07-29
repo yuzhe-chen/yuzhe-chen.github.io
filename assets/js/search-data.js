@@ -480,7 +480,7 @@ ninja.data = [{
         title: 'email',
         section: 'Socials',
         handler: () => {
-          window.open("mailto:%79%75%7A%68%65%63%68%65%6E%32%30%31%31@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+          window.open("mailto:%74%74%72%6F%70%65%6C%65%74@%67%6D%61%69%6C.%63%6F%6D", "_blank");
         },
       },{
         id: 'social-inspire',
