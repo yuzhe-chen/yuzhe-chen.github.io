@@ -19,4 +19,5 @@ nav_order: 8
 - [Concours Alkindi](https://concours-alkindi.fr/#/) Quarter-Finalist 
 
 2021-2022
+- DELF French B2
 - [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist (https://www.algorea.org/#/)
