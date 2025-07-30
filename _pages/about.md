@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Biography</a>. Who I am...
+subtitle: <a href='#'>Biography</a>. Who am I...
 
 profile:
   align: right
@@ -22,15 +22,9 @@ announcements:
 
 latest_posts:
   enabled: false
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
+  scrollable: true # adds a vertical scroll bar if there are more than 3 new post items
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Yuzhe (Julian) Chen (13 years) is a `rising sophomore` at Langley High School in Virginia. He is currently studying piano with [Dr. Dmitri Nazarenko](google.com), music theory with [Ms. Lora Baronian](google.com), and violin with [Ms. Olga Khroulevitch](google.com).
-
-Julian has won several awards in piano and violin competitions, including the 51st Annual Joseph and Goldie Feder Memorial String Competition (2022), the `Kaufman Music Center International Youth Piano Competition` (2022) the AAMS International Competition (2022), the `MTNA Piano Competition` (2023, 2024), and the James A. Bland Piano Scholarship Competition (2025).
-
-Julian is enthusiastic about performing on stage. His most recent performances include playing at the Kennedy Center’s Millennium Stage, the `Kaufman Center’s Merkin Hall`, the UMBC’s Earl and Darielle Linehan Concert Hall, and the Beethoven House in Bonn.
-
-In addition to music, Julian likes `reading science fiction, painting, sculpting, and hiking`. He speaks `English, French, and Chinese`, and is looking forward to practicing his research skills at the MSOM conference in London in the upcoming summer. 
+Julian is a musician, an amateur photographer, a booknerd, and an avid LEGO builder. Julian is currently a fellow at the NSO Youth Fellowship Program, a performance-oriented training program designed for serious music students. He has been the MTNA Maryland State Winner for the past two years, and he was the Eastern Division (comprising New England, Pennsylvania, and Maryland) Alternate in 2024. As the winner of the 2022 Kaufman Music Center International Competition and the 2023 AAMS Piano Competition, Julian has performed at venues such as the Kennedy Center and Merkin Hall. Julian is also a member of the Tacy Foundation, a non-profit organization dedicated to helping our elderly community through the power of music, where he regularly performs at senior assisted living centers. He spends his free time hiking, taking scenic photographs, and playing with LEGO--that is, if he isn't reading a book.
 
