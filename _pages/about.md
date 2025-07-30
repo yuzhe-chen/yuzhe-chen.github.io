@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Biography</a>. Who am I...
+subtitle: <a href='#'>About Me</a>.
 
 profile:
   align: right
