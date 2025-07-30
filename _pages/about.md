@@ -26,9 +26,10 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Yuzhe (Julian) Chen (13 years) is a musician, an amateur photographer, a booknerd, and an avid LEGO builder. Heading into his sophomore year at Langley High School, Julian is currently a `member of the NSO Youth Youth Fellowship Program`, a performance-oriented training program designed for serious music students. He has been the `MTNA Maryland State Winner for the past two years`, and the `Eastern Division (comprising New England, Pennsylvania, and Maryland) Alternate` in 2024. 
+Yuzhe (Julian) Chen (13 years) is a musician, an amateur photographer, a booknerd, and an avid LEGO builder. Heading into his sophomore year at Langley High School, is a reporter of the Saxon Scope and a dedicated member of the Latin Club. He has received the `National Spanish Exam Gold Award (Level III)` and the `A2 Certificate in French`. He has also qualified as a semi-finalist in both the `Concours Algorea and Alkindi`, both prestigious coding competitions in France used to select members for the French IMO and IOI teams.
 
-As the winner of the 2022 Kaufman Music Center International Competition and the 2023 AAMS Piano Competition, Julian has performed at venues such as the Kennedy Center and Merkin Hall. He is also a member of the `Tacy Foundation`, a non-profit organization dedicated to helping our elderly community through the power of music, where he regularly performs at senior assisted living centers. 
+Julian is currently a member of the [NSO Youth Youth Fellowship Program](https://www.kennedy-center.org/education/opportunities-for-artists/pre-professional-artist-training/nso-youth-fellows/), a performance-oriented training program designed for serious music students. He has won numerous regional, national, and international awards in piano competitions, such as the `MTNA` (Junior Piano, Maryland State Winner 2023-2024, 2024-2025, Easten Division Alternate, 2024-2025) and the `Kaufman Music Center` International Competition (2022).
 
-Julian spends his free time hiking, taking scenic photographs, and playing with LEGO--that is, if he isn't reading a book in `English, French, Spanish or Latin`.
+He serves as chief-intern of the `Tacy Foundation`, a non-profit organization dedicated to helping our elderly community through the power of music, where he regularly performs at senior assisted living centers. 
 
+Julian spends his free time hiking, taking scenic photographs, and playing with LEGO.
