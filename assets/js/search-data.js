@@ -106,25 +106,11 @@ ninja.data = [{
           window.open("https://github.com/yuzhe-chen", "_blank");
         },
       },{
-        id: 'social-rss',
-        title: 'RSS Feed',
-        section: 'Socials',
-        handler: () => {
-          window.open("/feed.xml", "_blank");
-        },
-      },{
         id: 'social-youtube',
         title: 'YouTube',
         section: 'Socials',
         handler: () => {
           window.open("https://youtube.com/@espressoofjoy--music0411", "_blank");
-        },
-      },{
-        id: 'social-custom_social',
-        title: 'Custom_social',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://www.alberteinstein.com/", "_blank");
         },
       },{
       id: 'light-theme',
