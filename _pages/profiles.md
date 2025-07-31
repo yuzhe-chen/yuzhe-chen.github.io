@@ -26,3 +26,5 @@ profiles:
       <p>123 your address street</p>
       <p>Your City, State 12345</p>
 ---
+
+He has received the [National Spanish Exam Gold Award (Level III)](https://nationalspanishexam.org/exams/national-spanish-exam/) and the [A2 Certificate in French](http://www.delfdalf.fr/level-a2-cefr-common-european-framework-of-reference-for-languages.html).
