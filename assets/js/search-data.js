@@ -45,6 +45,16 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/harry_potter/";
+            },},{id: "books-the-lord-of-the-rings",
+          title: 'The Lord of the Rings',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/lord_of_the_rings/";
+            },},{id: "books-the-count-of-monte-cristo",
+          title: 'The Count of Monte-Cristo',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/monte_cristo/";
             },},{id: "books-placeholder",
           title: 'Placeholder',
           description: "",
@@ -60,6 +70,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
+            },},{id: "books-a-wrinkle-in-time",
+          title: 'A Wrinkle in Time',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/wrinkle_in_time/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
