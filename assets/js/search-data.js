@@ -30,7 +30,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/books/";
           },
-        },{id: "books-charlotte-39-s-web",
+        },{id: "books-animal-farm",
+          title: 'Animal Farm',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/animal_farm/";
+            },},{id: "books-charlotte-39-s-web",
           title: 'Charlotte&amp;#39;s Web',
           description: "",
           section: "Books",handler: () => {
@@ -40,11 +45,26 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/harry_potter/";
+            },},{id: "books-the-count-of-monte-cristo",
+          title: 'The Count of Monte-Cristo',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/monte_cristo/";
             },},{id: "books-placeholder",
           title: 'Placeholder',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
+            },},{id: "books-the-little-prince",
+          title: 'The Little Prince',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_little_prince/";
+            },},{id: "books-the-odyssey",
+          title: 'The Odyssey',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_odyssey/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
