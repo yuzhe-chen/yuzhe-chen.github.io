@@ -70,11 +70,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
-            },},{id: "books-a-wrinkle-in-time",
-          title: 'A Wrinkle in Time',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/wrinkle_in_time/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
