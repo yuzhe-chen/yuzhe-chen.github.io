@@ -45,6 +45,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/charlotte_web/";
+            },},{id: "books-the-disappearing-spoon",
+          title: 'The Disappearing Spoon',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/disappearing_spoon/";
             },},{id: "books-harry-potter-series",
           title: 'Harry Potter Series',
           description: "",
@@ -85,6 +90,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
+            },},{id: "books-the-violinist-39-s-thumb",
+          title: 'The Violinist&amp;#39;s Thumb',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/violinist_thumb/";
             },},{id: "books-a-wrinkle-in-time",
           title: 'A Wrinkle in Time',
           description: "",
