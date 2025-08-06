@@ -55,6 +55,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/lord_of_the_rings/";
+            },},{id: "books-to-kill-a-mockingbird",
+          title: 'To Kill a Mockingbird',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/mockingbird/";
             },},{id: "books-the-count-of-monte-cristo",
           title: 'The Count of Monte-Cristo',
           description: "",
