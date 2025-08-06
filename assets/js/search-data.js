@@ -30,7 +30,17 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/books/";
           },
-        },{id: "books-placeholder",
+        },{id: "books-charlotte-39-s-web",
+          title: 'Charlotte&amp;#39;s Web',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/charlotte_web/";
+            },},{id: "books-harry-potter-series",
+          title: 'Harry Potter Series',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/harry_potter/";
+            },},{id: "books-placeholder",
           title: 'Placeholder',
           description: "",
           section: "Books",handler: () => {
