@@ -45,11 +45,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/harry_potter/";
-            },},{id: "books-the-count-of-monte-cristo",
-          title: 'The Count of Monte-Cristo',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/monte_cristo/";
             },},{id: "books-placeholder",
           title: 'Placeholder',
           description: "",
@@ -60,11 +55,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_little_prince/";
-            },},{id: "books-the-odyssey",
-          title: 'The Odyssey',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_odyssey/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
