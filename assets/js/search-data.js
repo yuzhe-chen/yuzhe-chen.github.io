@@ -39,6 +39,11 @@ ninja.data = [{
           title: '',
           description: "",
           section: "Books",handler: () => {
+              window.location.href = "/books/blink_gladwell/";
+            },},{id: "books-",
+          title: '',
+          description: "",
+          section: "Books",handler: () => {
               window.location.href = "/books/boy_dahl/";
             },},{id: "books-charlotte-39-s-web",
           title: 'Charlotte&amp;#39;s Web',
@@ -90,6 +95,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
+            },},{id: "books-the-violinist-39-s-thumb",
+          title: 'The Violinist&amp;#39;s Thumb',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/violinist_thumb/";
             },},{id: "books-a-wrinkle-in-time",
           title: 'A Wrinkle in Time',
           description: "",
