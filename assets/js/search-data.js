@@ -30,7 +30,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/books/";
           },
-        },{id: "books-charlotte-39-s-web",
+        },{id: "books-animal-farm",
+          title: 'Animal Farm',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/animal_farm/";
+            },},{id: "books-charlotte-39-s-web",
           title: 'Charlotte&amp;#39;s Web',
           description: "",
           section: "Books",handler: () => {
