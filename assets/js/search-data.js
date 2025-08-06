@@ -65,6 +65,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/monte_cristo/";
+            },},{id: "books-the-giver",
+          title: 'The Giver',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_giver/";
             },},{id: "books-placeholder",
           title: 'Placeholder',
           description: "",
