@@ -2,8 +2,8 @@
 layout: book-review
 title: The Little Prince
 author: Antoine de Saint-Exupéry
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Children's Literature, Philosophy, Fiction
 tags: philosophy, friendship, adventure, life lessons
