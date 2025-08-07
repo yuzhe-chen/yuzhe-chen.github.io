@@ -2,8 +2,8 @@
 layout: book-review
 title: Guns, Germs, and Steel (The Fates of Human Societies)
 author: Jared Diamond
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: History, Anthropology, Non-Fiction
 tags: history, civilization, geography, anthropology
