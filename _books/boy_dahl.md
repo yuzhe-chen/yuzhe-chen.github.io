@@ -2,8 +2,8 @@
 layout: book-review
 title: Boy (Tales of Childhood)
 author: Roald Dahl
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Autobiography, Memoir, Children's Literature
 tags: autobiography, childhood, memoir, humor
