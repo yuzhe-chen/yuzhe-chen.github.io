@@ -100,8 +100,8 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
-            },},{id: "books-",
-          title: '',
+            },},{id: "books-the-tipping-point-how-little-things-can-make-a-big-difference",
+          title: 'The Tipping Point (How Little Things Can Make a Big Difference)',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/tipping_point/";
