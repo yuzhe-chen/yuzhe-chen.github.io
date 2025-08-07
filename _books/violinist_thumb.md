@@ -2,8 +2,8 @@
 layout: book-review
 title: The Violinist's Thumb
 author: Sam Kean
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Science, Non-Fiction, Biology
 tags: science, genetics, DNA, biology
