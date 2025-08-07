@@ -2,8 +2,8 @@
 layout: book-review
 title: To Kill a Mockingbird
 author: Harper Lee
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Classic Literature, Fiction, Coming of Age
 tags: justice, prejudice, childhood, moral courage
