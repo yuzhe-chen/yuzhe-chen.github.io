@@ -2,8 +2,8 @@
 layout: book-review
 title: The Count of Monte-Cristo
 author: Alexandre Dumas
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Classic Literature, Adventure, Historical Fiction
 tags: revenge, adventure, justice, redemption
