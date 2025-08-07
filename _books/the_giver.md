@@ -2,8 +2,8 @@
 layout: book-review
 title: The Giver
 author: Lois Lowry
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Young Adult, Dystopian Fiction, Science Fiction
 tags: dystopian, coming of age, freedom, memory
