@@ -2,8 +2,8 @@
 layout: book-review
 title: The Lord of the Rings
 author: J.R.R. Tolkien
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Fantasy, Epic Fantasy, Adventure
 tags: fantasy, adventure, friendship, good vs evil
