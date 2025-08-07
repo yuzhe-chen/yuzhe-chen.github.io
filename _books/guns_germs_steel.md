@@ -1,6 +1,6 @@
 ---
 layout: book-review
-title: Guns, Germs, and Steel: The Fates of Human Societies
+title: Guns, Germs, and Steel (The Fates of Human Societies)
 author: Jared Diamond
 cover: x
 olid: x
