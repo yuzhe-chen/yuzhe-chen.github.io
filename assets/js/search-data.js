@@ -95,6 +95,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
+            },},{id: "books-",
+          title: '',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/tipping_point/";
             },},{id: "books-the-violinist-39-s-thumb",
           title: 'The Violinist&amp;#39;s Thumb',
           description: "",
