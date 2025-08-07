@@ -2,8 +2,8 @@
 layout: book-review
 title: Charlotte's Web
 author: E.B. White
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Children's Literature, Fiction
 tags: friendship, farm animals, life lessons
