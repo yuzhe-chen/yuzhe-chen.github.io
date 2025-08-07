@@ -2,11 +2,11 @@
 layout: book-review
 title: A Wrinkle in Time
 author: Madeleine L'Engle
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
-categories: Science Fiction, Young Adult, Fantasy
-tags: science fiction, time travel, coming of age
+categories: Science_Fiction, Young_Adult, Fantasy
+tags: science_fiction, time_travel, coming_of_age
 buy_link:
 started:
 finished:
