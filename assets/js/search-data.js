@@ -55,6 +55,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/disappearing_spoon/";
+            },},{id: "books-",
+          title: '',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/guns_germs_steel/";
             },},{id: "books-harry-potter-series",
           title: 'Harry Potter Series',
           description: "",
