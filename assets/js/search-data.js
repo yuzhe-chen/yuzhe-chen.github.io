@@ -40,8 +40,8 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/blink_gladwell/";
-            },},{id: "books-",
-          title: '',
+            },},{id: "books-boy-tales-of-childhood",
+          title: 'Boy (Tales of Childhood)',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/boy_dahl/";
@@ -55,8 +55,8 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/disappearing_spoon/";
-            },},{id: "books-",
-          title: '',
+            },},{id: "books-guns-germs-and-steel-the-fates-of-human-societies",
+          title: 'Guns, Germs, and Steel (The Fates of Human Societies)',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/guns_germs_steel/";
