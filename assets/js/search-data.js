@@ -40,8 +40,8 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/blink_gladwell/";
-            },},{id: "books-boy-tales-of-childhood",
-          title: 'Boy (Tales of Childhood)',
+            },},{id: "books-",
+          title: '',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/boy_dahl/";
