@@ -2,8 +2,8 @@
 layout: book-review
 title: Harry Potter Series
 author: J.K. Rowling
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Fantasy, Young Adult
 tags: magic, wizards, friendship, adventure
