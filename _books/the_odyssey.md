@@ -2,8 +2,8 @@
 layout: book-review
 title: The Odyssey
 author: Homer
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Classical Literature, Epic Poetry, Mythology
 tags: ancient greece, mythology, adventure, heroism
