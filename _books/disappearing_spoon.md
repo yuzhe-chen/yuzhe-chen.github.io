@@ -2,8 +2,8 @@
 layout: book-review
 title: The Disappearing Spoon
 author: Sam Kean
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Science, Non-Fiction, Chemistry
 tags: science, chemistry, periodic table, history
