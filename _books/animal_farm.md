@@ -2,8 +2,8 @@
 layout: book-review
 title: Animal Farm
 author: George Orwell
-cover: x
-olid: x
+cover:
+olid:
 isbn: 1338878921
 categories: Fiction, Political Satire, Allegory
 tags: politics, power, revolution, dystopian
