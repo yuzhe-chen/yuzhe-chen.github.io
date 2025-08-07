@@ -35,13 +35,13 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/animal_farm/";
-            },},{id: "books-",
-          title: '',
+            },},{id: "books-blink-the-power-of-thinking-without-thinking",
+          title: 'Blink (The Power of Thinking Without Thinking)',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/blink_gladwell/";
-            },},{id: "books-",
-          title: '',
+            },},{id: "books-boy-tales-of-childhood",
+          title: 'Boy (Tales of Childhood)',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/boy_dahl/";
