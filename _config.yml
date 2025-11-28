@@ -195,6 +195,7 @@ exclude:
   - _pages/cv.md # temporarily removes "cv"
   - _pages/blog.md # temporarily removes "blog"
   - _pages/projects.md # temporarily removes "projects"
+  - _pages/books.md # temporarily removes "books"
   
 keep_files:
   - CNAME
