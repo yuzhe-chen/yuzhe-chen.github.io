@@ -23,13 +23,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/academics/";
           },
-        },{id: "nav-bookshelf",
-          title: "bookshelf",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/books/";
-          },
         },{id: "books-animal-farm",
           title: 'Animal Farm',
           description: "",
