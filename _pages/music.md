@@ -7,6 +7,9 @@ nav: true
 nav_order: 6
 ---
 
+2025-2026
+- Winner: MTNA Piano Competition (Virginia State)
+
 2024-2025
 - 1st place: Elizabeth R. Davis Memorial Piano Competition High School Division
 - 1st place: Evelyn Swarthout and Patrick Hayes Competition for Piano
