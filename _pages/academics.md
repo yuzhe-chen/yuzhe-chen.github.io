@@ -20,4 +20,4 @@ nav_order: 8
 
 2021-2022
 - DELF French A2
-- [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist (https://www.algorea.org/#/)
+- [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist
