@@ -1,12 +1,13 @@
 ---
 layout: page
-permalink: /academics/
-title: academics
-description: achievements
+permalink: /awards/
+title: awards
+description: supercurricular & extracurricular
 nav: true
 nav_order: 8
 ---
 
+`ACADEMIC`
 2024-2025
 - Langley High School Academic Excellence in Spanish III
 - Gold Award: [National Spanish Exam](https://nationalspanishexam.org/exams/national-spanish-exam/) (Level III)
@@ -21,3 +22,6 @@ nav_order: 8
 2021-2022
 - DELF French A2
 - [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist
+
+`MUSIC`
+
