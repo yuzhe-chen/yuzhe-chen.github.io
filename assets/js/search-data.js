@@ -16,12 +16,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/music/";
           },
-        },{id: "nav-academics",
-          title: "academics",
-          description: "achievements",
+        },{id: "nav-awards",
+          title: "awards",
+          description: "supercurricular &amp; extracurricular",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/academics/";
+            window.location.href = "/awards/";
           },
         },{id: "books-animal-farm",
           title: 'Animal Farm',
