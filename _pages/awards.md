@@ -25,6 +25,7 @@ nav_order: 8
 - [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist
 
 `MUSIC`
+
 2025-2026
 - Winner: MTNA Piano Competition (Virginia State)
 
