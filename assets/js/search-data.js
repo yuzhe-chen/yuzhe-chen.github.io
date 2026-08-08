@@ -17,8 +17,8 @@ ninja.data = [{
             window.location.href = "/music/";
           },
         },{id: "nav-awards",
-          title: "awards",
-          description: "supercurricular &amp; extracurricular",
+          title: "Awards",
+          description: "",
           section: "Navigation",
           handler: () => {
             window.location.href = "/awards/";
