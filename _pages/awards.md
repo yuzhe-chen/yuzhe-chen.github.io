@@ -50,7 +50,7 @@ nav_order: 5
 <div class="row awards-columns">
 <div class="col-md-6 mb-4 academic-awards" markdown="1">
 
-## Academic
+<h2 style="color: var(--global-text-color);">academic</h2>
 
 ### 2025–2026
 
@@ -80,7 +80,7 @@ nav_order: 5
 
 <div class="col-md-6 mb-4 music-awards" markdown="1">
 
-## Music
+<h2 style="color: var(--global-text-color);">music</h2>
 
 ### 2025–2026
 
