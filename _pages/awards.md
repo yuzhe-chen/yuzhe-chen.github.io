@@ -7,9 +7,11 @@ nav: true
 nav_order: 5
 ---
 
-{% capture academic_awards %}
+<div class="row awards-columns">
+<div class="col-md-6 mb-4 academic-awards" markdown="1">
 
-## Academic
+## `Academic`
+
 
 ### 2025–2026
 
@@ -35,11 +37,12 @@ nav_order: 5
 - DELF French A2
 - [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist
 
-{% endcapture %}
+</div>
 
-{% capture music_awards %}
+<div class="col-md-6 mb-4 music-awards" markdown="1">
 
-## Music
+## `Music`
+
 
 ### 2025–2026
 
@@ -91,13 +94,6 @@ nav_order: 5
 
 - 1st Place: NVMTA Robert Spencer Piano Concerto Competition
 
-{% endcapture %}
-
-<div class="row">
-  <div class="col-md-6 pe-md-4">
-    {{ academic_awards | markdownify }}
-  </div>
-  <div class="col-md-6 ps-md-4">
-    {{ music_awards | markdownify }}
-  </div>
+</div>
+</div>
 </div>
