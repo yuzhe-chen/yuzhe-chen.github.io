@@ -6,10 +6,48 @@ nav: true
 nav_order: 8
 ---
 
-<div class="row awards-columns">
+<style>
+  .awards-columns h2 {
+    margin-top: 0;
+    color: var(--global-theme-color);
+  }
 
-  <!-- Academic awards -->
-  <div class="col-md-6 mb-4 extracurriculars" markdown="1">
+  .awards-columns h3 {
+    margin-top: 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .awards-columns li {
+    margin-bottom: 0.5rem;
+  }
+
+  .academic-awards {
+    padding-right: 2rem;
+    border-right: 1px solid var(--global-divider-color);
+  }
+
+  .music-awards {
+    padding-left: 2rem;
+  }
+
+  @media (max-width: 767.98px) {
+    .academic-awards {
+      padding-right: 12px;
+      padding-bottom: 1.5rem;
+      border-right: none;
+      border-bottom: 1px solid var(--global-divider-color);
+    }
+
+    .music-awards {
+      padding-top: 1.5rem;
+      padding-left: 12px;
+    }
+  }
+</style>
+
+<div class="row awards-columns">
+<div class="col-md-6 mb-4 academic-awards" markdown="1">
 
 ## Academic
 
@@ -37,10 +75,9 @@ nav_order: 8
 - DELF French A2
 - [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist
 
-  </div>
+</div>
 
-  <!-- Music awards -->
-  <div class="col-md-6 mb-4 supercurriculars" markdown="1">
+<div class="col-md-6 mb-4 music-awards" markdown="1">
 
 ## Music
 
@@ -88,13 +125,11 @@ nav_order: 8
 - First Prize & Steinway & Sons Special Award for Best Performance of a Romantic Piece: Kaufman Music Center International Youth Piano Competition (Junior I)
 - 1st Place: MSMTA Spring Festival
 - 1st Place & Audience Award: 51st Annual Joseph and Goldie Feder Memorial String Competition (Beginner Violin)
-- Winner: Gertrude Brown Memorial Piano Concerto Competition (Junior II: Grade 8 and Under)
+- Winner: 2021–2022 Gertrude Brown Memorial Piano Concerto Competition (Junior II: Grade 8 and Under)
 
 ### 2019–2020
 
 - 1st Place: NVMTA Robert Spencer Piano Concerto Competition
 
-  </div>
-
 </div>
-
+</div>
