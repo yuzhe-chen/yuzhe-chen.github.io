@@ -6,46 +6,6 @@ nav: true
 nav_order: 8
 ---
 
-<style>
-  .awards-columns h2 {
-    margin-top: 0;
-    color: var(--global-theme-color);
-  }
-
-  .awards-columns h3 {
-    margin-top: 1.5rem;
-    font-size: 1.15rem;
-    font-weight: 600;
-  }
-
-  .awards-columns li {
-    margin-bottom: 0.5rem;
-  }
-
-  .academic-awards {
-    padding-right: 2rem;
-    border-right: 1px solid var(--global-divider-color);
-  }
-
-  .music-awards {
-    padding-left: 2rem;
-  }
-
-  @media (max-width: 767.98px) {
-    .academic-awards {
-      padding-right: 12px;
-      padding-bottom: 1.5rem;
-      border-right: none;
-      border-bottom: 1px solid var(--global-divider-color);
-    }
-
-    .music-awards {
-      padding-top: 1.5rem;
-      padding-left: 12px;
-    }
-  }
-</style>
-
 <div class="row awards-columns">
 <div class="col-md-6 mb-4 academic-awards" markdown="1">
 
