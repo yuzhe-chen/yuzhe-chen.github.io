@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Awards
+title: awards
+description: supercurriculars and extracurriculars
 permalink: /awards/
 nav: true
-nav_order: 8
+nav_order: 5
 ---
 
-<div class="row awards-columns">
-<div class="col-md-6 mb-4 academic-awards" markdown="1">
+{% capture academic_awards %}
 
 ## Academic
 
@@ -35,9 +35,9 @@ nav_order: 8
 - DELF French A2
 - [Concours Algorea](https://www.algorea.org/#/) Semi-Finalist
 
-</div>
+{% endcapture %}
 
-<div class="col-md-6 mb-4 music-awards" markdown="1">
+{% capture music_awards %}
 
 ## Music
 
@@ -91,5 +91,13 @@ nav_order: 8
 
 - 1st Place: NVMTA Robert Spencer Piano Concerto Competition
 
-</div>
+{% endcapture %}
+
+<div class="row">
+  <div class="col-md-6 pe-md-4">
+    {{ academic_awards | markdownify }}
+  </div>
+  <div class="col-md-6 ps-md-4">
+    {{ music_awards | markdownify }}
+  </div>
 </div>
