@@ -78,16 +78,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_odyssey/";
-            },},{id: "books-the-tipping-point-how-little-things-can-make-a-big-difference",
-          title: 'The Tipping Point (How Little Things Can Make a Big Difference)',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/tipping_point/";
-            },},{id: "books-the-violinist-39-s-thumb",
-          title: 'The Violinist&amp;#39;s Thumb',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/violinist_thumb/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
