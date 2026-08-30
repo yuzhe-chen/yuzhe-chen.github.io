@@ -23,12 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/awards/";
           },
-        },{id: "books-blink-the-power-of-thinking-without-thinking",
-          title: 'Blink (The Power of Thinking Without Thinking)',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/blink_gladwell/";
-            },},{id: "books-boy-tales-of-childhood",
+        },{id: "books-boy-tales-of-childhood",
           title: 'Boy (Tales of Childhood)',
           description: "",
           section: "Books",handler: () => {
