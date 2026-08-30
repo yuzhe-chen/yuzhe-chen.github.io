@@ -23,12 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/awards/";
           },
-        },{id: "books-the-odyssey",
-          title: 'The Odyssey',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_odyssey/";
-            },},{id: "news-a-simple-inline-announcement",
+        },{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
           section: "News",},{id: "news-a-long-announcement-with-details",
