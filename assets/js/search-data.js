@@ -23,12 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/awards/";
           },
-        },{id: "books-boy-tales-of-childhood",
-          title: 'Boy (Tales of Childhood)',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/boy_dahl/";
-            },},{id: "books-charlotte-39-s-web",
+        },{id: "books-charlotte-39-s-web",
           title: 'Charlotte&amp;#39;s Web',
           description: "",
           section: "Books",handler: () => {
@@ -88,16 +83,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/tipping_point/";
-            },},{id: "books-the-violinist-39-s-thumb",
-          title: 'The Violinist&amp;#39;s Thumb',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/violinist_thumb/";
-            },},{id: "books-a-wrinkle-in-time",
-          title: 'A Wrinkle in Time',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/wrinkle_in_time/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
