@@ -54,6 +54,8 @@ nav_order: 5
 
 ### 2025–2026
 
+- AP Scholar with Distinction
+- College Board National Recognition Program: School Recognition Award
 - Langley High School Academic Excellence in Honors Chemistry
 - Gold Award: [National Spanish Exam](https://nationalspanishexam.org/exams/national-spanish-exam/) (Level IV)
 
