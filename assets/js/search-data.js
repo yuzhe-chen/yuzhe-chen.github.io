@@ -43,26 +43,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/harry_potter/";
-            },},{id: "books-the-lord-of-the-rings",
-          title: 'The Lord of the Rings',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/lord_of_the_rings/";
-            },},{id: "books-to-kill-a-mockingbird",
-          title: 'To Kill a Mockingbird',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/mockingbird/";
-            },},{id: "books-the-count-of-monte-cristo",
-          title: 'The Count of Monte-Cristo',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/monte_cristo/";
-            },},{id: "books-the-giver",
-          title: 'The Giver',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_giver/";
             },},{id: "books-the-odyssey",
           title: 'The Odyssey',
           description: "",
