@@ -23,22 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/awards/";
           },
-        },{id: "books-charlotte-39-s-web",
-          title: 'Charlotte&amp;#39;s Web',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/charlotte_web/";
-            },},{id: "books-the-disappearing-spoon",
-          title: 'The Disappearing Spoon',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/disappearing_spoon/";
-            },},{id: "books-guns-germs-and-steel-the-fates-of-human-societies",
-          title: 'Guns, Germs, and Steel (The Fates of Human Societies)',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/guns_germs_steel/";
-            },},{id: "books-the-odyssey",
+        },{id: "books-the-odyssey",
           title: 'The Odyssey',
           description: "",
           section: "Books",handler: () => {
