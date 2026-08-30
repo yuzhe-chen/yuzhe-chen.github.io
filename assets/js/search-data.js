@@ -38,21 +38,6 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/guns_germs_steel/";
-            },},{id: "books-harry-potter-series",
-          title: 'Harry Potter Series',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/harry_potter/";
-            },},{id: "books-the-lord-of-the-rings",
-          title: 'The Lord of the Rings',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/lord_of_the_rings/";
-            },},{id: "books-to-kill-a-mockingbird",
-          title: 'To Kill a Mockingbird',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/mockingbird/";
             },},{id: "books-the-odyssey",
           title: 'The Odyssey',
           description: "",
