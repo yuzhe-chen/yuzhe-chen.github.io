@@ -23,12 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/awards/";
           },
-        },{id: "books-animal-farm",
-          title: 'Animal Farm',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/animal_farm/";
-            },},{id: "books-blink-the-power-of-thinking-without-thinking",
+        },{id: "books-blink-the-power-of-thinking-without-thinking",
           title: 'Blink (The Power of Thinking Without Thinking)',
           description: "",
           section: "Books",handler: () => {
