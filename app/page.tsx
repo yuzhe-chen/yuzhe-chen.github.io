@@ -28,9 +28,9 @@ const nav = [
   { id: "about", label: "About", show: about.length > 0 },
   { id: "honors", label: "Honors", show: honors.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
-  { id: "venues", label: "Venues", show: venues.length > 0 },
-  { id: "record", label: "Record", show: awardRecord.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
+  { id: "record", label: "Record", show: awardRecord.length > 0 },
+  { id: "venues", label: "Venues", show: venues.length > 0 },
   { id: "contact", label: "Contact", show: true },
 ];
 
@@ -100,7 +100,7 @@ export default function Home() {
           )}
 
           {honors.length > 0 && (
-            <Section id="honors" label="Honors" count={honors.length}>
+            <Section id="honors" label="Selected Honors">
               <Columns>
                 {honors.map((a) => (
                   <Entry
@@ -134,11 +134,20 @@ export default function Home() {
             />
           )}
 
-          {venues.length > 0 && (
-            <Section id="venues" label="Venues" count={venues.length}>
+          {activities.length > 0 && (
+            <Section
+              id="activities"
+              label="Activities"
+              count={activities.length}
+            >
               <Columns>
-                {venues.map((v) => (
-                  <Entry key={v.name} title={v.name} meta={v.city} />
+                {activities.map((a) => (
+                  <Entry
+                    key={a.title + a.org}
+                    title={a.title}
+                    meta={`${a.org} · ${a.period}`}
+                    body={a.description}
+                  />
                 ))}
               </Columns>
             </Section>
@@ -166,20 +175,11 @@ export default function Home() {
             </Section>
           )}
 
-          {activities.length > 0 && (
-            <Section
-              id="activities"
-              label="Activities"
-              count={activities.length}
-            >
+          {venues.length > 0 && (
+            <Section id="venues" label="Venues" count={venues.length}>
               <Columns>
-                {activities.map((a) => (
-                  <Entry
-                    key={a.title + a.org}
-                    title={a.title}
-                    meta={`${a.org} · ${a.period}`}
-                    body={a.description}
-                  />
+                {venues.map((v) => (
+                  <Entry key={v.name} title={v.name} meta={v.city} />
                 ))}
               </Columns>
             </Section>
@@ -237,6 +237,7 @@ export default function Home() {
             </p>
           </Section>
         </div>
+
       </main>
 
       <footer className="no-print relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 text-[13px] text-muted sm:px-8">
