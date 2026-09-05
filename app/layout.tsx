@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.school}`,
+  title: `${profile.name}-${profile.school}`,
   description: profile.metaDescription,
   openGraph: {
     title: profile.name,

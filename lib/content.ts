@@ -1,9 +1,9 @@
 /**
  * ─────────────────────────────────────────────────────────────
- *  EDIT THIS FILE — and only this file — to update the site.
+ *  EDIT THIS FILE, and only this file, to update the site.
  *
  *  Content pulled from yuzhe-chen.github.io (Sept 2026).
- *  Anything marked TODO is a guess or a gap — fix those first.
+ *  Anything marked TODO is a guess or a gap. Fix those first.
  * ─────────────────────────────────────────────────────────────
  */
 
@@ -14,14 +14,14 @@ export const profile = {
   location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
   metaDescription:
-    "Yuzhe (Julian) Chen — pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
+    "Yuzhe (Julian) Chen-pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
   photo: "/portrait.jpg" as string | null, // cropped from IMG_0211.jpeg
   // Shown in full in the Contact section, so it stays readable and copyable
   // even where a mailto: link does nothing.
   email: "julianchen2011@gmail.com",
 };
 
-/** Nav and hero links. Email is deliberately not here — see Contact. */
+/** Nav and hero links. Email is deliberately not here. See Contact. */
 export const links = [
   { label: "YouTube", href: "https://www.youtube.com/@julianchenmusic" },
   // { label: "Résumé (PDF)", href: "/resume.pdf" },
@@ -35,69 +35,69 @@ export const about = [
   "I spend my free time playing tennis, hiking, and taking photos.",
 ];
 
-/** The 6–8 that a reader should see first. Everything else lives in the full list. */
+/** The 6-8 that a reader should see first. Everything else lives in the full list. */
 export const honors = [
   {
-    year: "2025–26",
-    title: "3rd Place, National Round — MTNA Junior Piano Performance",
+    year: "2025-26",
+    title: "3rd Place, National Round-MTNA Junior Piano Performance",
     org: "Music Teachers National Association",
-    note: "Southern Division Winner and Virginia State Winner the same year. Also Maryland State Winner in 2023–24 and 2024–25.",
+    note: "Southern Division Winner and Virginia State Winner the same year. Also Maryland State Winner in 2023-24 and 2024-25.",
   },
   {
-    year: "2025–26",
+    year: "2025-26",
     title: "Finalist, From the Top",
     org: "From the Top",
     note: "",
   },
   {
-    year: "2025–26",
+    year: "2025-26",
     title: "Featured Artist, Daily Joy",
     org: "NPR",
     note: "",
   },
   {
-    year: "2025 — present",
+    year: "2025-present",
     title: "Youth Fellow, Chamber Music Program",
     org: "National Symphony Orchestra",
     note: "A performance-oriented training program for serious pre-college musicians.",
   },
   {
-    year: "2025–26",
+    year: "2025-26",
     title: "1st Place, Friday Morning Music Club Competition",
     org: "Friday Morning Music Club",
     note: "",
   },
   {
-    year: "2021–22",
+    year: "2021-22",
     title:
       "First Prize & Steinway & Sons Award for Best Performance of a Romantic Piece",
     org: "Kaufman Music Center International Youth Piano Competition",
     note: "Junior I division.",
   },
   {
-    year: "2025–26",
+    year: "2025-26",
     title: "1st Place, Concerto Competition (Advanced Division)",
     org: "Maryland State Music Teachers Association",
     note: "",
   },
   {
-    year: "2025–26",
+    year: "2025-26",
     title: "AP Scholar with Distinction",
     org: "College Board",
     note: "Also named to the College Board National Recognition Program.",
   },
   {
-    year: "2025–26",
+    year: "2025-26",
     title: "Gold Award, National Spanish Exam Level IV",
     org: "American Association of Teachers of Spanish and Portuguese",
     note: "Gold at Level III the previous year.",
   },
 ];
 
-/** The complete record, grouped by school year. Shown behind a toggle. */
+/** The complete record, grouped by school year. */
 export const awardRecord = [
   {
-    year: "2025–2026",
+    year: "2025-2026",
     items: [
       { title: "3rd Place, MTNA Piano Competition (National Round)", level: "National" },
       { title: "Southern Division Winner, MTNA Piano Competition", level: "Regional" },
@@ -117,7 +117,7 @@ export const awardRecord = [
     ],
   },
   {
-    year: "2024–2025",
+    year: "2024-2025",
     items: [
       { title: "Winner, MTNA Piano Competition (Maryland State)", level: "State" },
       { title: "Eastern Division Alternate, MTNA Piano Competition", level: "Regional" },
@@ -132,7 +132,7 @@ export const awardRecord = [
     ],
   },
   {
-    year: "2023–2024",
+    year: "2023-2024",
     items: [
       { title: "1st Prize & Grand Prix, Maria and Natalia Yeshchenko International II Piano Competition", level: "International" },
       { title: "2nd Place, Thomas F. Hulbert International Piano Competition (Division 3)", level: "International" },
@@ -146,7 +146,7 @@ export const awardRecord = [
     ],
   },
   {
-    year: "2022–2023",
+    year: "2022-2023",
     items: [
       { title: "1st Place, AAMS International Competition (Junior Division: Piano)", level: "International" },
       { title: "Semi-Finalist, Concours Algorea", level: "International" },
@@ -154,7 +154,7 @@ export const awardRecord = [
     ],
   },
   {
-    year: "2021–2022",
+    year: "2021-2022",
     items: [
       { title: "First Prize & Steinway & Sons Special Award, Kaufman Music Center International Youth Piano Competition (Junior I)", level: "International" },
       { title: "Winner, Gertrude Brown Memorial Piano Concerto Competition (Junior II)", level: "Regional" },
@@ -165,7 +165,7 @@ export const awardRecord = [
     ],
   },
   {
-    year: "2019–2020",
+    year: "2019-2020",
     items: [
       { title: "1st Place, NVMTA Robert Spencer Piano Concerto Competition", level: "Regional" },
     ],
@@ -183,40 +183,40 @@ export const venues = [
 
 export const activities = [
   {
-    period: "2025 — present",
+    period: "2025-present",
     title: "Youth Fellow, Chamber Music Program",
     org: "National Symphony Orchestra",
     description:
       "Performance-oriented training program for serious pre-college musicians, coached by NSO players.",
   },
   {
-    period: "Summer 2024 — present",
+    period: "Summer 2024-present",
     title: "Chief Intern",
     org: "Tacy Foundation",
     description:
       "Non-profit that supports elderly and hospitalized people through music. I perform regularly at senior assisted living centers and help coordinate other student musicians.",
   },
   {
-    period: "2024 — present",
+    period: "2024-present",
     title: "Reporter",
     org: "The Saxon Scope, Langley High School",
     description:
       "I write opinion and reviews for Langley's student newspaper.",
   },
   {
-    period: "2025 — present",
+    period: "2025-present",
     title: "Runner",
     org: "Cross Country, Langley High School",
     description: "Two seasons of 5K cross country.",
   },
   {
-    period: "2024 — present",
+    period: "2024-present",
     title: "Member",
     org: "Latin Club, Langley High School",
     description: "Member since freshman year.",
   },
   {
-    period: "2024 — present",
+    period: "2024-present",
     title: "Outreach Subteam",
     org: "Robotics Club, Langley High School",
     description:
@@ -232,7 +232,7 @@ export const languages = [
 ];
 
 /**
- * Performances. Add the 11-character ID from a YouTube URL — for
+ * Performances. Add the 11-character ID from a YouTube URL. For
  * youtube.com/watch?v=dQw4w9WgXcQ the id is "dQw4w9WgXcQ".
  * Order them yourself; put the strongest playing first, not the newest.
  */
@@ -245,17 +245,17 @@ export const videos: {
   // video evidence for a first prize listed above, not because of its views.
   {
     id: "6zPwgr40SmE",
-    title: "Horowitz — Variations on Themes from Bizet's Carmen",
+    title: "Horowitz-Variations on Themes from Bizet's Carmen",
     detail: "2026",
   },
   {
     id: "x-QbMrCqPxw",
-    title: "Liszt — Spanish Rhapsody, S. 254",
+    title: "Liszt-Spanish Rhapsody, S. 254",
     detail: "2025",
   },
   {
     id: "b-uOBh1JqaM",
-    title: "Ravel — Jeux d'eau",
+    title: "Ravel-Jeux d'eau",
     detail: "2025",
   },
   {
@@ -265,17 +265,17 @@ export const videos: {
   },
   {
     id: "tDUKPhlZDD0",
-    title: "Mozart — Piano Concerto No. 21 in C, K. 467 (I)",
+    title: "Mozart-Piano Concerto No. 21 in C, K. 467 (I)",
     detail: "with the New England Youth Ensemble · 2024",
   },
   {
     id: "K52sT2QkNFg",
-    title: "Kaufman International Youth Piano Competition — Final Round",
+    title: "Kaufman International Youth Piano Competition-Final Round",
     detail: "First Prize & Steinway & Sons Award · 2022",
   },
 ];
 
-/** Empty for now — these sections hide themselves until you add something. */
+/** Empty for now. These sections hide themselves until you add something. */
 export const projects: {
   title: string;
   year: string;
