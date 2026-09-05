@@ -7,6 +7,7 @@ import {
   links,
   profile,
   projects,
+  venues,
   videos,
   writing,
 } from "@/lib/content";
@@ -27,6 +28,7 @@ const nav = [
   { id: "about", label: "About", show: about.length > 0 },
   { id: "honors", label: "Honors", show: honors.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
+  { id: "venues", label: "Venues", show: venues.length > 0 },
   { id: "record", label: "Record", show: awardRecord.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "contact", label: "Contact", show: true },
@@ -106,7 +108,7 @@ export default function Home() {
                   <Entry
                     key={a.title}
                     title={a.title}
-                    meta={`${a.org} · ${a.year}`}
+                    meta={a.year ? `${a.org} · ${a.year}` : a.org}
                     body={a.note || undefined}
                   />
                 ))}
@@ -132,6 +134,18 @@ export default function Home() {
                 </ul>
               }
             />
+          )}
+
+          {venues.length > 0 && (
+            <Section id="venues" label="Venues" count={venues.length}>
+              <Columns>
+                {venues.map((v) => (
+                  <p key={v} className="mb-3 text-[17px] leading-snug">
+                    {v}
+                  </p>
+                ))}
+              </Columns>
+            </Section>
           )}
 
           {awardRecord.length > 0 && (

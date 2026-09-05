@@ -28,7 +28,7 @@ export const links = [
 export const about = [
   "At fourteen, I'm a linguist, a musician, a globetrotter, and a booknerd. Heading into my junior year at Langley High School, I report for the Saxon Scope and am a dedicated member of the Latin club. I speak fluent Chinese, English, French, and Spanish.",
   "I serve as chief intern of the Tacy Foundation, a non-profit dedicated to helping my elderly community through the power of music, where I regularly perform at senior assisted living centers. It has taught me more about what a performance is for than any competition has.",
-  "I've performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. I've been featured on NPR's Daily Joy program, and this past year I was an NSO Youth Fellow in the Chamber Program.",
+  "I've performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. I've been featured on NPR's Daily Joy program, and I'm an NSO Youth Fellow in the Chamber Program.",
   "I spend my free time playing tennis, hiking, and taking photos.",
 ];
 
@@ -43,12 +43,19 @@ export const honors = [
   {
     year: "2025–26",
     title: "Finalist, From the Top",
-    org: "NPR / From the Top",
+    org: "From the Top",
     note: "",
   },
   {
-    year: "2025–26",
-    title: "Fellow, Chamber Music Program",
+    // TODO: give me the year and I'll add it here and to the record below.
+    year: "",
+    title: "Featured Artist, Daily Joy",
+    org: "NPR",
+    note: "",
+  },
+  {
+    year: "2025 — present",
+    title: "Youth Fellow, Chamber Music Program",
     org: "National Symphony Orchestra",
     note: "A performance-oriented training program for serious pre-college musicians.",
   },
@@ -162,10 +169,23 @@ export const awardRecord = [
   },
 ];
 
+/**
+ * Halls Julian has played. Names only for now — see my note: I'm not
+ * putting cities on the site until you confirm which Harris Theatre and
+ * which Beethoven House.
+ */
+export const venues = [
+  "The Kennedy Center",
+  "Merkin Hall",
+  "Linehan Concert Hall",
+  "The Beethoven House",
+  "Harris Theatre",
+];
+
 export const activities = [
   {
     period: "2025 — present",
-    title: "Chamber Music Fellow",
+    title: "Youth Fellow, Chamber Music Program",
     org: "National Symphony Orchestra",
     description:
       "Performance-oriented training program for serious pre-college musicians, coached by NSO players.",
