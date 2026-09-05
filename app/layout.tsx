@@ -24,7 +24,14 @@ const THEME_INIT = `(function(){try{var t=localStorage.getItem('theme');if(t==='
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full scroll-smooth`}>
+    // The theme script below stamps data-theme on this element before React
+    // hydrates, which React would otherwise report as a mismatch. The
+    // attribute is deliberate, so tell React to leave it alone.
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} h-full scroll-smooth`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>

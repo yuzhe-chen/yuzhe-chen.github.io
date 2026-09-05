@@ -1,15 +1,53 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+
+const LIGHT = "/hero-light.jpg";
+const DARK = "/hero-dark.jpg";
 
 /**
- * Fixed wallpaper behind the hero. Drifts up slower than the page (parallax)
- * and fades out by the time the About section reaches the top.
+ * The wallpaper itself, rendered twice: once behind the page, and once inside
+ * the header clipped to the bar's height. Both copies are positioned against
+ * the viewport at exactly the same rect, so the strip showing through the menu
+ * lines up seamlessly with the one behind the hero — the bar looks transparent
+ * while still occluding the hero text that scrolls up underneath it.
+ *
+ * Both are tagged `data-hero-layer` and driven together by HeroBackdrop below.
  */
-export function HeroBackdrop({ light, dark }: { light: string; dark: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+export function HeroLayer({ className = "" }: { className?: string }) {
+  return (
+    <div
+      data-hero-layer
+      aria-hidden
+      className={`pointer-events-none will-change-[transform,opacity] ${className}`}
+    >
+      <Image
+        src={LIGHT}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="hero-img-light object-cover object-[40%_60%]"
+      />
+      <Image
+        src={DARK}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="hero-img-dark object-cover object-[45%_28%]"
+      />
+      <div className="hero-scrim absolute inset-0" />
+    </div>
+  );
+}
 
+/**
+ * Page-level wallpaper. Drifts up slower than the page (parallax) and fades
+ * out by the time the About section reaches the top.
+ */
+export function HeroBackdrop() {
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
@@ -21,13 +59,15 @@ export function HeroBackdrop({ light, dark }: { light: string; dark: string }) {
       const y = window.scrollY;
       // Fully gone a little before the hero has finished scrolling past.
       const p = Math.min(1, Math.max(0, y / Math.max(1, height * 0.8)));
+      const transform = reduced.matches
+        ? ""
+        : `translate3d(0, ${(y * -0.35).toFixed(1)}px, 0)`;
 
-      const el = ref.current;
-      if (el) {
+      for (const el of document.querySelectorAll<HTMLElement>(
+        "[data-hero-layer]",
+      )) {
         el.style.opacity = String(1 - p);
-        el.style.transform = reduced.matches
-          ? ""
-          : `translate3d(0, ${(y * -0.35).toFixed(1)}px, 0)`;
+        el.style.transform = transform;
         // Stop compositing it once it's invisible.
         el.style.visibility = p >= 1 ? "hidden" : "visible";
       }
@@ -47,33 +87,5 @@ export function HeroBackdrop({ light, dark }: { light: string; dark: string }) {
     };
   }, []);
 
-  return (
-    <div
-      ref={ref}
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 will-change-[transform,opacity]"
-    >
-      {/* Coast — framed so the calm water sits under the type. */}
-      <Image
-        src={light}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hero-img-light object-cover object-[40%_60%]"
-      />
-      {/* Cloud sea — framed high, so the deep sky rather than the white
-          cloud bank sits under the type. */}
-      <Image
-        src={dark}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hero-img-dark object-cover object-[45%_28%]"
-      />
-      {/* Theme-aware scrim: keeps type legible and dissolves into the page. */}
-      <div className="hero-scrim absolute inset-0" />
-    </div>
-  );
+  return <HeroLayer className="fixed inset-0 z-0" />;
 }

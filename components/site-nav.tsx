@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { HeroLayer } from "./hero-backdrop";
+
 export type NavItem = { id: string; label: string };
 
 function ThemeToggle() {
@@ -79,8 +81,12 @@ export function SiteNav({
   }, [items]);
 
   return (
-    <header className="site-header no-print fixed inset-x-0 top-0 z-20">
-      <div className="mx-auto flex max-w-[1600px] items-center gap-6 px-5 text-[17px] font-bold sm:px-8">
+    <header className="site-header no-print fixed inset-x-0 top-0 z-20 overflow-hidden">
+      {/* The wallpaper, clipped to the bar. Absolutely positioned at the top
+          of a header that is itself fixed to the viewport top, so it lands on
+          exactly the same rect as the page-level copy. */}
+      <HeroLayer className="absolute inset-x-0 top-0 h-screen" />
+      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-6 px-5 text-[17px] font-bold sm:px-8">
         <nav className="no-scrollbar flex flex-1 gap-1.5 overflow-x-auto sm:gap-2">
           {items.map((item) => (
             <a

@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroBackdrop light="/hero-light.jpg" dark="/hero-dark.jpg" />
+      <HeroBackdrop />
 
       <SiteNav
         items={nav.filter((s) => s.show).map(({ id, label }) => ({ id, label }))}
@@ -83,9 +83,9 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          {/* Solid disc so the portrait doesn't dissolve into the sky — in the
-              text colour, so it reads as part of the type, not a stray blob. */}
-          <div className="shrink-0 self-start rounded-full bg-fg p-3 sm:self-auto">
+          {/* Solid disc in the page background colour, so the portrait reads
+              as sitting on the page rather than floating on the wallpaper. */}
+          <div className="shrink-0 self-start rounded-full bg-bg p-3 sm:self-auto">
             <Portrait src={profile.photo} name={profile.name} />
           </div>
         </div>
