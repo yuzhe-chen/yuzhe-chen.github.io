@@ -22,7 +22,15 @@ function ThemeToggle() {
   }, []);
 
   const flip = () => {
-    const next = theme === "dark" ? "light" : "dark";
+    // Read the live DOM rather than React state, so the button works even if
+    // it's clicked before the mount effect has run.
+    const root = document.documentElement;
+    const attr = root.getAttribute("data-theme");
+    const isDark =
+      attr === "dark" ||
+      (attr === null &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = isDark ? "light" : "dark";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
     try {
@@ -38,10 +46,14 @@ function ThemeToggle() {
       onClick={flip}
       // Empty until mounted so the server and client markup agree.
       aria-label={theme ? `Switch to ${theme === "dark" ? "light" : "dark"} mode` : "Toggle theme"}
-      // Fixed width so the nav doesn't jump when the label resolves on mount.
-      className="nav-tab min-w-[7ch] shrink-0 px-3 py-2 text-center uppercase tracking-wide hover:text-accent"
+      // Fixed width so the nav doesn't jump when the glyph resolves on mount.
+      className="nav-tab min-w-[2.5ch] shrink-0 px-3 py-2 text-center text-[19px] leading-none hover:text-accent"
     >
-      {theme === "dark" ? "Light" : theme === "light" ? "Dark" : ""}
+      {/* Both render; CSS shows one. U+FE0E forces text presentation, so they
+          stay monochrome and take the type colour rather than becoming
+          colour emoji. */}
+      <span className="theme-moon">☽︎</span>
+      <span className="theme-sun">☀︎</span>
     </button>
   );
 }

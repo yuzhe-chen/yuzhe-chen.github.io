@@ -37,15 +37,13 @@ const nav = [
 const recordCount = awardRecord.reduce((n, g) => n + g.items.length, 0);
 
 export default function Home() {
-  const email = links.find((l) => l.label === "Email")?.href ?? "";
-
   return (
     <>
       <HeroBackdrop />
 
       <SiteNav
         items={nav.filter((s) => s.show).map(({ id, label }) => ({ id, label }))}
-        right={links.filter((l) => l.label !== "Résumé (PDF)")}
+        right={links}
       />
 
       <main
@@ -233,8 +231,8 @@ export default function Home() {
               The fastest way to reach me is email.
             </p>
             <p className="mt-4 text-[22px] leading-snug sm:text-[26px]">
-              <TitleLink href={email || undefined}>
-                {email.replace("mailto:", "")}
+              <TitleLink href={`mailto:${profile.email}`}>
+                {profile.email}
               </TitleLink>
             </p>
           </Section>

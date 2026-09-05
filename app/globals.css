@@ -134,6 +134,29 @@ body {
     );
 }
 
+/*
+ * The theme toggle renders both glyphs and CSS picks one, so the correct
+ * icon is there on the very first paint rather than appearing after mount.
+ * Light mode offers the moon (click for dark); dark mode offers the sun.
+ */
+.theme-sun {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-sun {
+    display: inline;
+  }
+  :root:not([data-theme="light"]) .theme-moon {
+    display: none;
+  }
+}
+:root[data-theme="dark"] .theme-sun {
+  display: inline;
+}
+:root[data-theme="dark"] .theme-moon {
+  display: none;
+}
+
 /* Nav tabs are plain bold text in the body colour — no boxes. */
 .nav-tab {
   transition: color 0.15s ease;

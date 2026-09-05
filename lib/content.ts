@@ -16,10 +16,13 @@ export const profile = {
   metaDescription:
     "Yuzhe (Julian) Chen — pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
   photo: "/portrait.jpg" as string | null, // cropped from IMG_0211.jpeg
+  // Shown in full in the Contact section, so it stays readable and copyable
+  // even where a mailto: link does nothing.
+  email: "julianchen2011@gmail.com",
 };
 
+/** Nav and hero links. Email is deliberately not here — see Contact. */
 export const links = [
-  { label: "Email", href: "mailto:julianchen2011@gmail.com" },
   { label: "YouTube", href: "https://www.youtube.com/@julianchenmusic" },
   // { label: "Résumé (PDF)", href: "/resume.pdf" },
 ];
