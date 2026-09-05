@@ -14,7 +14,7 @@ export const profile = {
   location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
   metaDescription:
-    "Yuzhe (Julian) Chen-pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
+    "Yuzhe (Julian) Chen, pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
   photo: "/portrait.jpg" as string | null, // cropped from IMG_0211.jpeg
   // Shown in full in the Contact section, so it stays readable and copyable
   // even where a mailto: link does nothing.
@@ -39,7 +39,7 @@ export const about = [
 export const honors = [
   {
     year: "2025-26",
-    title: "3rd Place, National Round-MTNA Junior Piano Performance",
+    title: "3rd Place, National Round, MTNA Junior Piano Performance",
     org: "Music Teachers National Association",
     note: "Southern Division Winner and Virginia State Winner the same year. Also Maryland State Winner in 2023-24 and 2024-25.",
   },
@@ -245,17 +245,17 @@ export const videos: {
   // video evidence for a first prize listed above, not because of its views.
   {
     id: "6zPwgr40SmE",
-    title: "Horowitz-Variations on Themes from Bizet's Carmen",
+    title: "Horowitz: Variations on Themes from Bizet's Carmen",
     detail: "2026",
   },
   {
     id: "x-QbMrCqPxw",
-    title: "Liszt-Spanish Rhapsody, S. 254",
+    title: "Liszt: Spanish Rhapsody, S. 254",
     detail: "2025",
   },
   {
     id: "b-uOBh1JqaM",
-    title: "Ravel-Jeux d'eau",
+    title: "Ravel: Jeux d'eau",
     detail: "2025",
   },
   {
@@ -265,12 +265,12 @@ export const videos: {
   },
   {
     id: "tDUKPhlZDD0",
-    title: "Mozart-Piano Concerto No. 21 in C, K. 467 (I)",
+    title: "Mozart: Piano Concerto No. 21 in C, K. 467 (I)",
     detail: "with the New England Youth Ensemble · 2024",
   },
   {
     id: "K52sT2QkNFg",
-    title: "Kaufman International Youth Piano Competition-Final Round",
+    title: "Kaufman International Youth Piano Competition, Final Round",
     detail: "First Prize & Steinway & Sons Award · 2022",
   },
 ];
