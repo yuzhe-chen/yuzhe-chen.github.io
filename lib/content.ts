@@ -10,7 +10,7 @@
 export const profile = {
   name: "Yuzhe (Julian) Chen",
   tagline:
-    "Pianist. National Symphony Orchestra chamber fellow, MTNA national prizewinner, and a student who reads four languages and builds too much LEGO.",
+    "Pianist. National Symphony Orchestra chamber fellow, MTNA national prizewinner, and a student who reads and speaks four languages.",
   location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
   metaDescription:
@@ -182,6 +182,13 @@ export const venues = [
 ];
 
 export const activities = [
+  {
+    period: "Summer 2026",
+    title: "Boston University Tanglewood Institute",
+    org: "Tanglewood, Lenox, Massachusetts",
+    description:
+      "Selective summer program for pre-college musicians, at the Boston Symphony's summer home.",
+  },
   {
     period: "2025-present",
     title: "Youth Fellow, Chamber Music Program",
