@@ -62,6 +62,12 @@ export const honors = [
     note: "A performance-oriented training program for serious pre-college musicians.",
   },
   {
+    year: "Summer 2026",
+    title: "Young Artists Piano Program",
+    org: "Boston University Tanglewood Institute",
+    note: "",
+  },
+  {
     year: "2025-26",
     title: "1st Place, Friday Morning Music Club Competition",
     org: "Friday Morning Music Club",
@@ -105,6 +111,7 @@ export const awardRecord = [
       { title: "Finalist, From the Top", level: "National" },
       { title: "Featured Artist, NPR Daily Joy", level: "National" },
       { title: "National Symphony Orchestra Fellow", level: "National" },
+      { title: "Young Artists Piano Program, Boston University Tanglewood Institute (Summer 2026)", level: "National" },
       { title: "1st Place, MSMTA Concerto Competition (Advanced)", level: "State" },
       { title: "1st Place, Friday Morning Music Club Competition", level: "Regional" },
       { title: "1st Place, Ketlands Young Artists Competition", level: "Regional" },
@@ -184,10 +191,10 @@ export const venues = [
 export const activities = [
   {
     period: "Summer 2026",
-    title: "Boston University Tanglewood Institute",
-    org: "Tanglewood, Lenox, Massachusetts",
+    title: "Young Artists Piano Program",
+    org: "Boston University Tanglewood Institute",
     description:
-      "Selective summer program for pre-college musicians, at the Boston Symphony's summer home.",
+      "Selective summer program for pre-college pianists at Tanglewood, the Boston Symphony's summer home.",
   },
   {
     period: "2025-present",
