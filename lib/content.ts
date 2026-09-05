@@ -47,8 +47,7 @@ export const honors = [
     note: "",
   },
   {
-    // TODO: give me the year and I'll add it here and to the record below.
-    year: "",
+    year: "2025–26",
     title: "Featured Artist, Daily Joy",
     org: "NPR",
     note: "",
@@ -60,9 +59,9 @@ export const honors = [
     note: "A performance-oriented training program for serious pre-college musicians.",
   },
   {
-    year: "2023–24",
-    title: "1st Prize & Grand Prix",
-    org: "Maria and Natalia Yeshchenko International II Piano Competition",
+    year: "2025–26",
+    title: "1st Place, Friday Morning Music Club Competition",
+    org: "Friday Morning Music Club",
     note: "",
   },
   {
@@ -101,6 +100,7 @@ export const awardRecord = [
       { title: "Southern Division Winner, MTNA Piano Competition", level: "Regional" },
       { title: "Winner, MTNA Piano Competition (Virginia State)", level: "State" },
       { title: "Finalist, From the Top", level: "National" },
+      { title: "Featured Artist, NPR Daily Joy", level: "National" },
       { title: "National Symphony Orchestra Fellow", level: "National" },
       { title: "1st Place, MSMTA Concerto Competition (Advanced)", level: "State" },
       { title: "1st Place, Friday Morning Music Club Competition", level: "Regional" },
@@ -169,17 +169,13 @@ export const awardRecord = [
   },
 ];
 
-/**
- * Halls Julian has played. Names only for now — see my note: I'm not
- * putting cities on the site until you confirm which Harris Theatre and
- * which Beethoven House.
- */
+/** Halls Julian has played. */
 export const venues = [
-  "The Kennedy Center",
-  "Merkin Hall",
-  "Linehan Concert Hall",
-  "The Beethoven House",
-  "Harris Theatre",
+  { name: "The Kennedy Center", city: "Washington, DC" },
+  { name: "Merkin Hall", city: "New York, New York" },
+  { name: "Linehan Concert Hall", city: "Baltimore, Maryland" },
+  { name: "The Beethoven House", city: "Bonn, Germany" },
+  { name: "Harris Theatre", city: "Fairfax, Virginia" },
 ];
 
 export const activities = [
@@ -214,8 +210,7 @@ export const activities = [
     period: "2024 — present",
     title: "Member",
     org: "Latin Club, Langley High School",
-    description:
-      "Member since freshman year. (Add your National Latin Exam result here once you've sat it — that's the line that will matter.)",
+    description: "Member since freshman year.",
   },
   {
     period: "2024 — present",
@@ -273,7 +268,7 @@ export const videos: {
   {
     id: "K52sT2QkNFg",
     title: "Kaufman International Youth Piano Competition — Final Round",
-    detail: "2022 · First Prize & Steinway & Sons Award",
+    detail: "First Prize & Steinway & Sons Award · 2022",
   },
 ];
 

@@ -140,9 +140,7 @@ export default function Home() {
             <Section id="venues" label="Venues" count={venues.length}>
               <Columns>
                 {venues.map((v) => (
-                  <p key={v} className="mb-3 text-[17px] leading-snug">
-                    {v}
-                  </p>
+                  <Entry key={v.name} title={v.name} meta={v.city} />
                 ))}
               </Columns>
             </Section>
