@@ -24,15 +24,12 @@ export const links = [
   // { label: "Résumé (PDF)", href: "/resume.pdf" },
 ];
 
-/**
- * TODO: This is a draft assembled from your old site — the facts are yours,
- * the voice is not. Rewrite it in your own words before you send this
- * anywhere. Two or three paragraphs. Say what you're actually after.
- */
+/** Julian's own words, put into first person. */
 export const about = [
-  "I'm a pianist. Most of what I know about persistence I learned at a keyboard, working the same eight bars until they stop being eight bars and start being music. That work has taken me to the MTNA national round, the From the Top stage, and a fellowship with the National Symphony Orchestra's chamber program.",
-  "Away from the piano I read constantly, speak Chinese, English, French, and Spanish, report for the Saxon Scope, and turn up for Latin club and robotics. I play tennis badly and photograph landscapes slightly better.",
-  "Through the Tacy Foundation I bring music to assisted living centers around Northern Virginia — which has taught me more about what a performance is for than any competition has.",
+  "At fourteen, I'm a linguist, a musician, a globetrotter, and a booknerd. Heading into my junior year at Langley High School, I report for the Saxon Scope and am a dedicated member of the Latin club. I speak fluent Chinese, English, French, and Spanish.",
+  "I serve as chief intern of the Tacy Foundation, a non-profit dedicated to helping my elderly community through the power of music, where I regularly perform at senior assisted living centers. It has taught me more about what a performance is for than any competition has.",
+  "I've performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. I've been featured on NPR's Daily Joy program, and this past year I was an NSO Youth Fellow in the Chamber Program.",
+  "I spend my free time playing tennis, hiking, and taking photos.",
 ];
 
 /** The 6–8 that a reader should see first. Everything else lives in the full list. */
@@ -191,8 +188,7 @@ export const activities = [
     period: "2025 — present",
     title: "Runner",
     org: "Cross Country, Langley High School",
-    description:
-      "TODO: distance you race, and anything worth naming — a PR, varsity, districts.",
+    description: "Two seasons of 5K cross country.",
   },
   {
     period: "2024 — present",
