@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+/* Light: pure white ground, true black type. */
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #666666;
+  --faint: #cccccc; /* the big section counts — present, but recessed */
+  --rule: #d6d6d6;
+  /* Sampled from the portrait: the deep water at Cabo da Roca, darkened
+     until it clears 4.5:1 on white. */
+  --accent: #1f6f94;
+}
+
+/* System preference, unless the toggle has explicitly asked for light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000;
+    --fg: #ffffff;
+    --muted: #9c9c9c;
+    --faint: #3a3a3a;
+    --rule: #2b2b2b;
+    /* The sky from the same photo — bright enough to read on black. */
+    --accent: #5ba6ef;
+  }
+}
+
+/* The toggle wins in both directions. */
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --fg: #ffffff;
+  --muted: #9c9c9c;
+  --faint: #3a3a3a;
+  --rule: #2b2b2b;
+  --accent: #5ba6ef;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter), ui-sans-serif, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * The giant uppercase section labels. Sized against the viewport so they stay
+ * edge-filling on a phone and don't get comical on a 27" display.
+ */
+.display {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.88;
+  font-size: clamp(2.5rem, 7.5vw, 5.5rem);
+}
+
+.display-xl {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  font-size: clamp(3rem, 11vw, 8.5rem);
+}
+
+/* The count that sits at the far right of each section label. */
+.count {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Hero wallpaper. --scrim is how much of the page background is laid over the
+ * photo: dark mode needs more, since white type over a bright sky is worse
+ * than black type over one.
+ */
+/*
+ * Measured against the actual crops: black type on hero-light clears 6.8:1
+ * with no scrim, and white type on the dusk photo reaches 4.8:1 at 22%.
+ * Both wallpapers show through nearly unwashed.
+ */
+:root {
+  --scrim: 18%;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --scrim: 22%;
+  }
+}
+:root[data-theme="dark"] {
+  --scrim: 22%;
+}
+
+/* Each theme gets its own wallpaper; the other is faded out. */
+.hero-img-dark {
+  opacity: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-img-light {
+    opacity: 0;
+  }
+  :root:not([data-theme="light"]) .hero-img-dark {
+    opacity: 1;
+  }
+}
+:root[data-theme="dark"] .hero-img-light {
+  opacity: 0;
+}
+:root[data-theme="dark"] .hero-img-dark {
+  opacity: 1;
+}
+
+.hero-scrim {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg) var(--scrim), transparent) 0%,
+      color-mix(in srgb, var(--bg) var(--scrim), transparent) 55%,
+      var(--bg) 100%
+    );
+}
+
+/* Nav tabs are plain bold text in the body colour — no boxes. */
+.nav-tab {
+  transition: color 0.15s ease;
+}
+
+/*
+ * Fully opaque, including over the wallpaper — the bar has to occlude the
+ * hero text that scrolls up underneath it, and anything translucent lets
+ * that text ghost through.
+ */
+.site-header {
+  background: var(--bg);
+}
+
+/* Anchors land below the fixed nav. */
+section,
+:target {
+  scroll-margin-top: 4.5rem;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Applications get printed. Force light, drop the furniture. */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --fg: #000000;
+    --muted: #333333;
+    --faint: #888888;
+    --rule: #bbbbbb;
+    --accent: #000000;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .display {
+    font-size: 22pt;
+  }
+  .display-xl {
+    font-size: 30pt;
+  }
+  .count {
+    font-size: 16pt;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.72em;
+    color: #555;
+    word-break: break-all;
+  }
+  section,
+  li {
+    break-inside: avoid;
+  }
+  body {
+    font-size: 10.5pt;
+  }
+}
