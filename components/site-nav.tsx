@@ -6,6 +6,28 @@ import { HeroLayer } from "./hero-backdrop";
 
 export type NavItem = { id: string; label: string };
 
+// Stroke weight 2 to sit alongside the bold nav type; currentColor so they
+// inherit the text colour and the accent on hover.
+const ICON =
+  "h-[19px] w-[19px] shrink-0 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]";
+
+function SunIcon() {
+  return (
+    <svg className={`theme-sun ${ICON}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="4.25" />
+      <path d="M12 1.9v2.2M12 19.9v2.2M22.1 12h-2.2M4.1 12H1.9M19.14 4.86l-1.56 1.56M6.42 17.58l-1.56 1.56M19.14 19.14l-1.56-1.56M6.42 6.42L4.86 4.86" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg className={`theme-moon ${ICON}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" />
+    </svg>
+  );
+}
+
 function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark" | null>(null);
 
@@ -44,16 +66,20 @@ function ThemeToggle() {
     <button
       type="button"
       onClick={flip}
-      // Empty until mounted so the server and client markup agree.
-      aria-label={theme ? `Switch to ${theme === "dark" ? "light" : "dark"} mode` : "Toggle theme"}
-      // Fixed width so the nav doesn't jump when the glyph resolves on mount.
-      className="nav-tab min-w-[2.5ch] shrink-0 px-3 py-2 text-center text-[19px] leading-none hover:text-accent"
+      // Generic until mounted, since the server can't know the visitor's
+      // theme; the icon itself is correct from the first paint via CSS.
+      aria-label={
+        theme
+          ? `Switch to ${theme === "dark" ? "light" : "dark"} mode`
+          : "Toggle theme"
+      }
+      className="nav-tab inline-flex shrink-0 items-center justify-center px-3 py-2 hover:text-accent"
     >
-      {/* Both render; CSS shows one. U+FE0E forces text presentation, so they
-          stay monochrome and take the type colour rather than becoming
-          colour emoji. */}
-      <span className="theme-moon">☽︎</span>
-      <span className="theme-sun">☀︎</span>
+      {/* Both render; CSS shows one, so the right icon is there on first
+          paint. Drawn rather than typed, because the Unicode moon renders
+          differently in every system font and badly in most. */}
+      <MoonIcon />
+      <SunIcon />
     </button>
   );
 }

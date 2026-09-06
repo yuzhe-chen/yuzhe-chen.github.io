@@ -144,14 +144,14 @@ body {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .theme-sun {
-    display: inline;
+    display: block;
   }
   :root:not([data-theme="light"]) .theme-moon {
     display: none;
   }
 }
 :root[data-theme="dark"] .theme-sun {
-  display: inline;
+  display: block;
 }
 :root[data-theme="dark"] .theme-moon {
   display: none;
