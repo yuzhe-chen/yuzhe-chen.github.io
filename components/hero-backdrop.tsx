@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useEffect } from "react";
 
-const LIGHT = "/hero-light.jpg";
+// Renamed from hero-light.jpg when the photo changed, so cached copies of the
+// old one can't linger under the same URL.
+const LIGHT = "/hero-day.jpg";
 const DARK = "/hero-dark.jpg";
 
 /**

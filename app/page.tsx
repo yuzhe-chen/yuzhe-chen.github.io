@@ -27,8 +27,8 @@ import { HeroBackdrop } from "@/components/hero-backdrop";
 const nav = [
   { id: "about", label: "About", show: about.length > 0 },
   { id: "honors", label: "Honors", show: honors.length > 0 },
-  { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
+  { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "record", label: "Record", show: awardRecord.length > 0 },
   { id: "venues", label: "Venues", show: venues.length > 0 },
   { id: "contact", label: "Contact", show: true },
@@ -118,6 +118,25 @@ export default function Home() {
             </Section>
           )}
 
+          {activities.length > 0 && (
+            <Section
+              id="activities"
+              label="Activities"
+              count={activities.length}
+            >
+              <Columns>
+                {activities.map((a) => (
+                  <Entry
+                    key={a.title + a.org}
+                    title={a.title}
+                    meta={`${a.org} · ${a.period}`}
+                    body={a.description}
+                  />
+                ))}
+              </Columns>
+            </Section>
+          )}
+
           {videos.length > 0 && (
             <Section
               id="performances"
@@ -136,25 +155,6 @@ export default function Home() {
                 </ul>
               }
             />
-          )}
-
-          {activities.length > 0 && (
-            <Section
-              id="activities"
-              label="Activities"
-              count={activities.length}
-            >
-              <Columns>
-                {activities.map((a) => (
-                  <Entry
-                    key={a.title + a.org}
-                    title={a.title}
-                    meta={`${a.org} · ${a.period}`}
-                    body={a.description}
-                  />
-                ))}
-              </Columns>
-            </Section>
           )}
 
           {awardRecord.length > 0 && (
