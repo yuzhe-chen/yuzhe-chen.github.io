@@ -124,6 +124,25 @@ body {
   opacity: 1;
 }
 
+/* Same swap for the portrait: one face per theme, the other faded out. */
+.portrait-dark {
+  opacity: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .portrait-light {
+    opacity: 0;
+  }
+  :root:not([data-theme="light"]) .portrait-dark {
+    opacity: 1;
+  }
+}
+:root[data-theme="dark"] .portrait-light {
+  opacity: 0;
+}
+:root[data-theme="dark"] .portrait-dark {
+  opacity: 1;
+}
+
 .hero-scrim {
   background:
     linear-gradient(

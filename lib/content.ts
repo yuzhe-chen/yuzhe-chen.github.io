@@ -10,12 +10,15 @@
 export const profile = {
   name: "Yuzhe (Julian) Chen",
   tagline:
-    "Pianist. National Symphony Orchestra chamber fellow, MTNA national prizewinner, and a student who reads and speaks four languages.",
+    "Award-winning pianist, National Symphony Orchestra Youth Chamber Fellow, passionate about languages and history!",
   location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
   metaDescription:
     "Yuzhe (Julian) Chen, pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
-  photo: "/portrait.jpg" as string | null, // cropped from IMG_0211.jpeg
+  // One portrait per theme, swapped in CSS the same way the wallpaper is.
+  // Set either to null to fall back to the monogram.
+  photoLight: "/portrait-light.jpg" as string | null, // cropped from MVC_4948.jpg
+  photoDark: "/portrait-dark.jpg" as string | null, // cropped from IMG_6103.jpg
   // Shown in full in the Contact section, so it stays readable and copyable
   // even where a mailto: link does nothing.
   email: "julianchen2011@gmail.com",
@@ -32,25 +35,28 @@ export const about = [
   "At fourteen, I'm a linguist, a musician, a globetrotter, and a booknerd. Heading into my junior year at Langley High School, I report for the Saxon Scope and am a dedicated member of the Latin club. I speak fluent Chinese, English, French, and Spanish.",
   "I serve as chief intern of the Tacy Foundation, a non-profit dedicated to helping my elderly community through the power of music, where I regularly perform at senior assisted living centers. It has taught me more about what a performance is for than any competition has.",
   "I've performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. I've been featured on NPR's Daily Joy program, and I'm an NSO Youth Fellow in the Chamber Program.",
-  "I spend my free time playing tennis, hiking, and taking photos.",
+  "I spend my free time playing tennis, hiking, and taking photos. My favorite museums are the Smithsonian National Museum of Natural History, the Museo Nacional del Prado, and the Louvre, and the artists I keep coming back to are Monet and Schumann.",
 ];
 
-/** The 6-8 that a reader should see first. Everything else lives in the full list. */
+/**
+ * The 6-8 that a reader should see first. Everything else lives in the full
+ * list. Years are calendar years, matching `awardRecord`.
+ */
 export const honors = [
   {
-    year: "2025-26",
-    title: "3rd Place, National Round, MTNA Junior Piano Performance",
+    year: "2026",
+    title: "3rd Place, National Finals, Junior Piano Performance Competition",
     org: "Music Teachers National Association",
-    note: "Southern Division Winner and Virginia State Winner the same year. Also Maryland State Winner in 2023-24 and 2024-25.",
+    note: "Southern Division Winner the same year, Virginia State Winner in 2025, and Maryland State Winner in 2023 and 2024.",
   },
   {
-    year: "2025-26",
+    year: "2026",
     title: "Finalist, From the Top",
     org: "From the Top",
     note: "",
   },
   {
-    year: "2025-26",
+    year: "2026",
     title: "Featured Artist, Daily Joy",
     org: "NPR",
     note: "",
@@ -68,113 +74,122 @@ export const honors = [
     note: "",
   },
   {
-    year: "2025-26",
-    title: "1st Place, Friday Morning Music Club Competition",
+    year: "2026",
+    title: "1st Place, Piano Competition",
     org: "Friday Morning Music Club",
     note: "",
   },
   {
-    year: "2021-22",
+    year: "2022",
     title:
-      "First Prize & Steinway & Sons Award for Best Performance of a Romantic Piece",
+      "First Prize & Steinway & Sons Special Award for Best Performance of a Romantic Piece",
     org: "Kaufman Music Center International Youth Piano Competition",
-    note: "Junior I division.",
+    note: "Junior 1 Division.",
   },
   {
-    year: "2025-26",
-    title: "1st Place, Concerto Competition (Advanced Division)",
+    year: "2026",
+    title: "1st Place, Advanced Group, Gertrude S. Brown Memorial Piano Concerto Competition",
     org: "Maryland State Music Teachers Association",
     note: "",
   },
   {
-    year: "2025-26",
+    year: "2026",
     title: "AP Scholar with Distinction",
     org: "College Board",
-    note: "Also named to the College Board National Recognition Program.",
+    note: "Also a School Recognition Award from the College Board National Recognition Program.",
   },
   {
-    year: "2025-26",
-    title: "Gold Award, National Spanish Exam Level IV",
+    year: "2026",
+    title: "Gold Medal, Level IV, National Spanish Examinations",
     org: "American Association of Teachers of Spanish and Portuguese",
-    note: "Gold at Level III the previous year.",
+    note: "Gold Medal at Level III in 2025.",
   },
 ];
 
-/** The complete record, grouped by school year. */
+/**
+ * The complete record, grouped by calendar year, using each competition's
+ * official name rather than the abbreviation people say out loud.
+ *
+ * Academic awards are filed by the year they were conferred, not the school
+ * year they were earned in: AP Scholar lands on the July score report, the
+ * College Board National Recognition Program awards were announced June 23,
+ * and National Spanish Examinations results post in late April.
+ *
+ * Programs Julian was accepted to rather than awards he won -- the NSO
+ * fellowship, Tanglewood -- live in `activities`, not here.
+ */
 export const awardRecord = [
   {
-    year: "2025-2026",
+    year: "2026",
     items: [
-      { title: "3rd Place, MTNA Piano Competition (National Round)", level: "National" },
-      { title: "Southern Division Winner, MTNA Piano Competition", level: "Regional" },
-      { title: "Winner, MTNA Piano Competition (Virginia State)", level: "State" },
+      { title: "3rd Place, National Finals, Music Teachers National Association Junior Piano Performance Competition", level: "National" },
+      { title: "Winner, Southern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
       { title: "Finalist, From the Top", level: "National" },
-      { title: "Featured Artist, NPR Daily Joy", level: "National" },
-      { title: "National Symphony Orchestra Fellow", level: "National" },
-      { title: "Young Artists Piano Program, Boston University Tanglewood Institute (Summer 2026)", level: "National" },
-      { title: "1st Place, MSMTA Concerto Competition (Advanced)", level: "State" },
-      { title: "1st Place, Friday Morning Music Club Competition", level: "Regional" },
-      { title: "1st Place, Ketlands Young Artists Competition", level: "Regional" },
-      { title: "2nd Place, James C. Macdonald Arts Scholarship Competition", level: "Regional" },
-      { title: "Distinguished Theory Award, MSMTA Music Theory Program", level: "State" },
+      { title: "1st Place, Friday Morning Music Club Piano Competition", level: "Regional" },
+      { title: "1st Place, Young Artist Award Competition, City of Gaithersburg and the Kentlands Community Foundation", level: "Regional" },
+      { title: "1st Place, Advanced Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
+      { title: "2nd Place, James C. Macdonald Arts Scholarship Competition, McLean Community Center", level: "Regional" },
+      { title: "Distinguished Theory Award, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
       { title: "AP Scholar with Distinction, College Board", level: "National" },
-      { title: "College Board National Recognition Program: School Recognition Award", level: "National" },
-      { title: "Gold Award, National Spanish Exam Level IV", level: "National" },
+      { title: "Score of 5, AP French Language and Culture, College Board", level: "National" },
+      { title: "School Recognition Award, College Board National Recognition Program", level: "National" },
+      { title: "Gold Medal, Level IV, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National" },
       { title: "Academic Excellence in Honors Chemistry, Langley High School", level: "School" },
     ],
   },
   {
-    year: "2024-2025",
+    year: "2025",
     items: [
-      { title: "Winner, MTNA Piano Competition (Maryland State)", level: "State" },
-      { title: "Eastern Division Alternate, MTNA Piano Competition", level: "Regional" },
-      { title: "2nd Place, Thomas F. Hulbert International Piano Competition (Division 3)", level: "International" },
-      { title: "1st Place, Elizabeth R. Davis Memorial Piano Competition (High School Division)", level: "Regional" },
-      { title: "1st Place, Evelyn Swarthout and Patrick Hayes Competition for Piano", level: "Regional" },
-      { title: "1st Place, Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
-      { title: "1st Place, Lions of Virginia James Bland Music Scholarship Foundation", level: "State" },
-      { title: "Advanced & Senior Awards, MSMTA Theory", level: "State" },
-      { title: "Gold Award, National Spanish Exam Level III", level: "National" },
+      { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
+      { title: "Alternate, Eastern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
+      { title: "Winner, Virginia State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
+      { title: "1st Place, High School Division, Maryland State Music Teachers Association Elizabeth R. Davis Memorial Piano Competition", level: "Regional" },
+      { title: "1st Place, Montgomery County Music Teachers Association Evelyn Swarthout and Patrick Hayes Competition for Piano", level: "Regional" },
+      { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
+      { title: "1st Place, Bland Music Scholarship Competition, Lions of Virginia Bland Music Scholarship Foundation", level: "State" },
+      { title: "Advanced and Senior Theory Awards, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
+      { title: "Gold Medal, Level III, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National" },
       { title: "Academic Excellence in Spanish III, Langley High School", level: "School" },
     ],
   },
   {
-    year: "2023-2024",
+    year: "2024",
     items: [
-      { title: "1st Prize & Grand Prix, Maria and Natalia Yeshchenko International II Piano Competition", level: "International" },
-      { title: "2nd Place, Thomas F. Hulbert International Piano Competition (Division 3)", level: "International" },
-      { title: "1st Prize, TIPCO (Talents International Piano Competition Online)", level: "International" },
-      { title: "Winner, MTNA Piano Competition (Maryland State)", level: "State" },
-      { title: "1st Place, Chase Sonata Competition", level: "Regional" },
-      { title: "1st Place, Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
-      { title: "1st Place, WMTA Viola Hartman Piano Competition", level: "Regional" },
-      { title: "1st Place, MSMTA Spring Festival", level: "State" },
+      { title: "1st Prize and Grand Prix, II International Competition of Pianists Named After Maria and Natalia Yeshchenko", level: "International" },
+      { title: "1st Prize, Talents International Piano Competition Online", level: "International" },
+      { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
+      { title: "1st Place, Maryland State Music Teachers Association Doris Chase Sonata Competition", level: "Regional" },
+      { title: "1st Place, Intermediate Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
+      { title: "1st Place, Piano Solo, Maryland State Music Teachers Association Spring Festival", level: "State" },
       { title: "All-A Honor Roll, Cooper Middle School", level: "School" },
     ],
   },
   {
-    year: "2022-2023",
+    year: "2023",
     items: [
-      { title: "1st Place, AAMS International Competition (Junior Division: Piano)", level: "International" },
-      { title: "Semi-Finalist, Concours Algorea", level: "International" },
-      { title: "Quarter-Finalist, Concours Alkindi", level: "International" },
+      { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
+      { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
+      { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
+      { title: "1st Place, Washington Music Teachers Association Viola M. Hartman Piano Performance Awards", level: "Regional" },
+      { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International" },
+      { title: "Quarter-Finalist, Concours Alkindi, Animath and France-ioi", level: "International" },
     ],
   },
   {
-    year: "2021-2022",
+    year: "2022",
     items: [
-      { title: "First Prize & Steinway & Sons Special Award, Kaufman Music Center International Youth Piano Competition (Junior I)", level: "International" },
-      { title: "Winner, Gertrude Brown Memorial Piano Concerto Competition (Junior II)", level: "Regional" },
-      { title: "1st Place & Audience Award, 51st Joseph and Goldie Feder Memorial String Competition (Beginner Violin)", level: "Regional" },
-      { title: "1st Place, MSMTA Spring Festival", level: "State" },
-      { title: "Semi-Finalist, Concours Algorea", level: "International" },
-      { title: "DELF French A2", level: "International" },
+      { title: "First Prize and Steinway & Sons Special Award for Best Performance of a Romantic Piece, Junior 1 Division, Kaufman Music Center International Youth Piano Competition", level: "International" },
+      { title: "1st Place, Junior Piano Division, Asian American Music Society International Music Competition", level: "International" },
+      { title: "1st Place and Audience Award, Beginner Violin, 51st Annual Joseph and Goldie Feder Memorial String Competition, Washington Performing Arts", level: "Regional" },
+      { title: "1st Place, Junior II Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
+      { title: "1st Place, Piano Solo, Maryland State Music Teachers Association Spring Festival", level: "State" },
+      { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International" },
     ],
   },
   {
-    year: "2019-2020",
+    year: "2020",
     items: [
-      { title: "1st Place, NVMTA Robert Spencer Piano Concerto Competition", level: "Regional" },
+      { title: "1st Place, Northern Virginia Music Teachers Association Robert Spencer Piano Concerto Competition", level: "Regional" },
     ],
   },
 ];
@@ -202,6 +217,13 @@ export const activities = [
     org: "National Symphony Orchestra",
     description:
       "Performance-oriented training program for serious pre-college musicians, coached by NSO players.",
+  },
+  {
+    period: "2026",
+    title: "Featured Artist, Daily Joy",
+    org: "NPR",
+    description:
+      "Featured as a performing artist on NPR's short daily music program.",
   },
   {
     period: "Summer 2024-present",
@@ -241,8 +263,8 @@ export const activities = [
 export const languages = [
   { name: "Chinese", level: "Fluent" },
   { name: "English", level: "Fluent" },
-  { name: "French", level: "Fluent · DELF A2" },
-  { name: "Spanish", level: "Fluent · National Spanish Exam Gold, Levels III & IV" },
+  { name: "French", level: "Fluent · AP French Language and Culture: 5" },
+  { name: "Spanish", level: "Fluent · National Spanish Examinations Gold Medal, Levels III & IV" },
 ];
 
 /**

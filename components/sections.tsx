@@ -100,25 +100,46 @@ export function Monogram({
 }
 
 export function Portrait({
-  src,
+  light,
+  dark,
   name,
   className = PORTRAIT_SIZE,
 }: {
-  src: string | null;
+  light: string | null;
+  dark: string | null;
   name: string;
   className?: string;
 }) {
-  if (!src) return <Monogram name={name} className={className} />;
+  if (!light && !dark) return <Monogram name={name} className={className} />;
+
+  // Both portraits ship in the markup and CSS picks one, so the right face is
+  // there on the first paint instead of swapping in after mount — same trick
+  // as the wallpaper. The alt text sits on the light copy only; the dark copy
+  // is decorative so a screen reader doesn't read the name twice.
   return (
-    // 640px source against a 320px display box — sharp on a 2x screen.
-    <Image
-      src={src}
-      alt={name}
-      width={640}
-      height={640}
-      priority
-      className={`shrink-0 rounded-full object-cover ${className}`}
-    />
+    <div className={`relative shrink-0 overflow-hidden rounded-full ${className}`}>
+      {light && (
+        <Image
+          src={light}
+          alt={name}
+          fill
+          priority
+          sizes="(max-width: 640px) 64vw, 320px"
+          className="portrait-light object-cover"
+        />
+      )}
+      {dark && (
+        <Image
+          src={dark}
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="(max-width: 640px) 64vw, 320px"
+          className="portrait-dark object-cover"
+        />
+      )}
+    </div>
   );
 }
 

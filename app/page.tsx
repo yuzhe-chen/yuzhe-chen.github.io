@@ -84,7 +84,11 @@ export default function Home() {
           {/* Solid disc in the page background colour, so the portrait reads
               as sitting on the page rather than floating on the wallpaper. */}
           <div className="shrink-0 self-start rounded-full bg-bg p-3 sm:self-auto">
-            <Portrait src={profile.photo} name={profile.name} />
+            <Portrait
+              light={profile.photoLight}
+              dark={profile.photoDark}
+              name={profile.name}
+            />
           </div>
         </div>
 
