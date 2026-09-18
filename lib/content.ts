@@ -47,7 +47,19 @@ export const honors = [
     year: "2026",
     title: "3rd Place, National Finals, Junior Piano Performance Competition",
     org: "Music Teachers National Association",
-    note: "Southern Division Winner the same year, Virginia State Winner in 2025, and Maryland State Winner in 2023 and 2024.",
+    note: "Southern Division Winner the same year, Virginia State Winner in 2025, and Maryland State Winner in 2023 and 2024, advancing from the 2024 Maryland State win to Eastern Division Alternate in 2025.",
+  },
+  {
+    year: "2023",
+    title: "Grand Prix, II International Competition of Pianists Named After Maria and Nataliya Yeshchenko",
+    org: "Kharkiv I.P. Kotlyarevsky National University of Arts, Ukraine",
+    note: "The competition's single top award, given to one pianist across all six age groups, from under-10 to 25 and older. About 50 pianists from seven countries took part.",
+  },
+  {
+    year: "2025",
+    title: "2nd Prize, Division 3, Thomas F. Hulbert International Piano Competition",
+    org: "Thomas F. Hulbert Music Institute",
+    note: "Also 2nd Prize in the same division in 2023.",
   },
   {
     year: "2026",
@@ -155,7 +167,6 @@ export const awardRecord = [
   {
     year: "2024",
     items: [
-      { title: "1st Prize and Grand Prix, II International Competition of Pianists Named After Maria and Natalia Yeshchenko", level: "International" },
       { title: "1st Prize, Talents International Piano Competition Online", level: "International" },
       { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
       { title: "1st Place, Maryland State Music Teachers Association Doris Chase Sonata Competition", level: "Regional" },
@@ -167,6 +178,7 @@ export const awardRecord = [
   {
     year: "2023",
     items: [
+      { title: "Grand Prix, Age Category 2 (11-14), II International Competition of Pianists Named After Maria and Nataliya Yeshchenko", level: "International" },
       { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
       { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
       { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
