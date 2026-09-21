@@ -42,8 +42,14 @@ export const about = [
 ];
 
 /**
- * The handful a reader should see first. Everything else lives in the full
- * list. Years are calendar years, matching `awardRecord`.
+ * What a reader should see first, and awards only -- programs Julian was
+ * accepted to rather than won live in `activities`, a short scroll down, and
+ * the complete list lives in `awardRecord`. Years are calendar years,
+ * matching `awardRecord`.
+ *
+ * One award per entry. A run of results in the same competition reads as
+ * several entries with their own years rather than one entry with the rest
+ * buried in its note.
  *
  * `group` splits the section into Music and Academic. The page sorts each
  * group newest-first on its own, so add an entry anywhere in this list and it
@@ -55,41 +61,55 @@ export const honors = [
     year: "2026",
     title: "3rd Place, National Finals, Junior Piano Performance Competition",
     org: "Music Teachers National Association",
-    note: "Southern Division Winner the same year, Virginia State Winner in 2025, and Maryland State Winner in 2023 and 2024, advancing from the 2024 Maryland State win to Eastern Division Alternate in 2025.",
+    note: "",
+  },
+  {
+    group: "Music",
+    year: "2026",
+    title: "Winner, Southern Division, Junior Piano Performance Competition",
+    org: "Music Teachers National Association",
+    note: "",
+  },
+  {
+    group: "Music",
+    year: "2025",
+    title: "Winner, Virginia State, Junior Piano Performance Competition",
+    org: "Music Teachers National Association",
+    note: "",
+  },
+  {
+    group: "Music",
+    year: "2025",
+    title: "Alternate, Eastern Division, Junior Piano Performance Competition",
+    org: "Music Teachers National Association",
+    note: "",
+  },
+  {
+    group: "Music",
+    year: "2024",
+    title: "Winner, Maryland State, Junior Piano Performance Competition",
+    org: "Music Teachers National Association",
+    note: "",
   },
   {
     group: "Music",
     year: "2023",
     title: "Grand Prix, II International Competition of Pianists Named After Maria and Nataliya Yeshchenko",
     org: "Kharkiv I.P. Kotlyarevsky National University of Arts, Ukraine",
-    note: "The competition's single top award, given to one pianist across all six age groups, from under-10 to 25 and older. About 50 pianists from seven countries took part.",
+    note: "The competition's single top award, given to one pianist across all six age groups, from under-10 to 25 and older.",
+  },
+  {
+    group: "Music",
+    year: "2023",
+    title: "Winner, Maryland State, Junior Piano Performance Competition",
+    org: "Music Teachers National Association",
+    note: "",
   },
   {
     group: "Music",
     year: "2026",
     title: "Finalist, From the Top",
     org: "From the Top",
-    note: "",
-  },
-  {
-    group: "Music",
-    year: "2026",
-    title: "Featured Artist, Daily Joy",
-    org: "NPR",
-    note: "",
-  },
-  {
-    group: "Music",
-    year: "2025-present",
-    title: "Youth Fellow, Chamber Music Program",
-    org: "National Symphony Orchestra",
-    note: "A performance-oriented training program for serious pre-college musicians.",
-  },
-  {
-    group: "Music",
-    year: "Summer 2026",
-    title: "Young Artists Piano Program",
-    org: "Boston University Tanglewood Institute",
     note: "",
   },
   {
@@ -119,14 +139,56 @@ export const honors = [
     year: "2026",
     title: "AP Scholar with Distinction",
     org: "College Board",
-    note: "Also a School Recognition Award from the College Board National Recognition Program.",
+    note: "",
+  },
+  {
+    group: "Academic",
+    year: "2026",
+    title: "Score of 5, AP French Language and Culture",
+    org: "College Board",
+    note: "",
+  },
+  {
+    group: "Academic",
+    year: "2026",
+    title: "School Recognition Award",
+    org: "College Board National Recognition Program",
+    note: "",
   },
   {
     group: "Academic",
     year: "2026",
     title: "Gold Medal, Level IV, National Spanish Examinations",
     org: "American Association of Teachers of Spanish and Portuguese",
-    note: "Gold Medal at Level III in 2025.",
+    note: "",
+  },
+  {
+    group: "Academic",
+    year: "2026",
+    title: "Academic Excellence in Honors Chemistry",
+    org: "Langley High School",
+    note: "",
+  },
+  {
+    group: "Academic",
+    year: "2025",
+    title: "Gold Medal, Level III, National Spanish Examinations",
+    org: "American Association of Teachers of Spanish and Portuguese",
+    note: "",
+  },
+  {
+    group: "Academic",
+    year: "2025",
+    title: "Academic Excellence in Spanish III",
+    org: "Langley High School",
+    note: "",
+  },
+  {
+    group: "Academic",
+    year: "2024",
+    title: "All-A Honor Roll",
+    org: "Cooper Middle School",
+    note: "",
   },
 ];
 

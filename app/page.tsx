@@ -182,7 +182,9 @@ export default function Home() {
                     </p>
                     {g.items.map((a) => (
                       <Entry
-                        key={a.title}
+                        // Title alone isn't unique any more: the same state
+                        // competition is won in more than one year.
+                        key={`${a.title} ${a.year}`}
                         title={a.title}
                         meta={a.year ? `${a.org} · ${a.year}` : a.org}
                         body={a.note || undefined}
