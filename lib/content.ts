@@ -52,6 +52,10 @@ export const about = [
  *
  * Programs Julian was accepted to rather than awards he won -- the NSO
  * fellowship, Tanglewood -- live in `activities`, not here.
+ *
+ * Order within a year: the MTNA competition first, then first places and
+ * academic awards, then anything below a first. AP scores file under the July
+ * their report lands, which is why a run of them shares one year.
  */
 export const awardRecord = [
   {
@@ -59,39 +63,43 @@ export const awardRecord = [
     items: [
       { title: "3rd Place, National Finals, Music Teachers National Association Junior Piano Performance Competition", level: "National" },
       { title: "Winner, Southern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
-      { title: "Finalist, From the Top", level: "National" },
       { title: "1st Place, Friday Morning Music Club Piano Competition", level: "Regional" },
       { title: "1st Place, Young Artist Award Competition, City of Gaithersburg and the Kentlands Community Foundation", level: "Regional" },
       { title: "1st Place, Advanced Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
-      { title: "2nd Place, James C. Macdonald Arts Scholarship Competition, McLean Community Center", level: "Regional" },
-      { title: "Distinguished Theory Award, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
       { title: "AP Scholar with Distinction, College Board", level: "National" },
+      { title: "Score of 5, AP Music Theory, College Board", level: "National" },
+      { title: "Score of 5, AP Psychology, College Board", level: "National" },
+      { title: "Score of 5, AP World History: Modern, College Board", level: "National" },
+      { title: "Score of 5, AP Precalculus, College Board", level: "National" },
       { title: "Score of 5, AP French Language and Culture, College Board", level: "National" },
       { title: "School Recognition Award, College Board National Recognition Program", level: "National" },
       { title: "Gold Medal, Level IV, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National" },
       { title: "Academic Excellence in Honors Chemistry, Langley High School", level: "School" },
+      { title: "Distinguished Theory Award, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
+      { title: "Finalist, From the Top", level: "National" },
+      { title: "2nd Place, James C. Macdonald Arts Scholarship Competition, McLean Community Center", level: "Regional" },
     ],
   },
   {
     year: "2025",
     items: [
-      { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
-      { title: "Alternate, Eastern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
       { title: "Winner, Virginia State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
+      { title: "Alternate, Eastern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
       { title: "1st Place, High School Division, Maryland State Music Teachers Association Elizabeth R. Davis Memorial Piano Competition", level: "Regional" },
       { title: "1st Place, Montgomery County Music Teachers Association Evelyn Swarthout and Patrick Hayes Competition for Piano", level: "Regional" },
       { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
       { title: "1st Place, Bland Music Scholarship Competition, Lions of Virginia Bland Music Scholarship Foundation", level: "State" },
-      { title: "Advanced and Senior Theory Awards, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
       { title: "Gold Medal, Level III, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National" },
       { title: "Academic Excellence in Spanish III, Langley High School", level: "School" },
+      { title: "Advanced and Senior Theory Awards, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
+      { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
     ],
   },
   {
     year: "2024",
     items: [
-      { title: "1st Prize, Talents International Piano Competition Online", level: "International" },
       { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
+      { title: "1st Prize, Talents International Piano Competition Online", level: "International" },
       { title: "1st Place, Maryland State Music Teachers Association Doris Chase Sonata Competition", level: "Regional" },
       { title: "1st Place, Intermediate Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
       { title: "1st Place, Piano Solo, Maryland State Music Teachers Association Spring Festival", level: "State" },
@@ -101,11 +109,11 @@ export const awardRecord = [
   {
     year: "2023",
     items: [
-      { title: "Grand Prix, Age Category 2 (11-14), II International Competition of Pianists Named After Maria and Nataliya Yeshchenko", level: "International" },
-      { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
       { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
+      { title: "Grand Prix, Age Category 2 (11-14), II International Competition of Pianists Named After Maria and Nataliya Yeshchenko", level: "International" },
       { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
       { title: "1st Place, Washington Music Teachers Association Viola M. Hartman Piano Performance Awards", level: "Regional" },
+      { title: "2nd Place, Division 3, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
       { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International" },
       { title: "Quarter-Finalist, Concours Alkindi, Animath and France-ioi", level: "International" },
     ],

@@ -61,6 +61,19 @@ function readTheme(): "light" | "dark" {
 // and the specific one swaps in once the page is interactive.
 const readThemeOnServer = () => null;
 
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={`${ICON} transition-transform ${open ? "rotate-180" : ""}`}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+    >
+      <path d="M5 8.5L12 15.5L19 8.5" />
+    </svg>
+  );
+}
+
 function ThemeToggle() {
   const theme = useSyncExternalStore(
     subscribeTheme,
@@ -118,6 +131,7 @@ export function SiteNav({
   right: { label: string; href: string }[];
 }) {
   const [active, setActive] = useState("");
+  const [open, setOpen] = useState(false);
   const visible = useRef<Set<string>>(new Set());
 
   useEffect(() => {
@@ -144,30 +158,65 @@ export function SiteNav({
     return () => observer.disconnect();
   }, [items]);
 
+  // Escape closes the menu, and so does widening the window back to where the
+  // full row of tabs fits — otherwise it's left open behind the tabs.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const wide = window.matchMedia("(min-width: 640px)");
+    const onWiden = () => setOpen(false);
+    window.addEventListener("keydown", onKey);
+    wide.addEventListener("change", onWiden);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWiden);
+    };
+  }, []);
+
+  // Generous padding — these are the tap targets on a phone. Active gets an
+  // underline rather than a colour change, so every tab stays the same weight
+  // and colour as the body text.
+  const tabClass = (id: string) =>
+    `nav-tab px-3 py-2 uppercase tracking-wide text-fg underline-offset-8 hover:text-accent ${
+      active === id ? "underline decoration-2" : ""
+    }`;
+
   return (
-    <header className="site-header no-print fixed inset-x-0 top-0 z-20 overflow-hidden">
-      {/* The wallpaper, clipped to the bar. Absolutely positioned at the top
-          of a header that is itself fixed to the viewport top, so it lands on
-          exactly the same rect as the page-level copy. */}
-      <HeroLayer className="absolute inset-x-0 top-0 h-screen" />
+    <header className="site-header no-print fixed inset-x-0 top-0 z-20">
+      {/* The wallpaper, clipped to its own box rather than by the header, so
+          that the menu opening below it isn't clipped away with it. */}
+      <div className="absolute inset-0 overflow-hidden">
+        <HeroLayer className="absolute inset-x-0 top-0 h-screen" />
+      </div>
       <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-6 px-5 text-[17px] font-bold sm:px-8">
-        <nav className="no-scrollbar flex flex-1 gap-1.5 overflow-x-auto sm:gap-2">
+        {/* The full row doesn't fit on a phone, and a row that scrolls
+            sideways hides the sections at the end of it with nothing on
+            screen to say they're there. One button instead. */}
+        <button
+          type="button"
+          onClick={() => setOpen((wasOpen) => !wasOpen)}
+          aria-expanded={open}
+          aria-controls="site-menu"
+          className="nav-tab flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg hover:text-accent sm:hidden"
+        >
+          Menu
+          <ChevronIcon open={open} />
+        </button>
+
+        <nav className="hidden flex-1 gap-1.5 sm:flex sm:gap-2">
           {items.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
               aria-current={active === item.id ? "true" : undefined}
-              // Generous padding — these are the tap targets on a phone.
-              // Active gets an underline rather than a colour change, so every
-              // tab stays the same weight and colour as the body text.
-              className={`nav-tab shrink-0 px-3 py-2 uppercase tracking-wide text-fg underline-offset-8 hover:text-accent ${
-                active === item.id ? "underline decoration-2" : ""
-              }`}
+              className={`${tabClass(item.id)} shrink-0`}
             >
               {item.label}
             </a>
           ))}
         </nav>
+
         <div className="flex shrink-0 items-center gap-1.5 text-fg sm:gap-2">
           {right.map((l) => (
             <a
@@ -182,6 +231,43 @@ export function SiteNav({
           ))}
           <ThemeToggle />
         </div>
+      </div>
+
+      {/* Every section, plus the links the bar has no room for at this width.
+          Opaque, because the wallpaper runs behind it. */}
+      <div
+        id="site-menu"
+        className={`relative z-10 border-t border-rule bg-bg sm:hidden ${
+          open ? "" : "hidden"
+        }`}
+      >
+        <ul className="mx-auto flex max-w-[1600px] flex-col px-5 py-2 text-[17px] font-bold">
+          {items.map((item) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                onClick={() => setOpen(false)}
+                aria-current={active === item.id ? "true" : undefined}
+                className={`${tabClass(item.id)} block`}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+          {right.map((l) => (
+            <li key={l.label}>
+              <a
+                href={l.href}
+                target={l.href.startsWith("http") ? "_blank" : undefined}
+                rel={l.href.startsWith("http") ? "noreferrer" : undefined}
+                onClick={() => setOpen(false)}
+                className="nav-tab block px-3 py-2 uppercase tracking-wide text-fg hover:text-accent"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </header>
   );
