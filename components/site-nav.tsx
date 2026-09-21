@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { HeroLayer } from "./hero-backdrop";
 
@@ -28,20 +28,45 @@ function MoonIcon() {
   );
 }
 
-function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark" | null>(null);
+/**
+ * The theme already lives in two places outside React: the data-theme
+ * attribute, stamped on <html> before first paint by the script in the layout,
+ * and localStorage. So the toggle reads it from there instead of copying it
+ * into state inside an effect, which would render the page a second time on
+ * every visit just to label one button.
+ */
+const themeListeners = new Set<() => void>();
 
-  useEffect(() => {
-    const stored =
-      typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
-    if (stored === "light" || stored === "dark") setTheme(stored);
-    else
-      setTheme(
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light",
-      );
-  }, []);
+function subscribeTheme(onChange: () => void) {
+  themeListeners.add(onChange);
+  // A visitor who has never used the toggle follows the system setting, which
+  // can change while the page is open.
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  media.addEventListener("change", onChange);
+  return () => {
+    themeListeners.delete(onChange);
+    media.removeEventListener("change", onChange);
+  };
+}
+
+function readTheme(): "light" | "dark" {
+  const attr = document.documentElement.getAttribute("data-theme");
+  if (attr === "light" || attr === "dark") return attr;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+// The server can't know the visitor's theme, so it renders the generic label
+// and the specific one swaps in once the page is interactive.
+const readThemeOnServer = () => null;
+
+function ThemeToggle() {
+  const theme = useSyncExternalStore(
+    subscribeTheme,
+    readTheme,
+    readThemeOnServer,
+  );
 
   const flip = () => {
     // Read the live DOM rather than React state, so the button works even if
@@ -53,13 +78,14 @@ function ThemeToggle() {
       (attr === null &&
         window.matchMedia("(prefers-color-scheme: dark)").matches);
     const next = isDark ? "light" : "dark";
-    setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
     try {
       localStorage.setItem("theme", next);
     } catch {
       // Private browsing — the toggle still works for this visit.
     }
+    // The attribute is the source of truth, so tell the readers it moved.
+    for (const listener of themeListeners) listener();
   };
 
   return (

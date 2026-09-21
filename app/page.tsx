@@ -36,6 +36,32 @@ const nav = [
 
 const recordCount = awardRecord.reduce((n, g) => n + g.items.length, 0);
 
+/**
+ * Sort key for a display year. The years are written for a reader, not for a
+ * computer -- "2026", "Summer 2026", "2025-present" -- so take the latest year
+ * named, and read "present" as still going, which is this year.
+ */
+function yearKey(year: string) {
+  const years = year.match(/\d{4}/g)?.map(Number) ?? [];
+  const latest = years.length > 0 ? Math.max(...years) : 0;
+  return /present/i.test(year)
+    ? Math.max(latest, new Date().getFullYear())
+    : latest;
+}
+
+// Music first, on a phone as well as a computer. A group with nothing in it
+// drops out rather than leaving a heading over empty space.
+const honorGroups = (["Music", "Academic"] as const)
+  .map((label) => ({
+    label,
+    items: honors
+      .filter((h) => h.group === label)
+      // Newest first. Ties keep the order they're written in, so the list in
+      // lib/content.ts still decides which 2026 award leads.
+      .sort((a, b) => yearKey(b.year) - yearKey(a.year)),
+  }))
+  .filter((g) => g.items.length > 0);
+
 const [city, region] = profile.location.split(", ");
 
 /**
@@ -145,16 +171,26 @@ export default function Home() {
 
           {honors.length > 0 && (
             <Section id="honors" label="Selected Honors">
-              <Columns>
-                {honors.map((a) => (
-                  <Entry
-                    key={a.title}
-                    title={a.title}
-                    meta={a.year ? `${a.org} · ${a.year}` : a.org}
-                    body={a.note || undefined}
-                  />
+              {/* Two labelled groups rather than one flowing list: side by
+                  side on a computer, stacked on a phone with music first, so
+                  each heading sits directly above the entries it covers. */}
+              <div className="grid gap-x-10 md:grid-cols-2">
+                {honorGroups.map((g) => (
+                  <div key={g.label}>
+                    <p className="mb-4 text-[13px] uppercase tracking-wider text-muted">
+                      {g.label}
+                    </p>
+                    {g.items.map((a) => (
+                      <Entry
+                        key={a.title}
+                        title={a.title}
+                        meta={a.year ? `${a.org} · ${a.year}` : a.org}
+                        body={a.note || undefined}
+                      />
+                    ))}
+                  </div>
                 ))}
-              </Columns>
+              </div>
             </Section>
           )}
 

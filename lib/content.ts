@@ -42,59 +42,65 @@ export const about = [
 ];
 
 /**
- * The 6-8 that a reader should see first. Everything else lives in the full
+ * The handful a reader should see first. Everything else lives in the full
  * list. Years are calendar years, matching `awardRecord`.
+ *
+ * `group` splits the section into Music and Academic. The page sorts each
+ * group newest-first on its own, so add an entry anywhere in this list and it
+ * lands in the right place -- only `group` and `year` decide where it shows.
  */
 export const honors = [
   {
+    group: "Music",
     year: "2026",
     title: "3rd Place, National Finals, Junior Piano Performance Competition",
     org: "Music Teachers National Association",
     note: "Southern Division Winner the same year, Virginia State Winner in 2025, and Maryland State Winner in 2023 and 2024, advancing from the 2024 Maryland State win to Eastern Division Alternate in 2025.",
   },
   {
+    group: "Music",
     year: "2023",
     title: "Grand Prix, II International Competition of Pianists Named After Maria and Nataliya Yeshchenko",
     org: "Kharkiv I.P. Kotlyarevsky National University of Arts, Ukraine",
     note: "The competition's single top award, given to one pianist across all six age groups, from under-10 to 25 and older. About 50 pianists from seven countries took part.",
   },
   {
-    year: "2025",
-    title: "2nd Prize, Division 3, Thomas F. Hulbert International Piano Competition",
-    org: "Thomas F. Hulbert Music Institute",
-    note: "Also 2nd Prize in the same division in 2023.",
-  },
-  {
+    group: "Music",
     year: "2026",
     title: "Finalist, From the Top",
     org: "From the Top",
     note: "",
   },
   {
+    group: "Music",
     year: "2026",
     title: "Featured Artist, Daily Joy",
     org: "NPR",
     note: "",
   },
   {
+    group: "Music",
     year: "2025-present",
     title: "Youth Fellow, Chamber Music Program",
     org: "National Symphony Orchestra",
     note: "A performance-oriented training program for serious pre-college musicians.",
   },
   {
+    group: "Music",
     year: "Summer 2026",
     title: "Young Artists Piano Program",
     org: "Boston University Tanglewood Institute",
     note: "",
   },
   {
+    group: "Music",
     year: "2026",
     title: "1st Place, Piano Competition",
     org: "Friday Morning Music Club",
     note: "",
   },
   {
+    group: "Music",
     year: "2022",
     title:
       "First Prize & Steinway & Sons Special Award for Best Performance of a Romantic Piece",
@@ -102,18 +108,21 @@ export const honors = [
     note: "Junior 1 Division.",
   },
   {
+    group: "Music",
     year: "2026",
     title: "1st Place, Advanced Group, Gertrude S. Brown Memorial Piano Concerto Competition",
     org: "Maryland State Music Teachers Association",
     note: "",
   },
   {
+    group: "Academic",
     year: "2026",
     title: "AP Scholar with Distinction",
     org: "College Board",
     note: "Also a School Recognition Award from the College Board National Recognition Program.",
   },
   {
+    group: "Academic",
     year: "2026",
     title: "Gold Medal, Level IV, National Spanish Examinations",
     org: "American Association of Teachers of Spanish and Portuguese",
