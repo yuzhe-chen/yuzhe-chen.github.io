@@ -24,6 +24,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.siteUrl }],
   creator: profile.name,
+  // Proves to Google Search Console that this site is his. Search Console
+  // re-checks it periodically, so it has to stay on the page -- removing it
+  // later drops the verification.
+  verification: {
+    google: "DQcjKmVSjrZ2JVfw5XWrty3bvBaI3k-5MMs2LYxleK8",
+  },
   openGraph: {
     title: pageTitle,
     description: profile.metaDescription,
