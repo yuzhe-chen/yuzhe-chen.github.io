@@ -36,9 +36,49 @@ const nav = [
 
 const recordCount = awardRecord.reduce((n, g) => n + g.items.length, 0);
 
+const [city, region] = profile.location.split(", ");
+
+/**
+ * Structured data. The prose on this page tells a reader who Julian is; this
+ * tells Google the same thing in the form it actually parses -- a person, a
+ * pianist, at this school, with this channel -- so a search for his name can
+ * match this page rather than one of the other pianists named Chen.
+ */
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  alternateName: ["Julian Chen", "Yuzhe Chen"],
+  jobTitle: "Pianist",
+  description: profile.metaDescription,
+  url: profile.siteUrl,
+  image: `${profile.siteUrl}${profile.photoLight ?? "/portrait-light.jpg"}`,
+  email: `mailto:${profile.email}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: city,
+    addressRegion: region,
+    addressCountry: "US",
+  },
+  affiliation: [
+    { "@type": "EducationalOrganization", name: "Langley High School" },
+    { "@type": "MusicGroup", name: "National Symphony Orchestra" },
+  ],
+  // The honors carry the names people actually search alongside his.
+  award: honors.map((h) => `${h.title}, ${h.org} (${h.year})`),
+  knowsLanguage: languages.map((l) => l.name),
+  // Ties this page to the channel, so the two reinforce each other.
+  sameAs: links.map((l) => l.href),
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+
       <HeroBackdrop />
 
       <SiteNav

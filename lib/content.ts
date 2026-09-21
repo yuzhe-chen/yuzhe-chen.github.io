@@ -13,8 +13,11 @@ export const profile = {
     "Award-winning pianist, National Symphony Orchestra Youth Chamber Fellow, passionate about languages and history!",
   location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
+  // The site's own address. Search engines need the absolute URL to build a
+  // canonical link and a sitemap, so everything that needs one reads it here.
+  siteUrl: "https://yuzhe-chen.github.io",
   metaDescription:
-    "Yuzhe (Julian) Chen, pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
+    "Yuzhe (Julian) Chen, pianist and student at Langley High School in Great Falls, Virginia. Competition awards, National Symphony Orchestra chamber program, and service through music.",
   // One portrait per theme, swapped in CSS the same way the wallpaper is.
   // Set either to null to fall back to the monogram.
   photoLight: "/portrait-light.jpg" as string | null, // cropped from MVC_4948.jpg
@@ -312,9 +315,9 @@ export const videos: {
     detail: "Robert Schumann Competition · 2025",
   },
   {
-    id: "tDUKPhlZDD0",
-    title: "Mozart: Piano Concerto No. 21 in C, K. 467 (I)",
-    detail: "with the New England Youth Ensemble · 2024",
+    id: "uzMtMw8RKIE",
+    title: "Schumann: Variations on the Name “Abegg”, Op. 1",
+    detail: "Thomas F. Hulbert International Piano Competition · 2025",
   },
   {
     id: "K52sT2QkNFg",

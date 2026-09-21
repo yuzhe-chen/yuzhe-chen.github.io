@@ -8,13 +8,47 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+// The title leads with the name and says what he does, because that is the
+// line Google prints as the search result, and "pianist" is the word someone
+// adds when more than one Julian Chen exists.
+const pageTitle = `${profile.name} — Pianist`;
+
 export const metadata: Metadata = {
-  title: `${profile.name}, ${profile.school}`,
+  // Makes the relative URLs below absolute. Without it, a relative path in any
+  // URL-based metadata field is a build error.
+  metadataBase: new URL(profile.siteUrl),
+  title: pageTitle,
   description: profile.metaDescription,
+  // One page, one address. Stops the same content being indexed under several
+  // near-identical URLs, which splits whatever ranking it earns.
+  alternates: { canonical: "/" },
+  authors: [{ name: profile.name, url: profile.siteUrl }],
+  creator: profile.name,
   openGraph: {
-    title: profile.name,
+    title: pageTitle,
     description: profile.metaDescription,
     type: "profile",
+    url: "/",
+    siteName: profile.name,
+    images: [{ url: "/portrait-light.jpg", alt: profile.name }],
+  },
+  twitter: {
+    card: "summary",
+    title: pageTitle,
+    description: profile.metaDescription,
+    images: ["/portrait-light.jpg"],
+  },
+  // Said out loud rather than left to the default. The large-image preview is
+  // what lets Google show the portrait beside the result.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
