@@ -2,7 +2,6 @@ import {
   about,
   activities,
   awardRecord,
-  honors,
   languages,
   links,
   profile,
@@ -26,41 +25,14 @@ import { HeroBackdrop } from "@/components/hero-backdrop";
 // Document order matters — the nav highlights the topmost visible entry.
 const nav = [
   { id: "about", label: "About", show: about.length > 0 },
-  { id: "honors", label: "Honors", show: honors.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
-  { id: "record", label: "Record", show: awardRecord.length > 0 },
+  { id: "honors", label: "Honors", show: awardRecord.length > 0 },
   { id: "venues", label: "Venues", show: venues.length > 0 },
   { id: "contact", label: "Contact", show: true },
 ];
 
 const recordCount = awardRecord.reduce((n, g) => n + g.items.length, 0);
-
-/**
- * Sort key for a display year. The years are written for a reader, not for a
- * computer -- "2026", "Summer 2026", "2025-present" -- so take the latest year
- * named, and read "present" as still going, which is this year.
- */
-function yearKey(year: string) {
-  const years = year.match(/\d{4}/g)?.map(Number) ?? [];
-  const latest = years.length > 0 ? Math.max(...years) : 0;
-  return /present/i.test(year)
-    ? Math.max(latest, new Date().getFullYear())
-    : latest;
-}
-
-// Music first, on a phone as well as a computer. A group with nothing in it
-// drops out rather than leaving a heading over empty space.
-const honorGroups = (["Music", "Academic"] as const)
-  .map((label) => ({
-    label,
-    items: honors
-      .filter((h) => h.group === label)
-      // Newest first. Ties keep the order they're written in, so the list in
-      // lib/content.ts still decides which 2026 award leads.
-      .sort((a, b) => yearKey(b.year) - yearKey(a.year)),
-  }))
-  .filter((g) => g.items.length > 0);
 
 const [city, region] = profile.location.split(", ");
 
@@ -90,8 +62,10 @@ const personJsonLd = {
     { "@type": "EducationalOrganization", name: "Langley High School" },
     { "@type": "MusicGroup", name: "National Symphony Orchestra" },
   ],
-  // The honors carry the names people actually search alongside his.
-  award: honors.map((h) => `${h.title}, ${h.org} (${h.year})`),
+  // The awards carry the competition names people search alongside his.
+  award: awardRecord.flatMap((g) =>
+    g.items.map((i) => `${i.title} (${g.year})`),
+  ),
   knowsLanguage: languages.map((l) => l.name),
   // Ties this page to the channel, so the two reinforce each other.
   sameAs: links.map((l) => l.href),
@@ -169,33 +143,6 @@ export default function Home() {
             </Section>
           )}
 
-          {honors.length > 0 && (
-            <Section id="honors" label="Selected Honors">
-              {/* Two labelled groups rather than one flowing list: side by
-                  side on a computer, stacked on a phone with music first, so
-                  each heading sits directly above the entries it covers. */}
-              <div className="grid gap-x-10 md:grid-cols-2">
-                {honorGroups.map((g) => (
-                  <div key={g.label}>
-                    <p className="mb-4 text-[13px] uppercase tracking-wider text-muted">
-                      {g.label}
-                    </p>
-                    {g.items.map((a) => (
-                      <Entry
-                        // Title alone isn't unique any more: the same state
-                        // competition is won in more than one year.
-                        key={`${a.title} ${a.year}`}
-                        title={a.title}
-                        meta={a.year ? `${a.org} · ${a.year}` : a.org}
-                        body={a.note || undefined}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </Section>
-          )}
-
           {activities.length > 0 && (
             <Section
               id="activities"
@@ -236,7 +183,7 @@ export default function Home() {
           )}
 
           {awardRecord.length > 0 && (
-            <Section id="record" label="Record" count={recordCount}>
+            <Section id="honors" label="Selected Honors" count={recordCount}>
               <Columns>
                 {awardRecord.map((group) => (
                   <div key={group.year} className="mb-8">
