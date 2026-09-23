@@ -191,8 +191,20 @@ export default function Home() {
                       {group.year}
                     </p>
                     <ul className="space-y-2">
-                      {group.items.map((item) => (
-                        <li key={item.title} className="text-[16px] leading-snug">
+                      {group.items.map((item, i) => (
+                        <li
+                          key={item.title}
+                          // A hairline where the music awards end. It rides on
+                          // the first academic entry rather than sitting in its
+                          // own row, so there's nothing to collapse or overflow
+                          // on a narrow screen.
+                          className={`text-[16px] leading-snug ${
+                            item.kind === "academic" &&
+                            group.items[i - 1]?.kind === "music"
+                              ? "border-t border-rule pt-2.5"
+                              : ""
+                          }`}
+                        >
                           {item.title}
                           <LevelTag level={item.level} />
                         </li>

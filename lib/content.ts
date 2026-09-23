@@ -52,9 +52,14 @@ export const about = [
  * round the following January and the national final that March all land in
  * the same academic year, which is the point of grouping them this way.
  *
- * Order within a year: the MTNA run first, highest round down, so the
- * progression reads; then first places; then academic awards; then anything
- * below a first.
+ * Order within a year: every music award comes before any academic one, so a
+ * second place in music still sits above a school prize. Within the music
+ * awards, the MTNA run leads, highest round down, so the progression reads;
+ * then first places; then anything below a first.
+ *
+ * `kind` marks which side of that split an award falls on. The page draws a
+ * hairline where music ends and academics begin, so the two read as groups
+ * without a second row of headings.
  *
  * Programs Julian was accepted to rather than awards he won -- the NSO
  * fellowship, Tanglewood -- live in `activities`, not here.
@@ -63,70 +68,68 @@ export const awardRecord = [
   {
     year: "2025-2026",
     items: [
-      { title: "3rd Place, National Finals, Music Teachers National Association Junior Piano Performance Competition", level: "National" },
-      { title: "Winner, Southern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
-      { title: "Winner, Virginia State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
-      { title: "Finalist, From the Top", level: "National" },
-      { title: "1st Place, Friday Morning Music Club Piano Competition", level: "Regional" },
-      { title: "Distinguished Theory Award, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
-      { title: "1st Place, Young Artist Award Competition, City of Gaithersburg and the Kentlands Community Foundation", level: "Regional" },
-      { title: "1st Place, Advanced Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
-      { title: "AP Scholar with Distinction, College Board", level: "National" },
-      { title: "School Recognition Award, College Board National Recognition Program", level: "National" },
-      { title: "Gold Medal, Level IV, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National" },
-      { title: "Academic Excellence in Honors Chemistry, Langley High School", level: "School" },
+      { title: "3rd Place, National Finals, Music Teachers National Association Junior Piano Performance Competition", level: "National", kind: "music" },
+      { title: "Winner, Southern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional", kind: "music" },
+      { title: "Winner, Virginia State, Music Teachers National Association Junior Piano Performance Competition", level: "State", kind: "music" },
+      { title: "Finalist, From the Top", level: "National", kind: "music" },
+      { title: "1st Place, Friday Morning Music Club Piano Competition", level: "Regional", kind: "music" },
+      { title: "Distinguished Theory Award, Maryland State Music Teachers Association Music Theory Testing Program", level: "Regional", kind: "music" },
+      { title: "1st Place, Young Artist Award Competition, City of Gaithersburg and the Kentlands Community Foundation", level: "Regional", kind: "music" },
+      { title: "1st Place, Advanced Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "Regional", kind: "music" },
+      { title: "AP Scholar with Distinction, College Board", level: "National", kind: "academic" },
+      { title: "School Recognition Award, College Board National Recognition Program", level: "National", kind: "academic" },
+      { title: "Gold Medal, Level IV, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National", kind: "academic" },
+      { title: "Academic Excellence in Honors Chemistry, Langley High School", level: "School", kind: "academic" },
     ],
   },
   {
     year: "2024-2025",
     items: [
-      { title: "Alternate (2nd Place), Eastern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional" },
-      { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
-      { title: "1st Place, High School Division, Maryland State Music Teachers Association Elizabeth R. Davis Memorial Piano Competition", level: "Regional" },
-      { title: "1st Place, Montgomery County Music Teachers Association Evelyn Swarthout and Patrick Hayes Competition for Piano", level: "Regional" },
-      { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
-      { title: "1st Place, Bland Music Scholarship Competition, Lions of Virginia Bland Music Scholarship Foundation", level: "State" },
-      { title: "Advanced and Senior Theory Awards, Maryland State Music Teachers Association Music Theory Testing Program", level: "State" },
-      { title: "Gold Medal, Level III, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National" },
-      { title: "Academic Excellence in Spanish III, Langley High School", level: "School" },
-      { title: "2nd Place, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
+      { title: "Alternate (2nd Place), Eastern Division, Music Teachers National Association Junior Piano Performance Competition", level: "Regional", kind: "music" },
+      { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State", kind: "music" },
+      { title: "1st Place, High School Division, Maryland State Music Teachers Association Elizabeth R. Davis Memorial Piano Competition", level: "Regional", kind: "music" },
+      { title: "1st Place, Montgomery County Music Teachers Association Evelyn Swarthout and Patrick Hayes Competition for Piano", level: "Regional", kind: "music" },
+      { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional", kind: "music" },
+      { title: "1st Place, Bland Music Scholarship Competition, Lions of Virginia Bland Music Scholarship Foundation", level: "State", kind: "music" },
+      { title: "Advanced and Senior Theory Awards, Maryland State Music Teachers Association Music Theory Testing Program", level: "Regional", kind: "music" },
+      { title: "2nd Place, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International", kind: "music" },
+      { title: "Gold Medal, Level III, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National", kind: "academic" },
+      { title: "Academic Excellence in Spanish III, Langley High School", level: "School", kind: "academic" },
     ],
   },
   {
     year: "2023-2024",
     items: [
-      { title: "Grand Prix, Age Category 2 (11-14), II International Competition of Pianists Named After Maria and Nataliya Yeshchenko", level: "International" },
-      { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State" },
-      { title: "1st Place, Maryland State Music Teachers Association Doris Chase Sonata Competition", level: "Regional" },
-      { title: "1st Place, Intermediate Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
-      { title: "1st Place, Piano Solo, Maryland State Music Teachers Association Spring Festival", level: "State" },
+      { title: "Grand Prix, Age Category 2 (11-14), II International Competition of Pianists Named After Maria and Nataliya Yeshchenko", level: "International", kind: "music" },
+      { title: "Winner, Maryland State, Music Teachers National Association Junior Piano Performance Competition", level: "State", kind: "music" },
+      { title: "1st Place, Maryland State Music Teachers Association Doris Chase Sonata Competition", level: "Regional", kind: "music" },
+      { title: "1st Place, Intermediate Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "Regional", kind: "music" },
     ],
   },
   {
     year: "2022-2023",
     items: [
-      { title: "1st Place, Junior Piano Division, Asian American Music Society International Music Competition", level: "International" },
-      { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional" },
-      { title: "1st Place, Washington Music Teachers Association Viola M. Hartman Piano Performance Awards", level: "Regional" },
-      { title: "2nd Place, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International" },
-      { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International" },
-      { title: "Quarter-Finalist, Concours Alkindi, Animath and France-ioi", level: "International" },
+      { title: "1st Place, Junior Piano Division, Asian American Music Society International Music Competition", level: "International", kind: "music" },
+      { title: "1st Place, Maryland State Music Teachers Association Miriam Shields Gottlieb Memorial Piano Competition", level: "Regional", kind: "music" },
+      { title: "1st Place, Washington Music Teachers Association Viola M. Hartman Piano Performance Awards", level: "Regional", kind: "music" },
+      { title: "2nd Place, Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute", level: "International", kind: "music" },
+      { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International", kind: "academic" },
+      { title: "Quarter-Finalist, Concours Alkindi, Animath and France-ioi", level: "International", kind: "academic" },
     ],
   },
   {
     year: "2021-2022",
     items: [
-      { title: "First Prize and Steinway & Sons Special Award for Best Performance of a Romantic Piece, Junior 1 Division, Kaufman Music Center International Youth Piano Competition", level: "International" },
-      { title: "1st Place and Audience Award, 51st Annual Joseph and Goldie Feder Memorial String Competition, Washington Performing Arts", level: "Regional" },
-      { title: "1st Place, Junior II Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
-      { title: "1st Place, Piano Solo, Maryland State Music Teachers Association Spring Festival", level: "State" },
-      { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International" },
+      { title: "First Prize and Steinway & Sons Special Award for Best Performance of a Romantic Piece, Junior 1 Division, Kaufman Music Center International Youth Piano Competition", level: "International", kind: "music" },
+      { title: "1st Place and Audience Award, 51st Annual Joseph and Goldie Feder Memorial String Competition, Washington Performing Arts", level: "Regional", kind: "music" },
+      { title: "1st Place, Junior II Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "Regional", kind: "music" },
+      { title: "Semi-Finalist, Concours Algoréa, Animath and France-ioi", level: "International", kind: "academic" },
     ],
   },
   {
     year: "2019-2020",
     items: [
-      { title: "1st Place, Northern Virginia Music Teachers Association Robert Spencer Piano Concerto Competition", level: "Regional" },
+      { title: "1st Place, Northern Virginia Music Teachers Association Robert Spencer Piano Concerto Competition", level: "Regional", kind: "music" },
     ],
   },
 ];
@@ -187,13 +190,6 @@ export const activities = [
     title: "Member",
     org: "Latin Club, Langley High School",
     description: "Member since freshman year.",
-  },
-  {
-    period: "2024-present",
-    title: "Outreach Subteam",
-    org: "Robotics Club, Langley High School",
-    description:
-      "I run outreach to local schools and younger students, introducing them to robotics.",
   },
 ];
 
