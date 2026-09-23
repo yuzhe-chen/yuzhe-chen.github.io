@@ -100,7 +100,6 @@ export const awardRecord = [
       { title: "1st Place, Maryland State Music Teachers Association Doris Chase Sonata Competition", level: "Regional" },
       { title: "1st Place, Intermediate Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "State" },
       { title: "1st Place, Piano Solo, Maryland State Music Teachers Association Spring Festival", level: "State" },
-      { title: "All-A Honor Roll, Cooper Middle School", level: "School" },
     ],
   },
   {
