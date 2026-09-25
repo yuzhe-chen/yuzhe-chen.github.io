@@ -85,7 +85,10 @@ export default function Home() {
           id="hero"
           // Full viewport, with the nav's height reserved at the top so the
           // content lands optically centred on screen rather than under it.
-          className="flex min-h-[100vh] flex-col justify-center gap-6 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
+          // svh, not vh: on a phone `100vh` counts the space behind the
+          // browser's collapsing address bar, which leaves the hero taller
+          // than the screen it's meant to fill and pushed off centre.
+          className="flex min-h-svh flex-col justify-center gap-6 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
         >
           <div className="min-w-0 flex-1">
             <h1 className="display-hero">
@@ -99,7 +102,7 @@ export default function Home() {
                 else, as wide as the column it sits in, with the school line
                 captioning it. From `sm` up it moves back beside the name and
                 the caption goes back to being a line of its own. */}
-            <figure className="mt-3 sm:hidden">
+            <figure className="mt-4 sm:hidden">
               <div className="bg-bg p-3">
                 <Portrait
                   light={profile.photoLight}
@@ -108,33 +111,22 @@ export default function Home() {
                   className="aspect-square w-full"
                 />
               </div>
-              <figcaption className="mt-1.5 text-[15px] text-muted">
+              {/* Tight to the picture, so it reads as its caption rather than
+                  as another loose line under it. */}
+              <figcaption className="mt-1 text-[15px] text-muted">
                 {profile.school}
               </figcaption>
             </figure>
 
-            {/* Tighter on a phone: the lines sit close enough to read as one
-                block under the picture rather than as scattered rows. */}
-            <p className="mt-3 max-w-[40ch] text-[22px] leading-snug sm:mt-6 sm:text-[26px]">
+            {/* A clear break after the captioned picture — bigger than the gap
+                holding the caption to it, so the two don't read as one run of
+                evenly spaced lines. */}
+            <p className="mt-5 max-w-[40ch] text-[22px] leading-snug sm:mt-6 sm:text-[26px]">
               {profile.tagline}
             </p>
             <p className="mt-4 hidden text-[15px] text-muted sm:block">
               {profile.school}
             </p>
-            <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[15px] sm:mt-5">
-              {links.map((l) => (
-                <li key={l.label}>
-                  <a
-                    href={l.href}
-                    target={l.href.startsWith("http") ? "_blank" : undefined}
-                    rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-                    className="underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
           {/* A solid mat in the page background colour, so the portrait reads
               as sitting on the page rather than floating on the wallpaper.
