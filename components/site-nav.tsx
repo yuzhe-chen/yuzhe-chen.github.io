@@ -285,8 +285,10 @@ export function SiteNav({
         >
           {/* The tabs are what gets clipped when they don't fit. The More
               button and its menu stay outside that box, or the menu would be
-              clipped along with them. */}
-          <div className="flex min-w-0 flex-1 gap-1.5 overflow-hidden sm:gap-2">
+              clipped along with them. No flex-1 here: the box is only as wide
+              as the tabs it holds, so More sits against the last one rather
+              than being pushed to the far end of the bar. */}
+          <div className="flex min-w-0 gap-1.5 overflow-hidden sm:gap-2">
             {items.slice(0, shown).map((item) => (
               <a
                 key={item.id}
@@ -319,7 +321,7 @@ export function SiteNav({
               <div
                 id="site-more"
                 aria-hidden={!moreOpen}
-                className={`absolute right-0 top-full min-w-[11rem] border border-rule bg-bg py-1 transition duration-150 ease-out ${
+                className={`absolute left-0 top-full min-w-[11rem] border border-rule bg-bg py-1 transition duration-150 ease-out ${
                   moreOpen
                     ? "translate-y-0 opacity-100"
                     : "pointer-events-none -translate-y-1 opacity-0"

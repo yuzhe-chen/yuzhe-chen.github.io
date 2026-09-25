@@ -85,10 +85,12 @@ export default function Home() {
           id="hero"
           // Full viewport, with the nav's height reserved at the top so the
           // content lands optically centred on screen rather than under it.
-          // svh, not vh: on a phone `100vh` counts the space behind the
-          // browser's collapsing address bar, which leaves the hero taller
-          // than the screen it's meant to fill and pushed off centre.
-          className="flex min-h-svh flex-col justify-center gap-6 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
+          // No forced height on a phone: the hero is as tall as what's in it,
+          // the name starts just under the bar, and the page below begins
+          // right after the picture instead of a screenful later. Above that
+          // it still fills the screen — svh rather than vh, since `100vh`
+          // counts the space behind a phone browser's address bar.
+          className="flex flex-col justify-center gap-6 pt-14 pb-4 sm:min-h-svh sm:flex-row sm:items-center sm:gap-12 sm:pt-24 sm:pb-8"
         >
           <div className="min-w-0 flex-1">
             <h1 className="display-hero">
@@ -104,24 +106,19 @@ export default function Home() {
               {profile.tagline}
             </p>
 
-            {/* On a phone the portrait runs the full width of the column with
-                the school line captioning it. Both sit on one mat, so the page
-                colour behind the picture carries on behind the caption instead
-                of stopping at the picture's edge. From `sm` up the portrait
-                moves beside the name and the caption is a line of its own. */}
-            <figure className="mt-5 sm:hidden">
-              <div className="bg-bg p-3">
-                <Portrait
-                  light={profile.photoLight}
-                  dark={profile.photoDark}
-                  name={profile.name}
-                  className="aspect-square w-full"
-                />
-                <figcaption className="mt-2 text-[15px] text-fg">
-                  {profile.school}
-                </figcaption>
-              </div>
-            </figure>
+            {/* On a phone the portrait runs the full width of the column, on
+                a mat in the page colour so it doesn't float on the wallpaper.
+                No caption: the school line under a photograph read as a date
+                stamp on it. From `sm` up the portrait moves beside the name
+                and the school line is its own line under the description. */}
+            <div className="mt-5 bg-bg p-3 sm:hidden">
+              <Portrait
+                light={profile.photoLight}
+                dark={profile.photoDark}
+                name={profile.name}
+                className="aspect-square w-full"
+              />
+            </div>
             <p className="mt-4 hidden text-[15px] text-muted sm:block">
               {profile.school}
             </p>
