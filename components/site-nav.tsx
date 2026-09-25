@@ -132,7 +132,12 @@ export function SiteNav({
 }) {
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
+  // How many tabs fit on the line at this width; the rest go under More.
+  const [shown, setShown] = useState(items.length);
+  const [moreOpen, setMoreOpen] = useState(false);
   const visible = useRef<Set<string>>(new Set());
+  const rowRef = useRef<HTMLElement>(null);
+  const probeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const sections = items
@@ -158,14 +163,80 @@ export function SiteNav({
     return () => observer.disconnect();
   }, [items]);
 
-  // Escape closes the menu, and so does widening the window back to where the
-  // full row of tabs fits — otherwise it's left open behind the tabs.
+  /**
+   * Between the phone menu and a screen wide enough for every tab there's a
+   * band — tablets, half-screen windows — where some fit and some don't.
+   * Rather than pick a width and guess, measure it: an invisible copy of the
+   * row gives the natural width of each tab and of the More button, and the
+   * visible row takes as many as the space actually holds.
+   */
+  useEffect(() => {
+    const row = rowRef.current;
+    const probe = probeRef.current;
+    if (!row || !probe) return;
+
+    const GAP = 8; // matches sm:gap-2
+    let raf = 0;
+
+    const measure = () => {
+      raf = 0;
+      // Zero on a phone, where the row is display:none and the menu button
+      // has taken over; nothing to fit in that case.
+      const available = row.clientWidth;
+      if (available === 0) return;
+
+      const tabs = Array.from(
+        probe.querySelectorAll<HTMLElement>("[data-probe-tab]"),
+      ).map((el) => el.offsetWidth);
+      const more =
+        probe.querySelector<HTMLElement>("[data-probe-more]")?.offsetWidth ?? 0;
+
+      const whole = tabs.reduce((sum, w) => sum + w + GAP, -GAP);
+      if (whole <= available) {
+        setShown(tabs.length);
+        return;
+      }
+
+      // Everything shown now has to share the line with the More button.
+      let used = more + GAP;
+      let fits = 0;
+      for (const width of tabs) {
+        if (used + width > available) break;
+        used += width + GAP;
+        fits += 1;
+      }
+      setShown(fits);
+    };
+
+    // Deliberately out of the effect body: measuring reads layout, and setting
+    // state from it synchronously would re-render before the browser paints.
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+
+    schedule();
+    const observer = new ResizeObserver(schedule);
+    observer.observe(row);
+    return () => {
+      observer.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [items]);
+
+  // Escape closes either menu, and so does widening the window back to where
+  // the full row of tabs fits — otherwise one is left open behind the tabs.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        setMoreOpen(false);
+      }
     };
     const wide = window.matchMedia("(min-width: 640px)");
-    const onWiden = () => setOpen(false);
+    const onWiden = () => {
+      setOpen(false);
+      setMoreOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     wide.addEventListener("change", onWiden);
     return () => {
@@ -208,8 +279,11 @@ export function SiteNav({
           <ChevronIcon open={open} />
         </button>
 
-        <nav className="hidden flex-1 gap-1.5 sm:flex sm:gap-2">
-          {items.map((item) => (
+        <nav
+          ref={rowRef}
+          className="hidden min-w-0 flex-1 gap-1.5 overflow-hidden sm:flex sm:gap-2"
+        >
+          {items.slice(0, shown).map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
@@ -219,7 +293,68 @@ export function SiteNav({
               {item.label}
             </a>
           ))}
+          {shown < items.length && (
+            <button
+              type="button"
+              onClick={() => setMoreOpen((wasOpen) => !wasOpen)}
+              aria-expanded={moreOpen}
+              aria-controls="site-more"
+              className={`${tabClass("")} flex shrink-0 items-center gap-1.5`}
+            >
+              More
+              <ChevronIcon open={moreOpen} />
+            </button>
+          )}
         </nav>
+
+        {/* Measured, never seen: the natural width of every tab and of the
+            More button, so the row above can be cut to what fits. Absolute, so
+            it costs the layout nothing. */}
+        <div
+          ref={probeRef}
+          aria-hidden
+          className="pointer-events-none invisible absolute left-0 top-0 hidden gap-1.5 sm:flex sm:gap-2"
+        >
+          {items.map((item) => (
+            <span
+              key={item.id}
+              data-probe-tab
+              className={`${tabClass(item.id)} shrink-0`}
+            >
+              {item.label}
+            </span>
+          ))}
+          <span
+            data-probe-more
+            className={`${tabClass("")} flex shrink-0 items-center gap-1.5`}
+          >
+            More
+            <ChevronIcon open={false} />
+          </span>
+        </div>
+
+        {/* The overflow itself. A sibling of the row rather than a child of
+            it, because the row clips what doesn't fit and would clip this. */}
+        {shown < items.length && (
+          <div
+            id="site-more"
+            className={`absolute right-5 top-full min-w-[11rem] border border-rule bg-bg py-1 sm:right-8 ${
+              moreOpen ? "" : "hidden"
+            }`}
+          >
+            {items.slice(shown).map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={() => setMoreOpen(false)}
+                aria-current={active === item.id ? "true" : undefined}
+                className={`${tabClass(item.id)} block whitespace-nowrap`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        )}
 
         <div className="flex shrink-0 items-center gap-1.5 text-fg sm:gap-2">
           {right.map((l) => (

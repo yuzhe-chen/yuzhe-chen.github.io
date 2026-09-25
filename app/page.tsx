@@ -85,7 +85,7 @@ export default function Home() {
           id="hero"
           // Full viewport, with the nav's height reserved at the top so the
           // content lands optically centred on screen rather than under it.
-          className="flex min-h-[100vh] flex-col justify-center gap-8 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
+          className="flex min-h-[100vh] flex-col justify-center gap-6 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
         >
           <div className="min-w-0 flex-1">
             <h1 className="display-hero">
@@ -94,11 +94,34 @@ export default function Home() {
               <span className="sm:hidden">{profile.shortName}</span>
               <span className="hidden sm:inline">{profile.name}</span>
             </h1>
-            <p className="mt-6 max-w-[40ch] text-[22px] leading-snug sm:text-[26px]">
+
+            {/* On a phone the portrait comes between the name and everything
+                else, as wide as the column it sits in, with the school line
+                captioning it. From `sm` up it moves back beside the name and
+                the caption goes back to being a line of its own. */}
+            <figure className="mt-3 sm:hidden">
+              <div className="bg-bg p-3">
+                <Portrait
+                  light={profile.photoLight}
+                  dark={profile.photoDark}
+                  name={profile.name}
+                  className="aspect-square w-full"
+                />
+              </div>
+              <figcaption className="mt-1.5 text-[15px] text-muted">
+                {profile.school}
+              </figcaption>
+            </figure>
+
+            {/* Tighter on a phone: the lines sit close enough to read as one
+                block under the picture rather than as scattered rows. */}
+            <p className="mt-3 max-w-[40ch] text-[22px] leading-snug sm:mt-6 sm:text-[26px]">
               {profile.tagline}
             </p>
-            <p className="mt-4 text-[15px] text-muted">{profile.school}</p>
-            <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
+            <p className="mt-4 hidden text-[15px] text-muted sm:block">
+              {profile.school}
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[15px] sm:mt-5">
               {links.map((l) => (
                 <li key={l.label}>
                   <a
@@ -115,9 +138,9 @@ export default function Home() {
           </div>
           {/* A solid mat in the page background colour, so the portrait reads
               as sitting on the page rather than floating on the wallpaper.
-              Square on a phone, where the outside of the mat lines up with the
-              name above it; a disc beside the name from `sm` up. */}
-          <div className="shrink-0 self-start bg-bg p-3 sm:self-auto sm:rounded-full">
+              From `sm` up only: on a phone the portrait is up in the column
+              above, at the full width of the text. */}
+          <div className="hidden shrink-0 self-start bg-bg p-3 sm:block sm:self-auto sm:rounded-full">
             <Portrait
               light={profile.photoLight}
               dark={profile.photoDark}

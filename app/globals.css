@@ -104,22 +104,57 @@ body {
 }
 
 /*
+ * Both floors above stop scaling at around 530px, which is wider than a phone:
+ * below that the label is stuck at its minimum while the screen keeps
+ * shrinking. A single long word — PERFORMANCES — plus its count then runs past
+ * the edge and takes the whole page's width with it. On a phone, keep scaling
+ * with the viewport all the way down. The ceilings meet the sizes the rules
+ * above give at 640px, so nothing jumps at the breakpoint.
+ */
+@media (max-width: 639px) {
+  .display {
+    font-size: clamp(1.5rem, 9vw, 3rem);
+  }
+  .count {
+    font-size: clamp(1.25rem, 5.5vw, 2.5rem);
+  }
+}
+
+/*
  * Hero wallpaper. --scrim is how much of the page background is laid over the
- * photo. One photo serves both themes now, and it is a bright midday coast:
- * pale sky, paler water. Black type sits on that comfortably with a light
- * wash; white type does not sit on it at all, so dark mode lays down most of
- * a black ground first and lets the photo read as texture underneath.
+ * photo, and each theme has its own photo. Light gets the bright midday
+ * coast, which black type needs washed back a little to sit on; dark gets the
+ * dusk photo, which is close to black already and needs very little.
  */
 :root {
   --scrim: 30%;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --scrim: 62%;
+    --scrim: 22%;
   }
 }
 :root[data-theme="dark"] {
-  --scrim: 62%;
+  --scrim: 22%;
+}
+
+/* Each theme gets its own wallpaper; the other is faded out. */
+.hero-img-dark {
+  opacity: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-img-light {
+    opacity: 0;
+  }
+  :root:not([data-theme="light"]) .hero-img-dark {
+    opacity: 1;
+  }
+}
+:root[data-theme="dark"] .hero-img-light {
+  opacity: 0;
+}
+:root[data-theme="dark"] .hero-img-dark {
+  opacity: 1;
 }
 
 /* Same swap for the portrait: one face per theme, the other faded out. */
@@ -141,14 +176,6 @@ body {
   opacity: 1;
 }
 
-/*
- * In the light photo he is looking out of the page, away from everything on
- * it. Mirroring turns him back toward the name and the text beside it.
- */
-.portrait-light {
-  transform: scaleX(-1);
-}
-
 .hero-scrim {
   background:
     linear-gradient(
@@ -157,6 +184,25 @@ body {
       color-mix(in srgb, var(--bg) var(--scrim), transparent) 55%,
       var(--bg) 100%
     );
+}
+
+/*
+ * On a phone the menu bar is solid rather than a window onto the wallpaper,
+ * so the photo under it would start on a hard horizontal edge. Fading the top
+ * of the photo into the page colour lets the two meet without a seam. Above
+ * `sm` the bar shows the photo continuing, so there is no seam to hide.
+ */
+@media (max-width: 639px) {
+  .hero-scrim {
+    background:
+      linear-gradient(
+        to bottom,
+        var(--bg) 0%,
+        color-mix(in srgb, var(--bg) var(--scrim), transparent) 20%,
+        color-mix(in srgb, var(--bg) var(--scrim), transparent) 55%,
+        var(--bg) 100%
+      );
+  }
 }
 
 /*

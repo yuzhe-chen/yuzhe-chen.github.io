@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useEffect } from "react";
 
-// Renamed whenever the photo changes, so cached copies of the old one can't
-// linger under the same URL. One photo serves both themes; what changes
-// between them is how much of the page colour is laid over it (--scrim).
-const HERO = "/hero-coast.webp";
+// Renamed whenever a photo changes, so cached copies of the old one can't
+// linger under the same URL. One photo per theme, swapped in CSS.
+const LIGHT = "/hero-coast.webp";
+const DARK = "/hero-dark.jpg";
 
 /**
  * The wallpaper itself, rendered twice: once behind the page, and once inside
@@ -24,15 +24,24 @@ export function HeroLayer({ className = "" }: { className?: string }) {
       aria-hidden
       className={`pointer-events-none will-change-[transform,opacity] ${className}`}
     >
-      {/* Held left of centre so the open water sits behind the name and the
-          headland stays in frame on a phone, where cover crops hard. */}
+      {/* The coast is held left of centre so the open water sits behind the
+          name and the headland stays in frame on a phone, where cover crops
+          hard. */}
       <Image
-        src={HERO}
+        src={LIGHT}
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[38%_55%]"
+        className="hero-img-light object-cover object-[38%_55%]"
+      />
+      <Image
+        src={DARK}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="hero-img-dark object-cover object-[45%_28%]"
       />
       <div className="hero-scrim absolute inset-0" />
     </div>

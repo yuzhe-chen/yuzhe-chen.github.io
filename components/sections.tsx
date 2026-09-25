@@ -27,7 +27,9 @@ export function Section({
           section has no count — otherwise About and Contact would claim its
           space and their text would start further left than everything else. */}
       <div className="grid gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)_5.5rem] lg:gap-x-10">
-        <div className="flex items-start justify-between gap-6">
+        {/* Tighter gap on a phone: every pixel between the label and its
+            count is a pixel the longest label doesn't have. */}
+        <div className="flex items-start justify-between gap-3 sm:gap-6">
           <h2 className="display">{label}</h2>
           {n && <span className="count lg:hidden">{n}</span>}
         </div>
@@ -73,11 +75,10 @@ export function Entry({
   );
 }
 
-// Square on a phone, where it sits under the name and its edges line up with
-// the text; a disc from `sm` up, where it sits beside the name instead. The
-// source images are already square, so nothing is cropped either way.
-const PORTRAIT_SIZE =
-  "h-[min(72vw,320px)] w-[min(72vw,320px)] sm:rounded-full";
+// The default: the disc that sits beside the name on a wide screen. The phone
+// hero passes its own shape instead — a square as wide as the column. The
+// source images are already square, so neither one crops.
+const PORTRAIT_SIZE = "h-[min(64vw,320px)] w-[min(64vw,320px)] rounded-full";
 
 export function Monogram({
   name,
@@ -128,7 +129,7 @@ export function Portrait({
           alt={name}
           fill
           priority
-          sizes="(max-width: 640px) 64vw, 320px"
+          sizes="(max-width: 640px) 100vw, 320px"
           className="portrait-light object-cover"
         />
       )}
@@ -139,7 +140,7 @@ export function Portrait({
           aria-hidden
           fill
           priority
-          sizes="(max-width: 640px) 64vw, 320px"
+          sizes="(max-width: 640px) 100vw, 320px"
           className="portrait-dark object-cover"
         />
       )}
