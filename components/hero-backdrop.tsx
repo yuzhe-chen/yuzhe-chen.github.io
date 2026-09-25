@@ -19,30 +19,38 @@ const DARK = "/hero-dark.jpg";
  */
 export function HeroLayer({ className = "" }: { className?: string }) {
   return (
-    <div
-      data-hero-layer
-      aria-hidden
-      className={`pointer-events-none will-change-[transform,opacity] ${className}`}
-    >
-      {/* The coast is held left of centre so the open water sits behind the
-          name and the headland stays in frame on a phone, where cover crops
-          hard. */}
-      <Image
-        src={LIGHT}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hero-img-light object-cover object-[38%_55%]"
-      />
-      <Image
-        src={DARK}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hero-img-dark object-cover object-[45%_28%]"
-      />
+    <div aria-hidden className={`pointer-events-none ${className}`}>
+      {/* Only the photograph drifts and fades. */}
+      <div
+        data-hero-layer
+        className="absolute inset-0 will-change-[transform,opacity]"
+      >
+        {/* The coast is held left of centre so the open water sits behind the
+            name and the headland stays in frame on a phone, where cover crops
+            hard. */}
+        <Image
+          src={LIGHT}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-img-light object-cover object-[38%_55%]"
+        />
+        <Image
+          src={DARK}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-img-dark object-cover object-[45%_28%]"
+        />
+      </div>
+      {/* The wash stays put. It belongs to the top of the screen — the fade
+          out from under the bar — not to the photo drifting behind it, so it
+          holds its place while you scroll instead of sliding up and exposing
+          a hard edge. Keeping it out of the transformed layer also keeps it
+          repainting when the theme changes: a promoted layer can hold its old
+          colours until something forces a repaint. */}
       <div className="hero-scrim absolute inset-0" />
     </div>
   );

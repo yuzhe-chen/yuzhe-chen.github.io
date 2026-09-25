@@ -94,11 +94,16 @@ body {
 }
 
 /* The count that sits at the far right of each section label. */
+/*
+ * Set to exactly the label's size: two different large sizes on one line read
+ * as a mistake rather than as a hierarchy. The count stays quiet on colour
+ * alone.
+ */
 .count {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 0.88;
-  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-size: clamp(2.5rem, 7.5vw, 5.5rem);
   color: var(--faint);
   font-variant-numeric: tabular-nums;
 }
@@ -112,11 +117,9 @@ body {
  * above give at 640px, so nothing jumps at the breakpoint.
  */
 @media (max-width: 639px) {
-  .display {
-    font-size: clamp(1.5rem, 9vw, 3rem);
-  }
+  .display,
   .count {
-    font-size: clamp(1.25rem, 5.5vw, 2.5rem);
+    font-size: clamp(1.5rem, 9vw, 3rem);
   }
 }
 
@@ -198,8 +201,11 @@ body {
       linear-gradient(
         to bottom,
         var(--bg) 0%,
-        color-mix(in srgb, var(--bg) var(--scrim), transparent) 20%,
-        color-mix(in srgb, var(--bg) var(--scrim), transparent) 55%,
+        var(--bg) 9%,
+        color-mix(in srgb, var(--bg) 70%, transparent) 16%,
+        color-mix(in srgb, var(--bg) 46%, transparent) 25%,
+        color-mix(in srgb, var(--bg) var(--scrim), transparent) 36%,
+        color-mix(in srgb, var(--bg) var(--scrim), transparent) 60%,
         var(--bg) 100%
       );
   }

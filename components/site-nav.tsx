@@ -281,29 +281,63 @@ export function SiteNav({
 
         <nav
           ref={rowRef}
-          className="hidden min-w-0 flex-1 gap-1.5 overflow-hidden sm:flex sm:gap-2"
+          className="hidden min-w-0 flex-1 items-center gap-1.5 sm:flex sm:gap-2"
         >
-          {items.slice(0, shown).map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              aria-current={active === item.id ? "true" : undefined}
-              className={`${tabClass(item.id)} shrink-0`}
-            >
-              {item.label}
-            </a>
-          ))}
+          {/* The tabs are what gets clipped when they don't fit. The More
+              button and its menu stay outside that box, or the menu would be
+              clipped along with them. */}
+          <div className="flex min-w-0 flex-1 gap-1.5 overflow-hidden sm:gap-2">
+            {items.slice(0, shown).map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                aria-current={active === item.id ? "true" : undefined}
+                className={`${tabClass(item.id)} shrink-0`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+
           {shown < items.length && (
-            <button
-              type="button"
-              onClick={() => setMoreOpen((wasOpen) => !wasOpen)}
-              aria-expanded={moreOpen}
-              aria-controls="site-more"
-              className={`${tabClass("")} flex shrink-0 items-center gap-1.5`}
-            >
-              More
-              <ChevronIcon open={moreOpen} />
-            </button>
+            <div className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => setMoreOpen((wasOpen) => !wasOpen)}
+                aria-expanded={moreOpen}
+                aria-controls="site-more"
+                className={`${tabClass("")} flex items-center gap-1.5`}
+              >
+                More
+                <ChevronIcon open={moreOpen} />
+              </button>
+              {/* Hung from the button, so it drops from the thing that was
+                  clicked rather than from the far corner of the bar. Kept in
+                  the DOM and faded rather than switched on and off, so it has
+                  something to animate; reduced-motion drops the transition
+                  along with every other one on the page. */}
+              <div
+                id="site-more"
+                aria-hidden={!moreOpen}
+                className={`absolute right-0 top-full min-w-[11rem] border border-rule bg-bg py-1 transition duration-150 ease-out ${
+                  moreOpen
+                    ? "translate-y-0 opacity-100"
+                    : "pointer-events-none -translate-y-1 opacity-0"
+                }`}
+              >
+                {items.slice(shown).map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={() => setMoreOpen(false)}
+                    aria-current={active === item.id ? "true" : undefined}
+                    className={`${tabClass(item.id)} block whitespace-nowrap`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           )}
         </nav>
 
@@ -333,28 +367,6 @@ export function SiteNav({
           </span>
         </div>
 
-        {/* The overflow itself. A sibling of the row rather than a child of
-            it, because the row clips what doesn't fit and would clip this. */}
-        {shown < items.length && (
-          <div
-            id="site-more"
-            className={`absolute right-5 top-full min-w-[11rem] border border-rule bg-bg py-1 sm:right-8 ${
-              moreOpen ? "" : "hidden"
-            }`}
-          >
-            {items.slice(shown).map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={() => setMoreOpen(false)}
-                aria-current={active === item.id ? "true" : undefined}
-                className={`${tabClass(item.id)} block whitespace-nowrap`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-        )}
 
         <div className="flex shrink-0 items-center gap-1.5 text-fg sm:gap-2">
           {right.map((l) => (

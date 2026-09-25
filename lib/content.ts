@@ -12,7 +12,8 @@ export const profile = {
   // The hero drops the middle name on a phone, where the full one can't hold
   // a single line at the size the name is set in.
   shortName: "Yuzhe Chen",
-  tagline: "Award-winning pianist, connoisseur of languages and history.",
+  tagline:
+    "Award-winning pianist, connoisseur of languages and aficionado of history.",
   school: "Langley High School, Class of 2028",
   // The site's own address. Search engines need the absolute URL to build a
   // canonical link and a sitemap, so everything that needs one reads it here.

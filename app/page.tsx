@@ -98,11 +98,18 @@ export default function Home() {
               <span className="hidden sm:inline">{profile.name}</span>
             </h1>
 
-            {/* On a phone the portrait comes between the name and everything
-                else, as wide as the column it sits in, with the school line
-                captioning it. From `sm` up it moves back beside the name and
-                the caption goes back to being a line of its own. */}
-            <figure className="mt-4 sm:hidden">
+            {/* Straight under the name, and on a phone at the same size as
+                the body text further down the page. */}
+            <p className="mt-3 max-w-[40ch] text-[17px] leading-7 sm:mt-6 sm:text-[26px] sm:leading-snug">
+              {profile.tagline}
+            </p>
+
+            {/* On a phone the portrait runs the full width of the column with
+                the school line captioning it. Both sit on one mat, so the page
+                colour behind the picture carries on behind the caption instead
+                of stopping at the picture's edge. From `sm` up the portrait
+                moves beside the name and the caption is a line of its own. */}
+            <figure className="mt-5 sm:hidden">
               <div className="bg-bg p-3">
                 <Portrait
                   light={profile.photoLight}
@@ -110,20 +117,11 @@ export default function Home() {
                   name={profile.name}
                   className="aspect-square w-full"
                 />
+                <figcaption className="mt-2 text-[15px] text-fg">
+                  {profile.school}
+                </figcaption>
               </div>
-              {/* Tight to the picture, so it reads as its caption rather than
-                  as another loose line under it. */}
-              <figcaption className="mt-1 text-[15px] text-muted">
-                {profile.school}
-              </figcaption>
             </figure>
-
-            {/* A clear break after the captioned picture — bigger than the gap
-                holding the caption to it, so the two don't read as one run of
-                evenly spaced lines. */}
-            <p className="mt-5 max-w-[40ch] text-[22px] leading-snug sm:mt-6 sm:text-[26px]">
-              {profile.tagline}
-            </p>
             <p className="mt-4 hidden text-[15px] text-muted sm:block">
               {profile.school}
             </p>
