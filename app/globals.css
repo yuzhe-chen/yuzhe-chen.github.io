@@ -73,6 +73,26 @@ body {
   font-size: clamp(3rem, 11vw, 8.5rem);
 }
 
+/*
+ * The name in the hero. On a phone it has to hold one line — broken across
+ * two it stops reading as a name — so it is sized off the viewport width and
+ * never wraps. From `sm` up there is room for the full name at full size.
+ */
+.display-hero {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  font-size: clamp(2rem, 12.5vw, 3.25rem);
+  white-space: nowrap;
+}
+@media (min-width: 640px) {
+  .display-hero {
+    font-size: clamp(3rem, 11vw, 8.5rem);
+    white-space: normal;
+  }
+}
+
 /* The count that sits at the far right of each section label. */
 .count {
   font-weight: 800;
@@ -85,43 +105,21 @@ body {
 
 /*
  * Hero wallpaper. --scrim is how much of the page background is laid over the
- * photo: dark mode needs more, since white type over a bright sky is worse
- * than black type over one.
- */
-/*
- * Measured against the actual crops: black type on hero-day clears 6.8:1
- * with no scrim, and white type on the dusk photo reaches 4.8:1 at 22%.
- * Both wallpapers show through nearly unwashed.
+ * photo. One photo serves both themes now, and it is a bright midday coast:
+ * pale sky, paler water. Black type sits on that comfortably with a light
+ * wash; white type does not sit on it at all, so dark mode lays down most of
+ * a black ground first and lets the photo read as texture underneath.
  */
 :root {
-  --scrim: 18%;
+  --scrim: 30%;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --scrim: 22%;
+    --scrim: 62%;
   }
 }
 :root[data-theme="dark"] {
-  --scrim: 22%;
-}
-
-/* Each theme gets its own wallpaper; the other is faded out. */
-.hero-img-dark {
-  opacity: 0;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero-img-light {
-    opacity: 0;
-  }
-  :root:not([data-theme="light"]) .hero-img-dark {
-    opacity: 1;
-  }
-}
-:root[data-theme="dark"] .hero-img-light {
-  opacity: 0;
-}
-:root[data-theme="dark"] .hero-img-dark {
-  opacity: 1;
+  --scrim: 62%;
 }
 
 /* Same swap for the portrait: one face per theme, the other faded out. */
@@ -141,6 +139,14 @@ body {
 }
 :root[data-theme="dark"] .portrait-dark {
   opacity: 1;
+}
+
+/*
+ * In the light photo he is looking out of the page, away from everything on
+ * it. Mirroring turns him back toward the name and the text beside it.
+ */
+.portrait-light {
+  transform: scaleX(-1);
 }
 
 .hero-scrim {
@@ -227,8 +233,10 @@ section,
   .display {
     font-size: 22pt;
   }
-  .display-xl {
+  .display-xl,
+  .display-hero {
     font-size: 30pt;
+    white-space: normal;
   }
   .count {
     font-size: 16pt;

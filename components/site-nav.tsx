@@ -185,8 +185,10 @@ export function SiteNav({
   return (
     <header className="site-header no-print fixed inset-x-0 top-0 z-20">
       {/* The wallpaper, clipped to its own box rather than by the header, so
-          that the menu opening below it isn't clipped away with it. */}
-      <div className="absolute inset-0 overflow-hidden">
+          that the menu opening below it isn't clipped away with it. Only from
+          `sm` up: on a phone the bar is solid, since a strip of photo behind
+          one line of menu reads as a mistake rather than as continuity. */}
+      <div className="absolute inset-0 hidden overflow-hidden sm:block">
         <HeroLayer className="absolute inset-x-0 top-0 h-screen" />
       </div>
       <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-6 px-5 text-[17px] font-bold sm:px-8">
@@ -198,7 +200,9 @@ export function SiteNav({
           onClick={() => setOpen((wasOpen) => !wasOpen)}
           aria-expanded={open}
           aria-controls="site-menu"
-          className="nav-tab flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg hover:text-accent sm:hidden"
+          // Pulled left by its own padding so the word starts on the same
+          // line as the name in the hero, not three pixels off it.
+          className="nav-tab -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg hover:text-accent sm:hidden"
         >
           Menu
           <ChevronIcon open={open} />
@@ -248,7 +252,7 @@ export function SiteNav({
                 href={`#${item.id}`}
                 onClick={() => setOpen(false)}
                 aria-current={active === item.id ? "true" : undefined}
-                className={`${tabClass(item.id)} block`}
+                className={`${tabClass(item.id)} -ml-3 block`}
               >
                 {item.label}
               </a>
@@ -261,7 +265,7 @@ export function SiteNav({
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel={l.href.startsWith("http") ? "noreferrer" : undefined}
                 onClick={() => setOpen(false)}
-                className="nav-tab block px-3 py-2 uppercase tracking-wide text-fg hover:text-accent"
+                className="nav-tab -ml-3 block px-3 py-2 uppercase tracking-wide text-fg hover:text-accent"
               >
                 {l.label}
               </a>

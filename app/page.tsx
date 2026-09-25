@@ -96,10 +96,15 @@ export default function Home() {
           id="hero"
           // Full viewport, with the nav's height reserved at the top so the
           // content lands optically centred on screen rather than under it.
-          className="flex min-h-[100vh] flex-col justify-center gap-10 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
+          className="flex min-h-[100vh] flex-col justify-center gap-8 pt-24 pb-8 sm:flex-row sm:items-center sm:gap-12"
         >
           <div className="min-w-0 flex-1">
-            <h1 className="display-xl">{profile.name}</h1>
+            <h1 className="display-hero">
+              {/* The middle name is what stops this holding one line on a
+                  phone, and the name reads worse broken than shortened. */}
+              <span className="sm:hidden">{profile.shortName}</span>
+              <span className="hidden sm:inline">{profile.name}</span>
+            </h1>
             <p className="mt-6 max-w-[40ch] text-[22px] leading-snug sm:text-[26px]">
               {profile.tagline}
             </p>
@@ -121,9 +126,11 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          {/* Solid disc in the page background colour, so the portrait reads
-              as sitting on the page rather than floating on the wallpaper. */}
-          <div className="shrink-0 self-start rounded-full bg-bg p-3 sm:self-auto">
+          {/* A solid mat in the page background colour, so the portrait reads
+              as sitting on the page rather than floating on the wallpaper.
+              Square on a phone, where the outside of the mat lines up with the
+              name above it; a disc beside the name from `sm` up. */}
+          <div className="shrink-0 self-start bg-bg p-3 sm:self-auto sm:rounded-full">
             <Portrait
               light={profile.photoLight}
               dark={profile.photoDark}

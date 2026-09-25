@@ -9,8 +9,10 @@
 
 export const profile = {
   name: "Yuzhe (Julian) Chen",
-  tagline:
-    "Award-winning pianist, National Symphony Orchestra Youth Chamber Fellow, passionate about languages and history!",
+  // The hero drops the middle name on a phone, where the full one can't hold
+  // a single line at the size the name is set in.
+  shortName: "Yuzhe Chen",
+  tagline: "Award-winning pianist, connoisseur of languages and history.",
   location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
   // The site's own address. Search engines need the absolute URL to build a

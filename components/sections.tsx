@@ -73,7 +73,11 @@ export function Entry({
   );
 }
 
-const PORTRAIT_SIZE = "h-[min(64vw,320px)] w-[min(64vw,320px)]";
+// Square on a phone, where it sits under the name and its edges line up with
+// the text; a disc from `sm` up, where it sits beside the name instead. The
+// source images are already square, so nothing is cropped either way.
+const PORTRAIT_SIZE =
+  "h-[min(72vw,320px)] w-[min(72vw,320px)] sm:rounded-full";
 
 export function Monogram({
   name,
@@ -117,7 +121,7 @@ export function Portrait({
   // as the wallpaper. The alt text sits on the light copy only; the dark copy
   // is decorative so a screen reader doesn't read the name twice.
   return (
-    <div className={`relative shrink-0 overflow-hidden rounded-full ${className}`}>
+    <div className={`relative shrink-0 overflow-hidden ${className}`}>
       {light && (
         <Image
           src={light}
