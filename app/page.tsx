@@ -90,7 +90,7 @@ export default function Home() {
           // right after the picture instead of a screenful later. Above that
           // it still fills the screen — svh rather than vh, since `100vh`
           // counts the space behind a phone browser's address bar.
-          className="flex flex-col justify-center gap-6 pt-14 pb-4 sm:min-h-svh sm:flex-row sm:items-center sm:gap-12 sm:pt-24 sm:pb-8"
+          className="flex flex-col justify-center gap-6 pt-16 pb-6 sm:min-h-svh sm:flex-row sm:items-center sm:gap-12 sm:pt-24 sm:pb-8"
         >
           <div className="min-w-0 flex-1">
             <h1 className="display-hero">
@@ -136,7 +136,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="space-y-14 lg:space-y-20">
+        {/* Every section is ruled off from the one above it, but the first
+            one's rule lands between the hero and the page proper, where on a
+            phone it reads as a line under the picture rather than as the start
+            of a section. Dropped there only. */}
+        <div className="space-y-14 max-sm:[&>section:first-child]:border-t-0 lg:space-y-20">
           {about.length > 0 && (
             <Section id="about" label="About">
               <div className="space-y-4 text-[17px] leading-7">
