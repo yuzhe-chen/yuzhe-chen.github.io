@@ -13,23 +13,19 @@ export const profile = {
   // a single line at the size the name is set in.
   shortName: "Yuzhe Chen",
   tagline: "Award-winning pianist, connoisseur of languages and history.",
-  location: "Great Falls, Virginia",
   school: "Langley High School, Class of 2028",
   // The site's own address. Search engines need the absolute URL to build a
   // canonical link and a sitemap, so everything that needs one reads it here.
   siteUrl: "https://yuzhe-chen.github.io",
   metaDescription:
-    "Yuzhe (Julian) Chen, pianist and student at Langley High School in Great Falls, Virginia. Competition awards, National Symphony Orchestra chamber program, and service through music.",
+    "Yuzhe (Julian) Chen, pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
   // One portrait per theme, swapped in CSS the same way the wallpaper is.
   // Set either to null to fall back to the monogram.
   photoLight: "/portrait-light.jpg" as string | null, // cropped from MVC_4948.jpg
   photoDark: "/portrait-dark.jpg" as string | null, // cropped from IMG_6103.jpg
-  // Shown in full in the Contact section, so it stays readable and copyable
-  // even where a mailto: link does nothing.
-  email: "julianchen2011@gmail.com",
 };
 
-/** Nav and hero links. Email is deliberately not here. See Contact. */
+/** Nav and hero links. No contact details: the site deliberately carries none. */
 export const links = [
   { label: "YouTube", href: "https://www.youtube.com/@julianchenmusic" },
   // { label: "Résumé (PDF)", href: "/resume.pdf" },

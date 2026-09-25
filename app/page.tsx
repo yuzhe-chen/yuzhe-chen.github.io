@@ -16,7 +16,6 @@ import {
   LevelTag,
   Portrait,
   Section,
-  TitleLink,
   VideoEmbed,
 } from "@/components/sections";
 import { SiteNav } from "@/components/site-nav";
@@ -29,12 +28,9 @@ const nav = [
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Honors", show: awardRecord.length > 0 },
   { id: "venues", label: "Venues", show: venues.length > 0 },
-  { id: "contact", label: "Contact", show: true },
 ];
 
 const recordCount = awardRecord.reduce((n, g) => n + g.items.length, 0);
-
-const [city, region] = profile.location.split(", ");
 
 /**
  * Structured data. The prose on this page tells a reader who Julian is; this
@@ -51,13 +47,6 @@ const personJsonLd = {
   description: profile.metaDescription,
   url: profile.siteUrl,
   image: `${profile.siteUrl}${profile.photoLight ?? "/portrait-light.jpg"}`,
-  email: `mailto:${profile.email}`,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: city,
-    addressRegion: region,
-    addressCountry: "US",
-  },
   affiliation: [
     { "@type": "EducationalOrganization", name: "Langley High School" },
     { "@type": "MusicGroup", name: "National Symphony Orchestra" },
@@ -108,9 +97,7 @@ export default function Home() {
             <p className="mt-6 max-w-[40ch] text-[22px] leading-snug sm:text-[26px]">
               {profile.tagline}
             </p>
-            <p className="mt-4 text-[15px] text-muted">
-              {profile.school} · {profile.location}
-            </p>
+            <p className="mt-4 text-[15px] text-muted">{profile.school}</p>
             <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
               {links.map((l) => (
                 <li key={l.label}>
@@ -274,16 +261,6 @@ export default function Home() {
             </Section>
           )}
 
-          <Section id="contact" label="Contact">
-            <p className="text-[17px] leading-7">
-              The fastest way to reach me is email.
-            </p>
-            <p className="mt-4 text-[22px] leading-snug sm:text-[26px]">
-              <TitleLink href={`mailto:${profile.email}`}>
-                {profile.email}
-              </TitleLink>
-            </p>
-          </Section>
         </div>
 
       </main>
