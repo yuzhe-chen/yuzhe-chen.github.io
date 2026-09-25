@@ -63,6 +63,16 @@ export function HeroLayer({ className = "" }: { className?: string }) {
 export function HeroBackdrop() {
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    /*
+     * The drift is the part that can't hold up on a phone or a tablet. Those
+     * browsers scroll on the compositor and hand the scroll event over late,
+     * so a layer moved from JavaScript arrives a frame or more behind the page
+     * — worst under a momentum flick, where it visibly detaches and judders.
+     * Below `lg` the wallpaper stays put and only fades; the fade is a cheap
+     * property to change and has to stay, or the page would scroll over a
+     * washed-out photograph instead of the page colour.
+     */
+    const drifts = window.matchMedia("(min-width: 1024px)");
     let raf = 0;
 
     const apply = () => {
@@ -72,9 +82,10 @@ export function HeroBackdrop() {
       const y = window.scrollY;
       // Fully gone a little before the hero has finished scrolling past.
       const p = Math.min(1, Math.max(0, y / Math.max(1, height * 0.8)));
-      const transform = reduced.matches
-        ? ""
-        : `translate3d(0, ${(y * -0.35).toFixed(1)}px, 0)`;
+      const transform =
+        reduced.matches || !drifts.matches
+          ? ""
+          : `translate3d(0, ${(y * -0.35).toFixed(1)}px, 0)`;
 
       for (const el of document.querySelectorAll<HTMLElement>(
         "[data-hero-layer]",
@@ -93,9 +104,13 @@ export function HeroBackdrop() {
     apply();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    // Crossing the width where the drift starts or stops has to clear or
+    // restore the transform, not wait for the next scroll.
+    drifts.addEventListener("change", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      drifts.removeEventListener("change", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
