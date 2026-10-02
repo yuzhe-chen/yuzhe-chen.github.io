@@ -149,16 +149,15 @@ export default function Home() {
       />
 
       {/*
-        * On a tablet the page opens on the portrait itself, filling the screen
-        * edge to edge, with the arrow at its foot going down to the Biography.
-        * A phone has the portrait standing behind the biography text instead,
-        * and a laptop has it bleeding in beside that text, so this belongs to
-        * the width in between and to nothing else.
+        * Below `lg` — phones and tablets alike — the page opens on the portrait
+        * itself, filling the screen edge to edge, with the arrow at its foot
+        * going down to the Biography. A laptop has it bleeding in beside the
+        * text instead, so this stops there.
         *
         * The crop is held high: the face is the reason the picture is here, and
         * a centred crop on a tall box puts the chin at the bottom edge.
         */}
-      <div className="relative hidden h-[78svh] w-full overflow-hidden sm:block lg:hidden">
+      <div className="relative h-[78svh] w-full overflow-hidden lg:hidden">
         <Portrait
           light={profile.photoLight}
           name={profile.name}
@@ -198,13 +197,6 @@ export default function Home() {
             <Section
               id="biography"
               label="Biography"
-              // Holds the column open to the foot of the picture on a phone,
-              // so the writing starts after it rather than over it. The
-              // picture is 70vw tall; the heading and the section's own top
-              // padding already stand for the first few rem of that.
-              aside={
-                <div aria-hidden className="h-[calc(70vw-3.2rem)] sm:hidden" />
-              }
               // The portrait sits on the heading side and bleeds to the edge
               // of the screen, like every other section's photograph, fading
               // rightward into the page colour so the text sits on solid
@@ -217,27 +209,8 @@ export default function Home() {
                       reaching up past the text and thinning as it goes, so
                       there is picture under the lower half of the biography
                       and plain page above it. */}
-                  {/* On a phone the picture runs the full width of the screen
-                      at the top of the section, with the heading over it and
-                      no fade at its edges. It is cut off below the first
-                      button: the box is shorter than the picture is square, so
-                      cover keeps the top of it and drops the rest. The writing
-                      begins after the picture ends — see the spacer below,
-                      which holds the column open to the same height. */}
-                  <div
-                    aria-hidden
-                    className="absolute left-1/2 top-0 -z-10 h-[70vw] w-screen -translate-x-1/2 overflow-hidden sm:hidden"
-                  >
-                    <Portrait
-                      light={profile.photoLight}
-                      name=""
-                      className="portrait-breathe absolute inset-0 h-full w-full"
-                      position="object-top"
-                    />
-                  </div>
-
-                  {/* On a tablet the portrait has already had the screen
-                      above, so here the heading takes a band like every other
+                  {/* The portrait has already had the screen above it at these
+                      widths, so here the heading takes a band like every other
                       section's — from the same photograph as Activities. */}
                   <HeadingBand base={WALLPAPERS[0]} position="object-[50%_16%]" />
 

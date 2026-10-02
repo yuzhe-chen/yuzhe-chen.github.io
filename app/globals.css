@@ -272,15 +272,11 @@ body {
 }
 
 /*
- * A window onto the page at the very top, and solid the moment anything has
- * scrolled under it — otherwise the text would run up behind the bar and ghost
- * through it.
+ * Always the page's own colour, never a window onto the picture behind it: the
+ * bar has to occlude whatever scrolls up under it, and the portrait now fills
+ * the screen directly beneath.
  */
 .site-header {
-  background: transparent;
-  transition: background-color 0.25s ease;
-}
-.site-header.is-solid {
   background: var(--bg);
 }
 

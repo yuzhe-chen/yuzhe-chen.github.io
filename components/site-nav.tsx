@@ -158,9 +158,6 @@ export function SiteNav({
   // How many tabs fit on the line at this width; the rest go under More.
   const [shown, setShown] = useState(items.length);
   const [moreOpen, setMoreOpen] = useState(false);
-  // The bar is a window onto the page at the very top and solid once anything
-  // has scrolled under it.
-  const [scrolled, setScrolled] = useState(false);
   const visible = useRef<Set<string>>(new Set());
   const rowRef = useRef<HTMLElement>(null);
   const probeRef = useRef<HTMLDivElement>(null);
@@ -254,26 +251,6 @@ export function SiteNav({
     };
   }, [items]);
 
-  useEffect(() => {
-    let raf = 0;
-    // Through a frame rather than straight from the handler: this reads the
-    // scroll position and sets state from it, and doing that synchronously
-    // re-renders ahead of the paint it belongs to.
-    const update = () => {
-      raf = 0;
-      setScrolled(window.scrollY > 8);
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
   // Escape closes either menu, and so does widening the window back to where
   // the full row of tabs fits — otherwise one is left open behind the tabs.
   useEffect(() => {
@@ -309,11 +286,7 @@ export function SiteNav({
   const moreHoldsActive = items.slice(shown).some((item) => item.id === active);
 
   return (
-    <header
-      className={`site-header no-print fixed inset-x-0 top-0 z-20 ${
-        scrolled ? "is-solid" : ""
-      }`}
-    >
+    <header className="site-header no-print fixed inset-x-0 top-0 z-20">
       {/* Smaller type on a phone: it holds the name clear of the menu beside
           it, and takes width off a bar that already carries four things. */}
       <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-4 px-5 py-2 text-[15px] font-bold sm:gap-6 sm:px-8 sm:text-[17px]">
