@@ -32,14 +32,26 @@ const WALLPAPERS = ["/hero-bridge", "/hero-houses", "/hero-canal"];
 const srcSet = (base: string) =>
   `${base}-800.webp 800w, ${base}-1400.webp 1400w, ${base}.webp 1800w`;
 
-/** A photograph bleeding to both edges of the screen behind one section. */
-function PhotoBackdrop({ base }: { base: string }) {
+/**
+ * A photograph bleeding to both edges of the screen behind one section.
+ *
+ * `position` is which part of the picture survives the crop, so two sections
+ * can share a photograph and show different parts of it.
+ */
+function PhotoBackdrop({
+  base,
+  position,
+}: {
+  base: string;
+  position: string;
+}) {
   return (
     <div
       aria-hidden
-      // On a phone it's a slim band behind the heading alone, so the writing
-      // below it keeps the plain page. From `sm` up it fills the section.
-      className="absolute left-1/2 top-0 -z-10 h-[5.25rem] w-screen -translate-x-1/2 overflow-hidden sm:bottom-0 sm:h-auto"
+      // A band behind the heading alone up to `lg` — on a phone and on a
+      // tablet alike — so the writing under it keeps the plain page. Only on a
+      // full screen does it fill the section behind the text as well.
+      className="absolute left-1/2 top-0 -z-10 h-[5.25rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[8.5rem] lg:bottom-0 lg:h-auto"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- static export,
           so next/image would serve one size with no srcset at all. */}
@@ -50,7 +62,7 @@ function PhotoBackdrop({ base }: { base: string }) {
         alt=""
         decoding="async"
         loading="lazy"
-        className="h-full w-full object-cover object-[50%_28%]"
+        className={`h-full w-full object-cover ${position}`}
       />
       <div className="section-fade absolute inset-0" />
     </div>
@@ -136,7 +148,7 @@ export default function Home() {
                   <Portrait
                     light={profile.photoLight}
                     name={profile.name}
-                    className="portrait-vignette portrait-breathe mx-auto aspect-square w-[80%]"
+                    className="portrait-sides portrait-breathe mx-auto aspect-square w-[80%]"
                   />
                 </div>
               }
@@ -159,6 +171,10 @@ export default function Home() {
                       light={profile.photoLight}
                       name=""
                       className="h-full w-full"
+                      // On a very wide screen this box is wide and shallow, and
+                      // a centred crop cuts straight through the head. Holding
+                      // the crop high keeps him in it.
+                      position="object-[50%_26%]"
                     />
                   </div>
                   <div className="section-fade absolute inset-0" />
@@ -177,7 +193,9 @@ export default function Home() {
             <Section
               id="activities"
               label="Activities"
-              backdrop={<PhotoBackdrop base={WALLPAPERS[0]} />}
+              backdrop={
+                <PhotoBackdrop base={WALLPAPERS[0]} position="object-[50%_16%]" />
+              }
             >
               <Columns>
                 {activities.map((a) => (
@@ -196,6 +214,10 @@ export default function Home() {
             <Section
               id="performances"
               label="Performances"
+              // The same photograph as Activities, further down it.
+              backdrop={
+                <PhotoBackdrop base={WALLPAPERS[0]} position="object-[50%_74%]" />
+              }
               below={
                 <ul className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-10">
                   {videos.map((v) => (
@@ -215,7 +237,9 @@ export default function Home() {
             <Section
               id="honors"
               label="Selected Honors"
-              backdrop={<PhotoBackdrop base={WALLPAPERS[1]} />}
+              backdrop={
+                <PhotoBackdrop base={WALLPAPERS[2]} position="object-[45%_26%]" />
+              }
             >
               <Columns>
                 {awardRecord.map((group) => (
@@ -249,32 +273,37 @@ export default function Home() {
             </Section>
           )}
 
-          {/* Both are short enough that a photograph apiece would be two
-              slivers. They share one, which runs behind the pair. */}
-          {(venues.length > 0 || languages.length > 0) && (
-            <div className="relative isolate space-y-14 pb-12 lg:space-y-20 lg:pb-16">
-              <PhotoBackdrop base={WALLPAPERS[2]} />
+          {venues.length > 0 && (
+            <Section
+              id="venues"
+              label="Venues"
+              backdrop={
+                <PhotoBackdrop base={WALLPAPERS[1]} position="object-[50%_14%]" />
+              }
+            >
+              <Columns>
+                {venues.map((v) => (
+                  <Entry key={v.name} title={v.name} meta={v.city} />
+                ))}
+              </Columns>
+            </Section>
+          )}
 
-              {venues.length > 0 && (
-                <Section id="venues" label="Venues">
-                  <Columns>
-                    {venues.map((v) => (
-                      <Entry key={v.name} title={v.name} meta={v.city} />
-                    ))}
-                  </Columns>
-                </Section>
-              )}
-
-              {languages.length > 0 && (
-                <Section id="languages" label="Languages">
-                  <Columns>
-                    {languages.map((l) => (
-                      <Entry key={l.name} title={l.name} meta={l.level} />
-                    ))}
-                  </Columns>
-                </Section>
-              )}
-            </div>
+          {languages.length > 0 && (
+            <Section
+              id="languages"
+              label="Languages"
+              // The same photograph as Venues, further down it.
+              backdrop={
+                <PhotoBackdrop base={WALLPAPERS[1]} position="object-[50%_72%]" />
+              }
+            >
+              <Columns>
+                {languages.map((l) => (
+                  <Entry key={l.name} title={l.name} meta={l.level} />
+                ))}
+              </Columns>
+            </Section>
           )}
 
           {projects.length > 0 && (

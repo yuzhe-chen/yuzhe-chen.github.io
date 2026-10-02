@@ -44,7 +44,9 @@ export function Section({
       {backdrop}
       {/* Label on the left, everything it introduces on the right, running to
           the margin — there is no third column now that nothing is counted. */}
-      <div className="grid gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10">
+      {/* More air under the label where the photograph is a band behind it,
+          so the writing doesn't start against the edge of the picture. */}
+      <div className="grid gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10 lg:gap-y-6">
         <div>
           <Heading className="display">{label}</Heading>
           {aside}
@@ -123,10 +125,13 @@ export function Portrait({
   light,
   name,
   className = PORTRAIT_SIZE,
+  position = "object-center",
 }: {
   light: string | null;
   name: string;
   className?: string;
+  /** Which part of the picture survives the crop. */
+  position?: string;
 }) {
   if (!light) return <Monogram name={name} className={className} />;
 
@@ -138,7 +143,7 @@ export function Portrait({
         fill
         priority
         sizes="(max-width: 640px) 100vw, 320px"
-        className="object-cover"
+        className={`object-cover ${position}`}
       />
     </div>
   );

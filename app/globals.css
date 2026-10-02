@@ -80,17 +80,20 @@ body {
   font-size: clamp(2.5rem, 7.5vw, 5.5rem);
   /*
    * In light mode the label sits in page colour, so it holds up against the
-   * photograph behind it. Inline with the decoration cloned, so a label that
-   * wraps gets a box per line, each ending where its own words do — set as a
-   * block it would draw one rectangle as wide as the longest line and leave
-   * SELECTED HONORS trailing a slab past the second word.
+   * photograph behind it. One block, shrink-wrapped to the longest line and
+   * carrying every line of the label — a box per line can't work at this
+   * line-height, where each box would ride up over the one above it.
+   *
+   * The colour transition everything else gets is explicitly off here: the
+   * background would fade over a third of a second while the padding and the
+   * display mode snap, so the block would be seen briefly at the full width of
+   * the column on the way between themes.
    */
-  display: inline;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  display: table;
   background: var(--bg);
-  padding: 0.03em 0.16em;
+  padding: 0.04em 0.16em;
   margin-left: -0.16em;
+  transition: none;
 }
 
 /* Dark mode doesn't need it: the type is already the lighter of the two. */
@@ -180,17 +183,25 @@ body {
 }
 
 /*
- * On a phone the portrait sits in the column rather than behind it, so it
- * needs its own edges: a soft oval that fades the picture out all round
- * instead of cutting it off on a hard square.
+ * The portrait in the column fades out to the left and to the right, full
+ * strength through the middle. Top and bottom are left alone — it fades to
+ * the sides, not all round.
  */
-.portrait-vignette {
-  -webkit-mask-image: radial-gradient(
-    ellipse at center,
-    #000 50%,
-    transparent 85%
+.portrait-sides {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 24%,
+    #000 76%,
+    transparent 100%
   );
-  mask-image: radial-gradient(ellipse at center, #000 50%, transparent 85%);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 24%,
+    #000 76%,
+    transparent 100%
+  );
 }
 
 
