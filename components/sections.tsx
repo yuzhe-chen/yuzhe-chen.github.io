@@ -9,7 +9,6 @@ import type { ReactNode } from "react";
 export function Section({
   id,
   label,
-  count,
   as: Heading = "h2",
   children,
   aside,
@@ -18,7 +17,6 @@ export function Section({
 }: {
   id: string;
   label: string;
-  count?: number;
   /** The first section's label is the page's name, so it's the page's h1. */
   as?: "h1" | "h2";
   children?: ReactNode;
@@ -33,30 +31,25 @@ export function Section({
    */
   backdrop?: ReactNode;
 }) {
-  const n = count === undefined ? null : String(count).padStart(2, "0");
   return (
     <section
       id={id}
-      className="relative isolate border-t border-rule pt-5 lg:pt-7"
+      // A section carrying a photograph gets room under its text, so the
+      // picture runs to the foot of the section rather than stopping on the
+      // last line of writing.
+      className={`relative isolate border-t border-rule pt-5 lg:pt-7 ${
+        backdrop ? "pb-12 lg:pb-16" : ""
+      }`}
     >
       {backdrop}
-      {/* The count column is a fixed width and always present, even when a
-          section has no count — otherwise About and Contact would claim its
-          space and their text would start further left than everything else. */}
-      <div className="grid gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)_5.5rem] lg:gap-x-10">
-        {/* Tighter gap on a phone: every pixel between the label and its
-            count is a pixel the longest label doesn't have. */}
+      {/* Label on the left, everything it introduces on the right, running to
+          the margin — there is no third column now that nothing is counted. */}
+      <div className="grid gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10">
         <div>
-          <div className="flex items-start justify-between gap-3 sm:gap-6">
-            <Heading className="display">{label}</Heading>
-            {n && <span className="count lg:hidden">{n}</span>}
-          </div>
+          <Heading className="display">{label}</Heading>
           {aside}
         </div>
-        {/* A section with no count has no use for the column that holds it,
-            so its text takes that space too and runs to the right margin. */}
-        <div className={`lg:pt-2 ${n ? "" : "lg:col-span-2"}`}>{children}</div>
-        <span className="count hidden text-right lg:block">{n}</span>
+        <div className="lg:pt-2">{children}</div>
       </div>
       {below}
     </section>

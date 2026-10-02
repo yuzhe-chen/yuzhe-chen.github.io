@@ -66,8 +66,6 @@ const nav: { id: string; label: string; href?: string; show: boolean }[] = [
   { id: "venues", label: "Venues", show: venues.length > 0 },
 ];
 
-const recordCount = awardRecord.reduce((n, g) => n + g.items.length, 0);
-
 /**
  * Structured data. The prose on this page tells a reader who Julian is; this
  * tells Google the same thing in the form it actually parses -- a person, a
@@ -120,27 +118,31 @@ export default function Home() {
             full size, so the page opens straight into it. Every section is
             ruled off from the one above — except the first, whose rule would
             be a line across the top of the page with nothing above it. */}
-        <div className="space-y-14 pt-16 [&>section:first-child]:border-t-0 sm:pt-24 lg:space-y-20">
+        {/* Only the bar's own thickness above the first section — nothing
+            else between the menu and the picture under it. */}
+        <div className="space-y-14 pt-14 [&>section:first-child]:border-t-0 sm:pt-[4.25rem] lg:space-y-20">
           {bio.length > 0 && (
             <Section
               id="biography"
               label="Biography"
-              // The portrait bleeds off the right of the screen and fades
-              // leftward into the page colour, so the text beside it sits on
-              // solid ground rather than on the photograph. Hidden on a phone,
-              // where there is no room beside the text for it to be anything
-              // but a wash behind the words.
+              // The portrait sits on the heading side and bleeds to the edge
+              // of the screen, like every other section's photograph, fading
+              // rightward into the page colour so the text sits on solid
+              // ground. Hidden on a phone, where there is no room beside the
+              // text for it to be anything but a wash behind the words.
               backdrop={
                 <div
                   aria-hidden
-                  className="absolute inset-y-0 right-0 -z-10 hidden w-[52%] overflow-hidden sm:block"
+                  className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden sm:block"
                 >
-                  <Portrait
-                    light={profile.photoLight}
-                    name=""
-                    className="h-full w-full"
-                  />
-                  <div className="portrait-fade absolute inset-0" />
+                  <div className="portrait-breathe absolute inset-y-0 left-0 w-[55%]">
+                    <Portrait
+                      light={profile.photoLight}
+                      name=""
+                      className="h-full w-full"
+                    />
+                  </div>
+                  <div className="section-fade absolute inset-0" />
                 </div>
               }
             >
@@ -156,7 +158,6 @@ export default function Home() {
             <Section
               id="activities"
               label="Activities"
-              count={activities.length}
               backdrop={<PhotoBackdrop base={WALLPAPERS[0]} />}
             >
               <Columns>
@@ -176,7 +177,6 @@ export default function Home() {
             <Section
               id="performances"
               label="Performances"
-              count={videos.length}
               below={
                 <ul className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-10">
                   {videos.map((v) => (
@@ -196,7 +196,6 @@ export default function Home() {
             <Section
               id="honors"
               label="Selected Honors"
-              count={recordCount}
               backdrop={<PhotoBackdrop base={WALLPAPERS[1]} />}
             >
               <Columns>
@@ -231,33 +230,36 @@ export default function Home() {
             </Section>
           )}
 
-          {venues.length > 0 && (
-            <Section id="venues" label="Venues" count={venues.length}>
-              <Columns>
-                {venues.map((v) => (
-                  <Entry key={v.name} title={v.name} meta={v.city} />
-                ))}
-              </Columns>
-            </Section>
-          )}
+          {/* Both are short enough that a photograph apiece would be two
+              slivers. They share one, which runs behind the pair. */}
+          {(venues.length > 0 || languages.length > 0) && (
+            <div className="relative isolate space-y-14 pb-12 lg:space-y-20 lg:pb-16">
+              <PhotoBackdrop base={WALLPAPERS[2]} />
 
-          {languages.length > 0 && (
-            <Section
-              id="languages"
-              label="Languages"
-              count={languages.length}
-              backdrop={<PhotoBackdrop base={WALLPAPERS[2]} />}
-            >
-              <Columns>
-                {languages.map((l) => (
-                  <Entry key={l.name} title={l.name} meta={l.level} />
-                ))}
-              </Columns>
-            </Section>
+              {venues.length > 0 && (
+                <Section id="venues" label="Venues">
+                  <Columns>
+                    {venues.map((v) => (
+                      <Entry key={v.name} title={v.name} meta={v.city} />
+                    ))}
+                  </Columns>
+                </Section>
+              )}
+
+              {languages.length > 0 && (
+                <Section id="languages" label="Languages">
+                  <Columns>
+                    {languages.map((l) => (
+                      <Entry key={l.name} title={l.name} meta={l.level} />
+                    ))}
+                  </Columns>
+                </Section>
+              )}
+            </div>
           )}
 
           {projects.length > 0 && (
-            <Section id="projects" label="Projects" count={projects.length}>
+            <Section id="projects" label="Projects">
               <Columns>
                 {projects.map((p) => (
                   <Entry
@@ -273,7 +275,7 @@ export default function Home() {
           )}
 
           {writing.length > 0 && (
-            <Section id="writing" label="Writing" count={writing.length}>
+            <Section id="writing" label="Writing">
               <Columns>
                 {writing.map((w) => (
                   <Entry

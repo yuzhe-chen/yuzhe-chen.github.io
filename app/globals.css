@@ -54,6 +54,21 @@ body {
 }
 
 /*
+ * Changing theme swaps every colour on the page at once, which lands as a
+ * flash. Easing the colour properties turns it into a dip between the two.
+ * Set on everything at zero specificity, so any element with a transition of
+ * its own — the hover rule, the bar's background — keeps it instead.
+ */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease;
+}
+
+/*
  * The giant uppercase section labels. Sized against the viewport so they stay
  * edge-filling on a phone and don't get comical on a 27" display.
  */
@@ -65,56 +80,6 @@ body {
   font-size: clamp(2.5rem, 7.5vw, 5.5rem);
 }
 
-.display-xl {
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
-  line-height: 0.86;
-  font-size: clamp(3rem, 11vw, 8.5rem);
-}
-
-/*
- * The name in the hero. On a phone it has to hold one line — broken across
- * two it stops reading as a name — so it is sized off the viewport width and
- * never wraps. From `sm` up there is room for the full name at full size.
- */
-.display-hero {
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
-  line-height: 0.86;
-  /*
-   * Sized to run the full width of the column on a phone rather than to a
-   * fixed ceiling. Ten characters of this face at this tracking measure about
-   * 5.9em, so the width available divided by that is the size that fills it —
-   * less a little, so a slightly wider glyph can't push the line off the edge.
-   * If it sits short or runs wide, the 16.6 is the number to move.
-   */
-  font-size: calc(16.6vw - 6.6px);
-  white-space: nowrap;
-}
-@media (min-width: 640px) {
-  .display-hero {
-    font-size: clamp(3rem, 11vw, 8.5rem);
-    white-space: normal;
-  }
-}
-
-/* The count that sits at the far right of each section label. */
-/*
- * Set to exactly the label's size: two different large sizes on one line read
- * as a mistake rather than as a hierarchy. The count stays quiet on colour
- * alone.
- */
-.count {
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 0.88;
-  font-size: clamp(2.5rem, 7.5vw, 5.5rem);
-  color: var(--faint);
-  font-variant-numeric: tabular-nums;
-}
-
 /*
  * Both floors above stop scaling at around 530px, which is wider than a phone:
  * below that the label is stuck at its minimum while the screen keeps
@@ -124,8 +89,7 @@ body {
  * above give at 640px, so nothing jumps at the breakpoint.
  */
 @media (max-width: 639px) {
-  .display,
-  .count {
+  .display {
     font-size: clamp(1.5rem, 9vw, 3rem);
   }
 }
@@ -138,43 +102,12 @@ body {
  * is nowhere for it to break. Scale it against the share instead.
  */
 @media (min-width: 1024px) {
-  .display,
-  .count {
+  .display {
     font-size: clamp(2rem, calc(6vw - 14px), 5.5rem);
   }
 }
 
-/*
- * The day wallpaper is four photographs rather than one. Each holds the screen
- * for twenty seconds and crosses to the next over about a second and a half,
- * on an eighty-second loop.
- *
- * In CSS rather than JavaScript, for three reasons: the wallpaper is rendered
- * twice — behind the page and again inside the bar — and two copies of one
- * animation stay in step by themselves where two timers would drift; it runs
- * on the compositor, so it can't judder the way the scrolling parallax did;
- * and the reduced-motion rule further down stops it along with everything
- * else, leaving the first photograph up.
- */
-@keyframes hero-cycle {
-  0%,
-  23% {
-    opacity: 1;
-  }
-  25%,
-  98% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.hero-rotate {
-  animation: hero-cycle 80s linear infinite;
-}
-
-/* The arrow at the foot of the hero, breathing rather than blinking. */
+/* The arrow at the foot of the page, breathing rather than blinking. */
 @keyframes hero-nudge {
   0%,
   100% {
@@ -189,23 +122,23 @@ body {
   animation: hero-nudge 2.2s ease-in-out infinite;
 }
 
-
 /*
- * The shading follows the theme — a white wash in light, a black one in dark —
- * so the toggle changes the whole page rather than leaving a dark top in both.
- *
- * Laid on heavily. The photographs under it are bright and busy, and ordinary
- * body text has to read over them, which only happens when most of what you
- * see is the page's own colour and the photograph is the texture beneath it.
+ * The portrait breathes: in and out over a quarter of a minute, by three and
+ * a half percent. It should read as the picture being alive rather than as
+ * anything moving — if you can see it happen it's too much.
  */
-.hero-scrim {
-  background:
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--bg) 82%, transparent) 0%,
-      color-mix(in srgb, var(--bg) 76%, transparent) 55%,
-      var(--bg) 100%
-    );
+@keyframes portrait-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+.portrait-breathe {
+  animation: portrait-breathe 16s ease-in-out infinite;
 }
 
 
@@ -317,28 +250,11 @@ body {
     );
 }
 
-/* The same idea mirrored: the portrait bleeds off the right, text on the left. */
-.portrait-fade {
-  background:
-    linear-gradient(
-      to left,
-      color-mix(in srgb, var(--bg) 20%, transparent) 0%,
-      color-mix(in srgb, var(--bg) 62%, transparent) 30%,
-      var(--bg) 66%
-    );
-}
 
 /* Anchors land below the fixed nav. */
 section,
 :target {
   scroll-margin-top: 4.5rem;
-}
-
-.no-scrollbar {
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -365,13 +281,8 @@ section,
   .display {
     font-size: 22pt;
   }
-  .display-xl,
-  .display-hero {
-    font-size: 30pt;
-    white-space: normal;
-  }
-  .count {
-    font-size: 16pt;
+  .brand {
+    font-size: 18pt;
   }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
