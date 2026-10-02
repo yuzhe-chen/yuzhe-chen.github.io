@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
-import { HeroLayer } from "./hero-backdrop";
-
 export type NavItem = {
   id: string;
   label: string;
@@ -69,6 +67,19 @@ function readTheme(): "light" | "dark" {
 // The server can't know the visitor's theme, so it renders the generic label
 // and the specific one swaps in once the page is interactive.
 const readThemeOnServer = () => null;
+
+function YouTubeIcon() {
+  return (
+    <svg
+      className="h-[22px] w-[22px] shrink-0"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M23.5 6.9a3 3 0 0 0-2.1-2.1C19.5 4.3 12 4.3 12 4.3s-7.5 0-9.4.5A3 3 0 0 0 .5 6.9 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.1 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.1zM9.6 15.6V8.4l6.3 3.6z" />
+    </svg>
+  );
+}
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -147,6 +158,9 @@ export function SiteNav({
   // How many tabs fit on the line at this width; the rest go under More.
   const [shown, setShown] = useState(items.length);
   const [moreOpen, setMoreOpen] = useState(false);
+  // The bar is a window onto the page at the very top and solid once anything
+  // has scrolled under it.
+  const [scrolled, setScrolled] = useState(false);
   const visible = useRef<Set<string>>(new Set());
   const rowRef = useRef<HTMLElement>(null);
   const probeRef = useRef<HTMLDivElement>(null);
@@ -240,6 +254,26 @@ export function SiteNav({
     };
   }, [items]);
 
+  useEffect(() => {
+    let raf = 0;
+    // Through a frame rather than straight from the handler: this reads the
+    // scroll position and sets state from it, and doing that synchronously
+    // re-renders ahead of the paint it belongs to.
+    const update = () => {
+      raf = 0;
+      setScrolled(window.scrollY > 8);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   // Escape closes either menu, and so does widening the window back to where
   // the full row of tabs fits — otherwise one is left open behind the tabs.
   useEffect(() => {
@@ -271,23 +305,23 @@ export function SiteNav({
     }`;
 
   return (
-    <header className="site-header no-print fixed inset-x-0 top-0 z-20">
-      {/* The wallpaper, clipped to its own box rather than by the header, so
-          that the menu opening below it isn't clipped away with it. Only from
-          `sm` up: on a phone the bar is solid, since a strip of photo behind
-          one line of menu reads as a mistake rather than as continuity. */}
-      <div className="absolute inset-0 hidden overflow-hidden sm:block">
-        <HeroLayer className="absolute inset-x-0 top-0 h-screen" />
-      </div>
-      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-4 px-5 text-[17px] font-bold sm:gap-6 sm:px-8">
-        {/* The name holds the corner and goes back to the top. Pulled left by
-            its own padding so it starts on the page's own margin. */}
-        <a
-          href="#top"
-          className="nav-tab rule-hover -ml-3 shrink-0 px-3 py-2 uppercase tracking-wide text-fg"
-        >
-          {name}
-        </a>
+    <header
+      className={`site-header no-print fixed inset-x-0 top-0 z-20 ${
+        scrolled ? "is-solid" : ""
+      }`}
+    >
+      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-4 px-5 py-2 text-[17px] font-bold sm:gap-6 sm:px-8">
+        {/* The name holds the corner at a size of its own and goes back to the
+            top. Pulled left by its own padding so it starts on the page's own
+            margin. It's the page's h1 — the only one. */}
+        <h1 className="shrink-0">
+          <a
+            href="#top"
+            className="brand nav-tab rule-hover -ml-3 block px-3 py-2 text-fg"
+          >
+            {name}
+          </a>
+        </h1>
 
         {/* Everything else sits at the other end of the bar. */}
         <nav
@@ -395,15 +429,18 @@ export function SiteNav({
         </button>
 
         <div className="flex shrink-0 items-center gap-1.5 text-fg sm:gap-2">
+          {/* An icon rather than a word, and at every width: it's one of only
+              two things that live at this end of the bar. */}
           {right.map((l) => (
             <a
               key={l.label}
               href={l.href}
               target={l.href.startsWith("http") ? "_blank" : undefined}
               rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-              className="nav-tab rule-hover hidden shrink-0 px-3 py-2 uppercase tracking-wide sm:inline"
+              aria-label={l.label}
+              className="nav-tab inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3"
             >
-              {l.label}
+              <YouTubeIcon />
             </a>
           ))}
           <ThemeToggle />
@@ -428,19 +465,6 @@ export function SiteNav({
                 className={`${tabClass(item.id)} -ml-3 block`}
               >
                 {item.label}
-              </a>
-            </li>
-          ))}
-          {right.map((l) => (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                target={l.href.startsWith("http") ? "_blank" : undefined}
-                rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-                onClick={() => setOpen(false)}
-                className="nav-tab rule-hover -ml-3 block px-3 py-2 uppercase tracking-wide text-fg"
-              >
-                {l.label}
               </a>
             </li>
           ))}

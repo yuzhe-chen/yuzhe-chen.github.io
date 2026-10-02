@@ -14,6 +14,7 @@ export function Section({
   children,
   aside,
   below,
+  backdrop,
 }: {
   id: string;
   label: string;
@@ -25,10 +26,20 @@ export function Section({
   aside?: ReactNode;
   /** Rendered full-width beneath the label row — for the video grid. */
   below?: ReactNode;
+  /**
+   * A layer behind the section's own content — the photograph that bleeds out
+   * to the edge of the screen and fades into the page colour. Sits under
+   * everything here via `isolate`, so it can't come out over the text.
+   */
+  backdrop?: ReactNode;
 }) {
   const n = count === undefined ? null : String(count).padStart(2, "0");
   return (
-    <section id={id} className="border-t border-rule pt-5 lg:pt-7">
+    <section
+      id={id}
+      className="relative isolate border-t border-rule pt-5 lg:pt-7"
+    >
+      {backdrop}
       {/* The count column is a fixed width and always present, even when a
           section has no count — otherwise About and Contact would claim its
           space and their text would start further left than everything else. */}

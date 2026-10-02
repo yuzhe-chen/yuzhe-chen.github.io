@@ -277,12 +277,55 @@ body {
 }
 
 /*
- * Fully opaque, including over the wallpaper — the bar has to occlude the
- * hero text that scrolls up underneath it, and anything translucent lets
- * that text ghost through.
+ * The name in the corner of the bar: its own size, bigger than the tabs it
+ * sits opposite, and the first thing read on the page.
+ */
+.brand {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-size: clamp(1.3rem, 2.8vw, 2.1rem);
+  white-space: nowrap;
+}
+
+/*
+ * A window onto the page at the very top, and solid the moment anything has
+ * scrolled under it — otherwise the text would run up behind the bar and ghost
+ * through it.
  */
 .site-header {
+  background: transparent;
+  transition: background-color 0.25s ease;
+}
+.site-header.is-solid {
   background: var(--bg);
+}
+
+/*
+ * A photograph on the heading side of a section, fading rightward into solid
+ * page colour so the text it shares the row with sits on firm ground. The wash
+ * over the photograph is light — the point is to see it.
+ */
+.section-fade {
+  background:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--bg) 42%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 68%, transparent) 34%,
+      var(--bg) 62%
+    );
+}
+
+/* The same idea mirrored: the portrait bleeds off the right, text on the left. */
+.portrait-fade {
+  background:
+    linear-gradient(
+      to left,
+      color-mix(in srgb, var(--bg) 20%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 62%, transparent) 30%,
+      var(--bg) 66%
+    );
 }
 
 /* Anchors land below the fixed nav. */

@@ -19,7 +19,41 @@ import {
   VideoEmbed,
 } from "@/components/sections";
 import { SiteNav } from "@/components/site-nav";
-import { HeroBackdrop } from "@/components/hero-backdrop";
+
+/**
+ * The photographs don't sit behind the whole page any more. Each one belongs
+ * to a section, on the heading side, fading out into solid page colour before
+ * it reaches the text. Sections alternate: one plain, one carrying a photo.
+ *
+ * Three widths each, as before, and the browser takes what it needs.
+ */
+const WALLPAPERS = ["/hero-bridge", "/hero-houses", "/hero-canal"];
+
+const srcSet = (base: string) =>
+  `${base}-800.webp 800w, ${base}-1400.webp 1400w, ${base}.webp 1800w`;
+
+/** A photograph bleeding to both edges of the screen behind one section. */
+function PhotoBackdrop({ base }: { base: string }) {
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element -- static export,
+          so next/image would serve one size with no srcset at all. */}
+      <img
+        src={`${base}.webp`}
+        srcSet={srcSet(base)}
+        sizes="100vw"
+        alt=""
+        decoding="async"
+        loading="lazy"
+        className="h-full w-full object-cover object-[50%_28%]"
+      />
+      <div className="section-fade absolute inset-0" />
+    </div>
+  );
+}
 
 // Document order matters — the nav highlights the topmost visible entry.
 const nav: { id: string; label: string; href?: string; show: boolean }[] = [
@@ -70,8 +104,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <HeroBackdrop />
-
       <SiteNav
         items={nav
           .filter((s) => s.show)
@@ -92,18 +124,24 @@ export default function Home() {
           {bio.length > 0 && (
             <Section
               id="biography"
-              label={profile.shortName}
-              // The page's name, and so the page's only h1.
-              as="h1"
-              // Under the heading, in the heading's own column: square, and as
-              // wide as that column is, so it fills it on a phone and on a
-              // tablet alike without a size of its own to go wrong.
-              aside={
-                <Portrait
-                  light={profile.photoLight}
-                  name={profile.name}
-                  className="mt-6 aspect-square w-full"
-                />
+              label="Biography"
+              // The portrait bleeds off the right of the screen and fades
+              // leftward into the page colour, so the text beside it sits on
+              // solid ground rather than on the photograph. Hidden on a phone,
+              // where there is no room beside the text for it to be anything
+              // but a wash behind the words.
+              backdrop={
+                <div
+                  aria-hidden
+                  className="absolute inset-y-0 right-0 -z-10 hidden w-[52%] overflow-hidden sm:block"
+                >
+                  <Portrait
+                    light={profile.photoLight}
+                    name=""
+                    className="h-full w-full"
+                  />
+                  <div className="portrait-fade absolute inset-0" />
+                </div>
               }
             >
               <div className="space-y-4 text-[17px] leading-7">
@@ -119,6 +157,7 @@ export default function Home() {
               id="activities"
               label="Activities"
               count={activities.length}
+              backdrop={<PhotoBackdrop base={WALLPAPERS[0]} />}
             >
               <Columns>
                 {activities.map((a) => (
@@ -154,7 +193,12 @@ export default function Home() {
           )}
 
           {awardRecord.length > 0 && (
-            <Section id="honors" label="Selected Honors" count={recordCount}>
+            <Section
+              id="honors"
+              label="Selected Honors"
+              count={recordCount}
+              backdrop={<PhotoBackdrop base={WALLPAPERS[1]} />}
+            >
               <Columns>
                 {awardRecord.map((group) => (
                   <div key={group.year} className="mb-8">
@@ -198,7 +242,12 @@ export default function Home() {
           )}
 
           {languages.length > 0 && (
-            <Section id="languages" label="Languages" count={languages.length}>
+            <Section
+              id="languages"
+              label="Languages"
+              count={languages.length}
+              backdrop={<PhotoBackdrop base={WALLPAPERS[2]} />}
+            >
               <Columns>
                 {languages.map((l) => (
                   <Entry key={l.name} title={l.name} meta={l.level} />
