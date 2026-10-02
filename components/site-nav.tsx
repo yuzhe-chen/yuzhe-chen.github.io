@@ -254,8 +254,8 @@ export function SiteNav({
   // underline rather than a colour change, so every tab stays the same weight
   // and colour as the body text.
   const tabClass = (id: string) =>
-    `nav-tab rule-hover px-3 py-2 uppercase tracking-wide text-fg underline-offset-8 ${
-      active === id ? "underline decoration-2" : ""
+    `nav-tab rule-hover px-3 py-2 uppercase tracking-wide text-fg ${
+      active === id ? "is-active" : ""
     }`;
 
   return (
@@ -280,7 +280,7 @@ export function SiteNav({
           // line as the name in the hero, not three pixels off it. Underlined
           // the way an open section's tab is, since this stands in for the
           // whole row of them.
-          className="nav-tab -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg underline decoration-2 underline-offset-8 sm:hidden"
+          className="nav-tab rule-hover is-active -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg sm:hidden"
         >
           Menu
           <ChevronIcon open={open} />

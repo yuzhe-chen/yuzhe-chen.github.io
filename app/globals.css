@@ -252,7 +252,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0.05em;
+  bottom: -0.15em;
   height: 2px;
   background: currentColor;
   transform: scaleX(0);
@@ -260,15 +260,22 @@ body {
   transition: transform 0.22s ease;
 }
 .rule-hover:hover::after,
-.rule-hover:focus-visible::after {
+.rule-hover:focus-visible::after,
+/*
+ * The selected state is the same rule, simply held open. It used to be a real
+ * text-decoration underline, which is measured from the baseline while this is
+ * measured from the box — so the two could only ever line up by luck. One
+ * mechanism, two states, and they sit at the same height by construction.
+ */
+.rule-hover.is-active::after {
   transform: scaleX(1);
 }
 
-/* The nav's own version sits where the active tab's underline sits. */
+/* Inside the tabs' padding, so the rule spans the word and not the gap. */
 .nav-tab.rule-hover::after {
   left: 0.75rem;
   right: 0.75rem;
-  bottom: 0.1rem;
+  bottom: 0.25rem;
 }
 
 /*
