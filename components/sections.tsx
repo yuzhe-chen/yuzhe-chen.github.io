@@ -34,11 +34,12 @@ export function Section({
   return (
     <section
       id={id}
-      // A section carrying a photograph gets room under its text, so the
-      // picture runs to the foot of the section rather than stopping on the
-      // last line of writing.
+      // Room under the text on a laptop, where a wallpaper fills the section
+      // and would otherwise stop on the last line of writing. Below that the
+      // photograph is only a band behind the heading, so there is nothing
+      // down there needing room.
       className={`relative isolate border-t border-rule pt-5 lg:pt-7 ${
-        backdrop ? "sm:pb-12 lg:pb-16" : ""
+        backdrop ? "lg:pb-16" : ""
       }`}
     >
       {backdrop}

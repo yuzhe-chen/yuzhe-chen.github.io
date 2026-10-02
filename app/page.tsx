@@ -32,28 +32,10 @@ const WALLPAPERS = ["/hero-bridge", "/hero-houses", "/hero-canal"];
 const srcSet = (base: string) =>
   `${base}-800.webp 800w, ${base}-1400.webp 1400w, ${base}.webp 1800w`;
 
-/**
- * A photograph bleeding to both edges of the screen behind one section.
- *
- * `position` is which part of the picture survives the crop, so two sections
- * can share a photograph and show different parts of it.
- */
-function PhotoBackdrop({
-  base,
-  position,
-}: {
-  base: string;
-  position: string;
-}) {
+/* The picture itself, bleeding to both edges of the screen. */
+function Photo({ base, position }: { base: string; position: string }) {
   return (
-    <div
-      aria-hidden
-      // A band behind the heading alone wherever the heading sits above the
-      // writing — phones and tablets — so the text under it keeps the plain
-      // page. On a laptop, where the label moves beside the text, it fills the
-      // section as it always did.
-      className="absolute left-1/2 top-0 -z-10 h-[5.25rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[8rem] lg:bottom-0 lg:h-auto"
-    >
+    <>
       {/* eslint-disable-next-line @next/next/no-img-element -- static export,
           so next/image would serve one size with no srcset at all. */}
       <img
@@ -66,6 +48,47 @@ function PhotoBackdrop({
         className={`h-full w-full object-cover ${position}`}
       />
       <div className="section-fade absolute inset-0" />
+    </>
+  );
+}
+
+/**
+ * A band: the strip of photograph behind a heading, below `lg`, where the
+ * label sits above the writing. Its height is the heading's own, with matching
+ * air above and below — see `heading-band`.
+ *
+ * A section can have one of these without having a wallpaper, and the other
+ * way round. `position` is which part of the picture survives the crop, so two
+ * sections can share a photograph and show different parts of it.
+ */
+function HeadingBand({ base, position }: { base: string; position: string }) {
+  return (
+    <div
+      aria-hidden
+      className="heading-band absolute left-1/2 top-0 -z-10 w-screen -translate-x-1/2 overflow-hidden lg:hidden"
+    >
+      <Photo base={base} position={position} />
+    </div>
+  );
+}
+
+/**
+ * A wallpaper: the photograph filling a whole section, from `lg` up, where the
+ * label has moved beside the text and there is a field for it to fill.
+ */
+function SectionWallpaper({
+  base,
+  position,
+}: {
+  base: string;
+  position: string;
+}) {
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
+    >
+      <Photo base={base} position={position} />
     </div>
   );
 }
@@ -140,29 +163,34 @@ export default function Home() {
             <Section
               id="biography"
               label="Biography"
-              // On a phone the portrait comes into the column itself, under
-              // the heading and above the writing, centred and faded out at
-              // its edges. Above that it goes back to the bleed behind the
-              // text, below.
-              aside={
-                <div className="mt-6 sm:hidden">
-                  <Portrait
-                    light={profile.photoLight}
-                    name={profile.name}
-                    className="portrait-sides portrait-breathe mx-auto aspect-square w-[80%]"
-                  />
-                </div>
-              }
               // The portrait sits on the heading side and bleeds to the edge
               // of the screen, like every other section's photograph, fading
               // rightward into the page colour so the text sits on solid
               // ground. Hidden on a phone, where there is no room beside the
               // text for it to be anything but a wash behind the words.
               backdrop={
-                <div
-                  aria-hidden
-                  className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden sm:block"
-                >
+                <>
+                  {/* On a phone the portrait stands behind the writing rather
+                      than beside it: anchored to the foot of the section,
+                      reaching up past the text and thinning as it goes, so
+                      there is picture under the lower half of the biography
+                      and plain page above it. */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 -z-10 overflow-hidden sm:hidden"
+                  >
+                    <Portrait
+                      light={profile.photoLight}
+                      name=""
+                      className="portrait-up portrait-breathe absolute inset-x-0 bottom-0 h-[82%]"
+                      position="object-[50%_18%]"
+                    />
+                  </div>
+
+                  <div
+                    aria-hidden
+                    className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden sm:block"
+                  >
                   {/* Pulled left so the head clears the writing. The box is
                       wider than the picture's aspect, so cover fills it across
                       and crops top and bottom — horizontal object-position has
@@ -181,8 +209,9 @@ export default function Home() {
                       position="object-[50%_26%]"
                     />
                   </div>
-                  <div className="section-fade absolute inset-0" />
-                </div>
+                    <div className="section-fade absolute inset-0" />
+                  </div>
+                </>
               }
             >
               <div className="space-y-4 text-[17px] leading-7">
@@ -198,7 +227,13 @@ export default function Home() {
               id="activities"
               label="Activities"
               backdrop={
-                <PhotoBackdrop base={WALLPAPERS[0]} position="object-[50%_28%]" />
+                <>
+                  <HeadingBand base={WALLPAPERS[0]} position="object-[50%_16%]" />
+                  <SectionWallpaper
+                    base={WALLPAPERS[0]}
+                    position="object-[50%_28%]"
+                  />
+                </>
               }
             >
               <Columns>
@@ -218,6 +253,11 @@ export default function Home() {
             <Section
               id="performances"
               label="Performances"
+              // A band only: no wallpaper behind the videos on a laptop. The
+              // same photograph as Activities, further down it.
+              backdrop={
+                <HeadingBand base={WALLPAPERS[0]} position="object-[50%_74%]" />
+              }
               below={
                 <ul className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-10">
                   {videos.map((v) => (
@@ -238,7 +278,13 @@ export default function Home() {
               id="honors"
               label="Selected Honors"
               backdrop={
-                <PhotoBackdrop base={WALLPAPERS[1]} position="object-[50%_28%]" />
+                <>
+                  <HeadingBand base={WALLPAPERS[1]} position="object-[50%_16%]" />
+                  <SectionWallpaper
+                    base={WALLPAPERS[1]}
+                    position="object-[50%_28%]"
+                  />
+                </>
               }
             >
               <Columns>
@@ -273,15 +319,27 @@ export default function Home() {
             </Section>
           )}
 
-          {/* One photograph behind the pair rather than one each. On a phone
-              and a tablet the band sits at the top of the pair, so it runs
-              behind the Venues heading. */}
+          {/* One wallpaper behind the pair on a laptop, rather than one each.
+              Below that each keeps a band of its own behind its own heading,
+              taken from different parts of the same photograph. */}
           {(venues.length > 0 || languages.length > 0) && (
             <div className="relative isolate space-y-14 lg:space-y-20 lg:pb-16">
-              <PhotoBackdrop base={WALLPAPERS[2]} position="object-[50%_28%]" />
+              <SectionWallpaper
+                base={WALLPAPERS[2]}
+                position="object-[50%_28%]"
+              />
 
               {venues.length > 0 && (
-                <Section id="venues" label="Venues">
+                <Section
+                  id="venues"
+                  label="Venues"
+                  backdrop={
+                    <HeadingBand
+                      base={WALLPAPERS[2]}
+                      position="object-[50%_14%]"
+                    />
+                  }
+                >
                   <Columns>
                     {venues.map((v) => (
                       <Entry key={v.name} title={v.name} meta={v.city} />
@@ -291,7 +349,16 @@ export default function Home() {
               )}
 
               {languages.length > 0 && (
-                <Section id="languages" label="Languages">
+                <Section
+                  id="languages"
+                  label="Languages"
+                  backdrop={
+                    <HeadingBand
+                      base={WALLPAPERS[2]}
+                      position="object-[50%_72%]"
+                    />
+                  }
+                >
                   <Columns>
                     {languages.map((l) => (
                       <Entry key={l.name} title={l.name} meta={l.level} />

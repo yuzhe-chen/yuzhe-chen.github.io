@@ -116,11 +116,20 @@ body {
 @media (max-width: 639px) {
   .display {
     font-size: clamp(1.5rem, 9vw, 3rem);
-    /*
-     * No block behind the label on a phone: the photograph there is a narrow
-     * band rather than a field the text sits on, so there is nothing for the
-     * label to need protecting from.
-     */
+  }
+}
+
+/*
+ * No block of page colour behind the label below `lg`. That is exactly where
+ * the photograph is a band behind the heading, and a block laid over it would
+ * hide the one thing the band is there to show. The label only needs the block
+ * on a laptop, where the picture is a field behind the writing as well.
+ *
+ * Kept apart from the size rule above, which is a phone measurement and has no
+ * business reaching a tablet.
+ */
+@media (max-width: 1023px) {
+  .display {
     display: block;
     background: none;
     padding: 0;
@@ -138,6 +147,35 @@ body {
 @media (min-width: 1024px) {
   .display {
     font-size: clamp(2rem, calc(6vw - 14px), 5.5rem);
+  }
+}
+
+/*
+ * The band behind a heading is the heading's own line plus equal air above and
+ * below it, so the picture shows the same amount over the words as under them.
+ * Derived from the label's size rather than set to a number, or the two sides
+ * stop matching the moment the type scales.
+ *
+ * `2.5rem` is the section's top padding counted twice — once for the real
+ * space above the words, once to answer it underneath. `0.88` is the label's
+ * line-height, which turns its font size into the height of the line itself.
+ *
+ * Any further space between the band and the writing below is the page's own
+ * colour: the grid's row gap, not more photograph.
+ */
+.heading-band {
+  height: calc(2.5rem + 0.88 * clamp(1.5rem, 9vw, 3rem));
+}
+@media (min-width: 640px) {
+  .heading-band {
+    height: calc(2.5rem + 0.88 * clamp(2.5rem, 7.5vw, 5.5rem));
+  }
+}
+/* From `lg` the label moves beside the text and the photograph fills the
+   section instead, so the height comes from the insets. */
+@media (min-width: 1024px) {
+  .heading-band {
+    height: auto;
   }
 }
 
@@ -176,25 +214,18 @@ body {
 }
 
 /*
- * The portrait in the column fades out to the left and to the right, full
- * strength through the middle. Top and bottom are left alone — it fades to
- * the sides, not all round.
+ * The portrait standing behind the biography on a phone: full strength along
+ * the bottom and thinning as it climbs, so the writing has picture under its
+ * lower half and plain page by the time it reaches the top.
  */
-.portrait-sides {
+.portrait-up {
   -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    #000 24%,
-    #000 76%,
+    to top,
+    #000 0%,
+    #000 30%,
     transparent 100%
   );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    #000 24%,
-    #000 76%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to top, #000 0%, #000 30%, transparent 100%);
 }
 
 
@@ -320,6 +351,24 @@ body {
       color-mix(in srgb, var(--bg) 68%, transparent) 34%,
       var(--bg) 62%
     );
+}
+
+/*
+ * Below `lg` the same fade is covering a band — a strip behind a heading, not
+ * a field behind paragraphs — so it can be laid on much more lightly. There is
+ * only one line of type over it, and that line has no block of page colour
+ * behind it at these widths precisely so the photograph can be seen.
+ */
+@media (max-width: 1023px) {
+  .section-fade {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--bg) 18%, transparent) 0%,
+        color-mix(in srgb, var(--bg) 40%, transparent) 42%,
+        var(--bg) 78%
+      );
+  }
 }
 
 
