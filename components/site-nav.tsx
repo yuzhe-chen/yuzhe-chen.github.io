@@ -4,7 +4,12 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { HeroLayer } from "./hero-backdrop";
 
-export type NavItem = { id: string; label: string };
+export type NavItem = {
+  id: string;
+  label: string;
+  /** Where the tab points, if not at its own section. */
+  href?: string;
+};
 
 // Stroke weight 2 to sit alongside the bold nav type; currentColor so they
 // inherit the text colour and the accent on hover.
@@ -14,7 +19,8 @@ const ICON =
 function SunIcon() {
   return (
     <svg className={`theme-sun ${ICON}`} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <circle cx="12" cy="12" r="4.25" />
+      {/* Filled disc, drawn rays. */}
+      <circle cx="12" cy="12" r="4.25" fill="currentColor" />
       <path d="M12 1.9v2.2M12 19.9v2.2M22.1 12h-2.2M4.1 12H1.9M19.14 4.86l-1.56 1.56M6.42 17.58l-1.56 1.56M19.14 19.14l-1.56-1.56M6.42 6.42L4.86 4.86" />
     </svg>
   );
@@ -23,7 +29,10 @@ function SunIcon() {
 function MoonIcon() {
   return (
     <svg className={`theme-moon ${ICON}`} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" />
+      <path
+        d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"
+        fill="currentColor"
+      />
     </svg>
   );
 }
@@ -126,9 +135,12 @@ function ThemeToggle() {
 export function SiteNav({
   items,
   right,
+  name,
 }: {
   items: NavItem[];
   right: { label: string; href: string }[];
+  /** Sits in the corner of the bar and goes back to the top. */
+  name: string;
 }) {
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
@@ -267,28 +279,20 @@ export function SiteNav({
       <div className="absolute inset-0 hidden overflow-hidden sm:block">
         <HeroLayer className="absolute inset-x-0 top-0 h-screen" />
       </div>
-      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-6 px-5 text-[17px] font-bold sm:px-8">
-        {/* The full row doesn't fit on a phone, and a row that scrolls
-            sideways hides the sections at the end of it with nothing on
-            screen to say they're there. One button instead. */}
-        <button
-          type="button"
-          onClick={() => setOpen((wasOpen) => !wasOpen)}
-          aria-expanded={open}
-          aria-controls="site-menu"
-          // Pulled left by its own padding so the word starts on the same
-          // line as the name in the hero, not three pixels off it. Underlined
-          // the way an open section's tab is, since this stands in for the
-          // whole row of them.
-          className="nav-tab rule-hover is-active -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg sm:hidden"
+      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-4 px-5 text-[17px] font-bold sm:gap-6 sm:px-8">
+        {/* The name holds the corner and goes back to the top. Pulled left by
+            its own padding so it starts on the page's own margin. */}
+        <a
+          href="#top"
+          className="nav-tab rule-hover -ml-3 shrink-0 px-3 py-2 uppercase tracking-wide text-fg"
         >
-          Menu
-          <ChevronIcon open={open} />
-        </button>
+          {name}
+        </a>
 
+        {/* Everything else sits at the other end of the bar. */}
         <nav
           ref={rowRef}
-          className="hidden min-w-0 flex-1 items-center gap-1.5 sm:flex sm:gap-2"
+          className="hidden min-w-0 flex-1 items-center justify-end gap-1.5 sm:flex sm:gap-2"
         >
           {/* The tabs are what gets clipped when they don't fit. The More
               button and its menu stay outside that box, or the menu would be
@@ -299,7 +303,7 @@ export function SiteNav({
             {items.slice(0, shown).map((item) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={item.href ?? `#${item.id}`}
                 aria-current={active === item.id ? "true" : undefined}
                 className={`${tabClass(item.id)} shrink-0`}
               >
@@ -337,7 +341,7 @@ export function SiteNav({
                 {items.slice(shown).map((item) => (
                   <a
                     key={item.id}
-                    href={`#${item.id}`}
+                    href={item.href ?? `#${item.id}`}
                     onClick={() => setMoreOpen(false)}
                     aria-current={active === item.id ? "true" : undefined}
                     className={`${tabClass(item.id)} block whitespace-nowrap`}
@@ -377,6 +381,19 @@ export function SiteNav({
         </div>
 
 
+        {/* The phone's stand-in for the whole row, at the far end like the
+            tabs it replaces. */}
+        <button
+          type="button"
+          onClick={() => setOpen((wasOpen) => !wasOpen)}
+          aria-expanded={open}
+          aria-controls="site-menu"
+          className="nav-tab rule-hover is-active ml-auto flex shrink-0 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg sm:hidden"
+        >
+          Menu
+          <ChevronIcon open={open} />
+        </button>
+
         <div className="flex shrink-0 items-center gap-1.5 text-fg sm:gap-2">
           {right.map((l) => (
             <a
@@ -405,7 +422,7 @@ export function SiteNav({
           {items.map((item) => (
             <li key={item.id}>
               <a
-                href={`#${item.id}`}
+                href={item.href ?? `#${item.id}`}
                 onClick={() => setOpen(false)}
                 aria-current={active === item.id ? "true" : undefined}
                 className={`${tabClass(item.id)} -ml-3 block`}

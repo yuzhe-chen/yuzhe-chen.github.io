@@ -193,8 +193,8 @@ export const activities = [
 export const languages = [
   { name: "Chinese", level: "Fluent" },
   { name: "English", level: "Fluent" },
-  { name: "French", level: "Fluent · AP French Language and Culture: 5" },
-  { name: "Spanish", level: "Fluent · National Spanish Examinations Gold Medal, Levels III & IV" },
+  { name: "French", level: "Fluent - AP French: 5" },
+  { name: "Spanish", level: "Fluent - National Spanish Examinations Gold Medal, Levels III & IV" },
 ];
 
 /**
@@ -227,17 +227,17 @@ export const videos: {
   {
     id: "zOJ_GQH1Jgc",
     title: "Bach, Schumann & Chopin",
-    detail: "Robert Schumann Competition · 2025",
+    detail: "Robert Schumann Competition - 2025",
   },
   {
     id: "uzMtMw8RKIE",
     title: "Schumann: Variations on the Name “Abegg”, Op. 1",
-    detail: "Thomas F. Hulbert International Piano Competition · 2025",
+    detail: "Thomas F. Hulbert International Piano Competition - 2025",
   },
   {
     id: "K52sT2QkNFg",
     title: "Kaufman International Youth Piano Competition, Final Round",
-    detail: "First Prize & Steinway & Sons Award · 2022",
+    detail: "First Prize & Steinway & Sons Award - 2022",
   },
 ];
 

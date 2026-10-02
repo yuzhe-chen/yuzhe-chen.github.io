@@ -20,10 +20,13 @@ type Photo = { base: string; full: number; position: string };
 
 const WIDTHS = [800, 1400];
 
+// Held high in the frame, so what shows is mostly sky rather than the busy
+// middle of the photograph — quieter behind text, and less of it cropped away
+// on a tall screen.
 const DAY: Photo[] = [
-  { base: "/hero-bridge", full: 1800, position: "object-[50%_55%]" },
-  { base: "/hero-houses", full: 1800, position: "object-[50%_50%]" },
-  { base: "/hero-canal", full: 1800, position: "object-[45%_55%]" },
+  { base: "/hero-bridge", full: 1800, position: "object-[50%_22%]" },
+  { base: "/hero-houses", full: 1800, position: "object-[50%_18%]" },
+  { base: "/hero-canal", full: 1800, position: "object-[45%_22%]" },
 ];
 /** Seconds each photo holds the screen before crossing to the next. */
 const TURN = 20;

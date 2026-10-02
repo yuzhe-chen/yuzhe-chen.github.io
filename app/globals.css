@@ -131,21 +131,17 @@ body {
 }
 
 /*
- * Hero wallpaper. --scrim is how much of the page background is laid over the
- * photo, and each theme has its own photo. Light gets the bright midday
- * coast, which black type needs washed back a little to sit on; dark gets the
- * dusk photo, which is close to black already and needs very little.
+ * From `lg` the label stops having the page to itself: it shares the row with
+ * the text column and the count, which leaves it roughly (width - 232px)/2.25.
+ * Sized against the whole viewport it outgrows that share — a single long word
+ * like PERFORMANCES then runs straight through the text beside it, since there
+ * is nowhere for it to break. Scale it against the share instead.
  */
-:root {
-  --scrim: 30%;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --scrim: 62%;
+@media (min-width: 1024px) {
+  .display,
+  .count {
+    font-size: clamp(2rem, calc(6vw - 14px), 5.5rem);
   }
-}
-:root[data-theme="dark"] {
-  --scrim: 62%;
 }
 
 /*
@@ -195,17 +191,19 @@ body {
 
 
 /*
- * The shading over the wallpaper is black in both themes, so the top of the
- * page reads the same either way and the white name over it always has
- * something dark to sit on. Only the foot of it follows the theme, fading into
- * whatever colour the page below is.
+ * The shading follows the theme — a white wash in light, a black one in dark —
+ * so the toggle changes the whole page rather than leaving a dark top in both.
+ *
+ * Laid on heavily. The photographs under it are bright and busy, and ordinary
+ * body text has to read over them, which only happens when most of what you
+ * see is the page's own colour and the photograph is the texture beneath it.
  */
 .hero-scrim {
   background:
     linear-gradient(
       to bottom,
-      rgb(0 0 0 / 0.55) 0%,
-      rgb(0 0 0 / 0.45) 50%,
+      color-mix(in srgb, var(--bg) 82%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 76%, transparent) 55%,
       var(--bg) 100%
     );
 }
@@ -275,7 +273,7 @@ body {
 .nav-tab.rule-hover::after {
   left: 0.75rem;
   right: 0.75rem;
-  bottom: 0.25rem;
+  bottom: 0.4rem;
 }
 
 /*

@@ -22,8 +22,10 @@ import { SiteNav } from "@/components/site-nav";
 import { HeroBackdrop } from "@/components/hero-backdrop";
 
 // Document order matters — the nav highlights the topmost visible entry.
-const nav = [
-  { id: "biography", label: "Biography", show: bio.length > 0 },
+const nav: { id: string; label: string; href?: string; show: boolean }[] = [
+  // Its section is the first thing on the page, so the tab and the name in
+  // the corner of the bar go to the same place.
+  { id: "biography", label: "Biography", href: "#top", show: bio.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Honors", show: awardRecord.length > 0 },
@@ -71,40 +73,28 @@ export default function Home() {
       <HeroBackdrop />
 
       <SiteNav
-        items={nav.filter((s) => s.show).map(({ id, label }) => ({ id, label }))}
+        items={nav
+          .filter((s) => s.show)
+          .map(({ id, label, href }) => ({ id, label, href }))}
         right={links}
+        name={profile.shortName}
       />
 
       <main
         id="top"
         className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8"
       >
-        {/* Hero: name and everything under it left, matching the section
-            labels below; portrait right. Sized so the wallpaper reads. */}
-        <div
-          id="hero"
-          // The name sits at the top of the page now rather than centred in a
-          // screenful of its own, so the biography starts straight under it.
-          // White from `sm` up, where the shaded photograph is behind it; on a
-          // phone there's no wallpaper, so it takes the page's own colour.
-          className="pt-16 pb-8 sm:pt-24 sm:pb-10 sm:text-white"
-        >
-          {/* The short name. The full one still carries the page title, the
-              structured data and the portrait's alt text, where the middle
-              name is worth having. */}
-          <h1 className="display-hero">{profile.shortName}</h1>
-
-        </div>
-
-        {/* Every section is ruled off from the one above it, but the first
-            one's rule lands between the hero and the page proper, where on a
-            phone it reads as a line under the picture rather than as the start
-            of a section. Dropped there only. */}
-        <div className="space-y-14 max-sm:[&>section:first-child]:border-t-0 lg:space-y-20">
+        {/* The name is in the bar now, and the first section carries it at
+            full size, so the page opens straight into it. Every section is
+            ruled off from the one above — except the first, whose rule would
+            be a line across the top of the page with nothing above it. */}
+        <div className="space-y-14 pt-16 [&>section:first-child]:border-t-0 sm:pt-24 lg:space-y-20">
           {bio.length > 0 && (
             <Section
               id="biography"
-              label="Biography"
+              label={profile.shortName}
+              // The page's name, and so the page's only h1.
+              as="h1"
               // Under the heading, in the heading's own column: square, and as
               // wide as that column is, so it fills it on a phone and on a
               // tablet alike without a size of its own to go wrong.
@@ -135,7 +125,7 @@ export default function Home() {
                   <Entry
                     key={a.title + a.org}
                     title={a.title}
-                    meta={`${a.org} · ${a.period}`}
+                    meta={`${a.org} - ${a.period}`}
                     body={a.description}
                   />
                 ))}
@@ -224,7 +214,7 @@ export default function Home() {
                   <Entry
                     key={p.title}
                     title={p.title}
-                    meta={`${p.role} · ${p.year}`}
+                    meta={`${p.role} - ${p.year}`}
                     body={p.description}
                     href={p.href}
                   />
@@ -240,7 +230,7 @@ export default function Home() {
                   <Entry
                     key={w.title}
                     title={w.title}
-                    meta={`${w.where} · ${w.year}`}
+                    meta={`${w.where} - ${w.year}`}
                     href={w.href}
                   />
                 ))}

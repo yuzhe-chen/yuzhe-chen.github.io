@@ -10,6 +10,7 @@ export function Section({
   id,
   label,
   count,
+  as: Heading = "h2",
   children,
   aside,
   below,
@@ -17,6 +18,8 @@ export function Section({
   id: string;
   label: string;
   count?: number;
+  /** The first section's label is the page's name, so it's the page's h1. */
+  as?: "h1" | "h2";
   children?: ReactNode;
   /** Sits under the label, in the label's own column — for the portrait. */
   aside?: ReactNode;
@@ -34,12 +37,14 @@ export function Section({
             count is a pixel the longest label doesn't have. */}
         <div>
           <div className="flex items-start justify-between gap-3 sm:gap-6">
-            <h2 className="display">{label}</h2>
+            <Heading className="display">{label}</Heading>
             {n && <span className="count lg:hidden">{n}</span>}
           </div>
           {aside}
         </div>
-        <div className="lg:pt-2">{children}</div>
+        {/* A section with no count has no use for the column that holds it,
+            so its text takes that space too and runs to the right margin. */}
+        <div className={`lg:pt-2 ${n ? "" : "lg:col-span-2"}`}>{children}</div>
         <span className="count hidden text-right lg:block">{n}</span>
       </div>
       {below}
