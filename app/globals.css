@@ -78,6 +78,33 @@ body {
   letter-spacing: -0.035em;
   line-height: 0.88;
   font-size: clamp(2.5rem, 7.5vw, 5.5rem);
+  /*
+   * In light mode the label sits in a block of page colour, so it holds up
+   * against the photograph behind it. `table` rather than `block` so the
+   * block shrink-wraps the words instead of running the column's full width,
+   * and the negative margin puts the text back on the page's own margin after
+   * the padding has pushed it in.
+   */
+  display: table;
+  background: var(--bg);
+  padding: 0.06em 0.16em;
+  margin-left: -0.16em;
+}
+
+/* Dark mode doesn't need it: the type is already the lighter of the two. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .display {
+    display: block;
+    background: none;
+    padding: 0;
+    margin-left: 0;
+  }
+}
+:root[data-theme="dark"] .display {
+  display: block;
+  background: none;
+  padding: 0;
+  margin-left: 0;
 }
 
 /*
@@ -130,10 +157,10 @@ body {
 @keyframes portrait-breathe {
   0%,
   100% {
-    transform: scale(1);
+    transform: scale(1.07);
   }
   50% {
-    transform: scale(1.035);
+    transform: scale(1.105);
   }
 }
 
@@ -168,6 +195,22 @@ body {
 /* Nav tabs are plain bold text in the body colour — no boxes. */
 .nav-tab {
   transition: color 0.15s ease;
+}
+
+/*
+ * The two icons at the end of the bar answer to the pointer by growing a
+ * little, and a little more while held down. Only the glyph moves: scaling the
+ * button would drag its padding around with it and shift the bar.
+ */
+.icon-pop svg {
+  transition: transform 0.18s ease;
+}
+.icon-pop:hover svg,
+.icon-pop:focus-visible svg {
+  transform: scale(1.14);
+}
+.icon-pop:active svg {
+  transform: scale(1.22);
 }
 
 /*

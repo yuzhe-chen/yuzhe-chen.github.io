@@ -132,7 +132,7 @@ function ThemeToggle() {
           ? `Switch to ${theme === "dark" ? "light" : "dark"} mode`
           : "Toggle theme"
       }
-      className="nav-tab inline-flex shrink-0 items-center justify-center px-3 py-2"
+      className="nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-3 py-2"
     >
       {/* Both render; CSS shows one, so the right icon is there on first
           paint. Drawn rather than typed, because the Unicode moon renders
@@ -438,7 +438,7 @@ export function SiteNav({
               target={l.href.startsWith("http") ? "_blank" : undefined}
               rel={l.href.startsWith("http") ? "noreferrer" : undefined}
               aria-label={l.label}
-              className="nav-tab inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3"
+              className="nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3"
             >
               <YouTubeIcon />
             </a>
