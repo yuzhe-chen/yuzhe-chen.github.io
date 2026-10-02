@@ -54,6 +54,20 @@ body {
 }
 
 /*
+ * The photographs bleed to the edges of the screen at 100vw, and 100vw counts
+ * the vertical scrollbar — so on any desktop with one, every band is a dozen
+ * pixels wider than the page can show and the whole document gains a sideways
+ * scrollbar. Clip that axis instead. `clip` rather than `hidden` so this
+ * doesn't become a scroll container of its own; `hidden` is left underneath it
+ * for anything too old to know the newer word.
+ */
+html,
+body {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/*
  * Changing theme swaps every colour on the page at once, which lands as a
  * flash. Easing the colour properties turns it into a dip between the two.
  * Set on everything at zero specificity, so any element with a transition of

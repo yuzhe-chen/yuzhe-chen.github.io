@@ -48,10 +48,11 @@ function PhotoBackdrop({
   return (
     <div
       aria-hidden
-      // A band behind the heading alone up to `lg` — on a phone and on a
-      // tablet alike — so the writing under it keeps the plain page. Only on a
-      // full screen does it fill the section behind the text as well.
-      className="absolute left-1/2 top-0 -z-10 h-[5.25rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[8.5rem] lg:bottom-0 lg:h-auto"
+      // A band behind the heading alone wherever the heading sits above the
+      // writing — phones and tablets — so the text under it keeps the plain
+      // page. On a laptop, where the label moves beside the text, it fills the
+      // section as it always did.
+      className="absolute left-1/2 top-0 -z-10 h-[5.25rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[8rem] lg:bottom-0 lg:h-auto"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- static export,
           so next/image would serve one size with no srcset at all. */}
@@ -162,11 +163,14 @@ export default function Home() {
                   aria-hidden
                   className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden sm:block"
                 >
-                  {/* Wider than the point where the fade above it reaches
-                      solid page colour, so the picture's own edge is already
-                      covered when it arrives — at 55% the edge landed inside
-                      the gradient and showed as a seam. */}
-                  <div className="portrait-breathe absolute inset-y-0 left-0 w-[72%]">
+                  {/* Pulled left so the head clears the writing. The box is
+                      wider than the picture's aspect, so cover fills it across
+                      and crops top and bottom — horizontal object-position has
+                      nothing left to move, and shifting the box is what shifts
+                      the face. Its right edge still lands past the point where
+                      the fade above reaches solid colour, or the picture's own
+                      edge would show as a seam. */}
+                  <div className="portrait-breathe absolute inset-y-0 left-[-7%] w-[72%]">
                     <Portrait
                       light={profile.photoLight}
                       name=""
@@ -194,7 +198,7 @@ export default function Home() {
               id="activities"
               label="Activities"
               backdrop={
-                <PhotoBackdrop base={WALLPAPERS[0]} position="object-[50%_16%]" />
+                <PhotoBackdrop base={WALLPAPERS[0]} position="object-[50%_28%]" />
               }
             >
               <Columns>
@@ -214,10 +218,6 @@ export default function Home() {
             <Section
               id="performances"
               label="Performances"
-              // The same photograph as Activities, further down it.
-              backdrop={
-                <PhotoBackdrop base={WALLPAPERS[0]} position="object-[50%_74%]" />
-              }
               below={
                 <ul className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-10">
                   {videos.map((v) => (
@@ -238,7 +238,7 @@ export default function Home() {
               id="honors"
               label="Selected Honors"
               backdrop={
-                <PhotoBackdrop base={WALLPAPERS[2]} position="object-[45%_26%]" />
+                <PhotoBackdrop base={WALLPAPERS[1]} position="object-[50%_28%]" />
               }
             >
               <Columns>
@@ -273,37 +273,33 @@ export default function Home() {
             </Section>
           )}
 
-          {venues.length > 0 && (
-            <Section
-              id="venues"
-              label="Venues"
-              backdrop={
-                <PhotoBackdrop base={WALLPAPERS[1]} position="object-[50%_14%]" />
-              }
-            >
-              <Columns>
-                {venues.map((v) => (
-                  <Entry key={v.name} title={v.name} meta={v.city} />
-                ))}
-              </Columns>
-            </Section>
-          )}
+          {/* One photograph behind the pair rather than one each. On a phone
+              and a tablet the band sits at the top of the pair, so it runs
+              behind the Venues heading. */}
+          {(venues.length > 0 || languages.length > 0) && (
+            <div className="relative isolate space-y-14 lg:space-y-20 lg:pb-16">
+              <PhotoBackdrop base={WALLPAPERS[2]} position="object-[50%_28%]" />
 
-          {languages.length > 0 && (
-            <Section
-              id="languages"
-              label="Languages"
-              // The same photograph as Venues, further down it.
-              backdrop={
-                <PhotoBackdrop base={WALLPAPERS[1]} position="object-[50%_72%]" />
-              }
-            >
-              <Columns>
-                {languages.map((l) => (
-                  <Entry key={l.name} title={l.name} meta={l.level} />
-                ))}
-              </Columns>
-            </Section>
+              {venues.length > 0 && (
+                <Section id="venues" label="Venues">
+                  <Columns>
+                    {venues.map((v) => (
+                      <Entry key={v.name} title={v.name} meta={v.city} />
+                    ))}
+                  </Columns>
+                </Section>
+              )}
+
+              {languages.length > 0 && (
+                <Section id="languages" label="Languages">
+                  <Columns>
+                    {languages.map((l) => (
+                      <Entry key={l.name} title={l.name} meta={l.level} />
+                    ))}
+                  </Columns>
+                </Section>
+              )}
+            </div>
           )}
 
           {projects.length > 0 && (

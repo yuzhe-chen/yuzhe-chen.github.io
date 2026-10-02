@@ -44,8 +44,9 @@ export function Section({
       {backdrop}
       {/* Label on the left, everything it introduces on the right, running to
           the margin — there is no third column now that nothing is counted. */}
-      {/* More air under the label where the photograph is a band behind it,
-          so the writing doesn't start against the edge of the picture. */}
+      {/* More air under the label on a phone, where the photograph is a band
+          behind it and the writing would otherwise start against its edge.
+          The band is a phone thing, so the extra air is too. */}
       <div className="grid gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10 lg:gap-y-6">
         <div>
           <Heading className="display">{label}</Heading>

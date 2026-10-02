@@ -304,6 +304,10 @@ export function SiteNav({
       active === id ? "is-active" : ""
     }`;
 
+  // A tab that has been pushed under More is still the section you are in, so
+  // More wears the mark that tab would have worn.
+  const moreHoldsActive = items.slice(shown).some((item) => item.id === active);
+
   return (
     <header
       className={`site-header no-print fixed inset-x-0 top-0 z-20 ${
@@ -353,7 +357,9 @@ export function SiteNav({
                 onClick={() => setMoreOpen((wasOpen) => !wasOpen)}
                 aria-expanded={moreOpen}
                 aria-controls="site-more"
-                className={`${tabClass("")} flex items-center gap-1.5`}
+                className={`${tabClass("")} ${
+                  moreHoldsActive ? "is-active" : ""
+                } flex items-center gap-1.5`}
               >
                 More
                 <ChevronIcon open={moreOpen} />
