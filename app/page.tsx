@@ -198,6 +198,13 @@ export default function Home() {
             <Section
               id="biography"
               label="Biography"
+              // Holds the column open to the foot of the picture on a phone,
+              // so the writing starts after it rather than over it. The
+              // picture is 70vw tall; the heading and the section's own top
+              // padding already stand for the first few rem of that.
+              aside={
+                <div aria-hidden className="h-[calc(70vw-3.2rem)] sm:hidden" />
+              }
               // The portrait sits on the heading side and bleeds to the edge
               // of the screen, like every other section's photograph, fading
               // rightward into the page colour so the text sits on solid
@@ -210,17 +217,23 @@ export default function Home() {
                       reaching up past the text and thinning as it goes, so
                       there is picture under the lower half of the biography
                       and plain page above it. */}
+                  {/* On a phone the picture runs the full width of the screen
+                      at the top of the section, with the heading over it and
+                      no fade at its edges. It is cut off below the first
+                      button: the box is shorter than the picture is square, so
+                      cover keeps the top of it and drops the rest. The writing
+                      begins after the picture ends — see the spacer below,
+                      which holds the column open to the same height. */}
                   <div
                     aria-hidden
-                    className="absolute inset-0 -z-10 overflow-hidden sm:hidden"
+                    className="absolute left-1/2 top-0 -z-10 h-[70vw] w-screen -translate-x-1/2 overflow-hidden sm:hidden"
                   >
                     <Portrait
                       light={profile.photoLight}
                       name=""
-                      className="portrait-up portrait-breathe absolute inset-x-0 bottom-0 h-[82%]"
-                      position="object-[50%_18%]"
+                      className="portrait-breathe absolute inset-0 h-full w-full"
+                      position="object-top"
                     />
-                    <div className="portrait-wash absolute inset-0" />
                   </div>
 
                   {/* On a tablet the portrait has already had the screen

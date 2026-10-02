@@ -77,32 +77,6 @@ body {
   letter-spacing: -0.035em;
   line-height: 0.88;
   font-size: clamp(2.5rem, 7.5vw, 5.5rem);
-  /*
-   * In light mode the label sits in page colour, so it holds up against the
-   * photograph behind it. One block, shrink-wrapped to the longest line and
-   * carrying every line of the label — a box per line can't work at this
-   * line-height, where each box would ride up over the one above it.
-   */
-  display: table;
-  background: var(--bg);
-  padding: 0.04em 0.16em;
-  margin-left: -0.16em;
-}
-
-/* Dark mode doesn't need it: the type is already the lighter of the two. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .display {
-    display: block;
-    background: none;
-    padding: 0;
-    margin-left: 0;
-  }
-}
-:root[data-theme="dark"] .display {
-  display: block;
-  background: none;
-  padding: 0;
-  margin-left: 0;
 }
 
 /*
@@ -116,24 +90,6 @@ body {
 @media (max-width: 639px) {
   .display {
     font-size: clamp(1.5rem, 9vw, 3rem);
-  }
-}
-
-/*
- * No block of page colour behind the label below `lg`. That is exactly where
- * the photograph is a band behind the heading, and a block laid over it would
- * hide the one thing the band is there to show. The label only needs the block
- * on a laptop, where the picture is a field behind the writing as well.
- *
- * Kept apart from the size rule above, which is a phone measurement and has no
- * business reaching a tablet.
- */
-@media (max-width: 1023px) {
-  .display {
-    display: block;
-    background: none;
-    padding: 0;
-    margin-left: 0;
   }
 }
 
@@ -211,21 +167,6 @@ body {
 
 .portrait-breathe {
   animation: portrait-breathe 16s ease-in-out infinite;
-}
-
-/*
- * The portrait standing behind the biography on a phone: full strength along
- * the bottom and thinning as it climbs, so the writing has picture under its
- * lower half and plain page by the time it reaches the top.
- */
-.portrait-up {
-  -webkit-mask-image: linear-gradient(
-    to top,
-    #000 0%,
-    #000 30%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(to top, #000 0%, #000 30%, transparent 100%);
 }
 
 
