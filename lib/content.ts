@@ -9,8 +9,8 @@
 
 export const profile = {
   name: "Yuzhe (Julian) Chen",
-  // The hero drops the middle name on a phone, where the full one can't hold
-  // a single line at the size the name is set in.
+  // What the hero is headed with. The full name above still carries the page
+  // title, the structured data and the alt text.
   shortName: "Yuzhe Chen",
   tagline:
     "Award-winning pianist, connoisseur of languages and aficionado of history.",
@@ -32,12 +32,12 @@ export const links = [
   // { label: "Résumé (PDF)", href: "/resume.pdf" },
 ];
 
-/** Julian's own words, put into first person. */
-export const about = [
-  "At fourteen, I'm a linguist, a musician, a globetrotter, and a booknerd. Heading into my junior year at Langley High School, I report for the Saxon Scope and am a dedicated member of the Latin club. I speak fluent Chinese, English, French, and Spanish.",
-  "I serve as chief intern of the Tacy Foundation, a non-profit dedicated to helping my elderly community through the power of music, where I regularly perform at senior assisted living centers. It has taught me more about what a performance is for than any competition has.",
-  "I've performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. I've been featured on NPR's Daily Joy program, and I'm an NSO Youth Fellow in the Chamber Program.",
-  "I spend my free time playing tennis, hiking, and taking photos. My favorite museums are the Smithsonian National Museum of Natural History, the Museo Nacional del Prado, and the Louvre, and the artists I keep coming back to are Monet and Schumann.",
+/** Julian's biography, in the third person. */
+export const bio = [
+  "Yuzhe (Julian) is a junior student at Langley High School. Currently, he studies piano with Dr. Dmitri Nazarenko and music theory with Ms. Lora Baronian.",
+  "Julian has won top prizes in piano competitions at regional, national, and international levels, including the MTNA Piano Competition (3rd place in the National Final and Winner in Southern Division and Virginia State in 2025-2026; 2nd place in Eastern Division and Maryland State Winner in 2024-2025), Friday Morning Music Club Piano Competition (1st Place and George Manos Prize), MSMTA Gertrude Brown Memorial Concerto Competition (winner in 2022, 2024, and 2026), Maryland State Music Teachers Association Elizabeth R. Davis Memorial Piano Competition (1st place in 2025), Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute (2nd place in 2023, 2025), MSMTA Chase Sonata Competition (2024), Maria and Nataliya Yeshchenko International II Piano Competition (Grand Prix among 6 age categories in 2023), and Kaufman International Youth Piano Competition (1st place and the Steinway & Sons Prize for the best Romantic Piece in Junior I group, 2022).",
+  "Julian has performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. He has been featured on NPR's Daily Joy program, and was an NSO Youth Fellow in the Chamber Program (2025-2026).",
+  "Apart from being a musician, Julian is a linguist, a globetrotter, and a booknerd. He speaks fluent Chinese, English, French, and Spanish, and reports for the school magazine Saxon Scope. He also serves as chief intern of the Tacy Foundation, a non-profit dedicated to helping his elderly community through the power of music. He spends his free time playing tennis, hiking, and taking photos. His favorite museums are the Smithsonian National Museum of Natural History, the Museo Nacional del Prado, and the Louvre, and the artists he keeps coming back to are Monet and Schumann.",
 ];
 
 /**

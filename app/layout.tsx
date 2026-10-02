@@ -8,10 +8,10 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-// The title leads with the name and says what he does, because that is the
-// line Google prints as the search result, and "pianist" is the word someone
-// adds when more than one Julian Chen exists.
-const pageTitle = `${profile.name} — Pianist`;
+// Just the name, as it's headed on the page itself. This is also the line
+// Google prints as the search result, so the description below is left to do
+// the work of saying which Yuzhe Chen this is.
+const pageTitle = profile.shortName;
 
 export const metadata: Metadata = {
   // Makes the relative URLs below absolute. Without it, a relative path in any

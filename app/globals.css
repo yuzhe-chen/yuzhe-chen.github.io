@@ -83,7 +83,14 @@ body {
   text-transform: uppercase;
   letter-spacing: -0.04em;
   line-height: 0.86;
-  font-size: clamp(2rem, 12.5vw, 3.25rem);
+  /*
+   * Sized to run the full width of the column on a phone rather than to a
+   * fixed ceiling. Ten characters of this face at this tracking measure about
+   * 5.9em, so the width available divided by that is the size that fills it —
+   * less a little, so a slightly wider glyph can't push the line off the edge.
+   * If it sits short or runs wide, the 16.6 is the number to move.
+   */
+  font-size: calc(16.6vw - 6.6px);
   white-space: nowrap;
 }
 @media (min-width: 640px) {
@@ -134,30 +141,56 @@ body {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --scrim: 22%;
+    --scrim: 62%;
   }
 }
 :root[data-theme="dark"] {
-  --scrim: 22%;
+  --scrim: 62%;
 }
 
-/* Each theme gets its own wallpaper; the other is faded out. */
-.hero-img-dark {
-  opacity: 0;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero-img-light {
+/*
+ * The day wallpaper is four photographs rather than one. Each holds the screen
+ * for twenty seconds and crosses to the next over about a second and a half,
+ * on an eighty-second loop.
+ *
+ * In CSS rather than JavaScript, for three reasons: the wallpaper is rendered
+ * twice — behind the page and again inside the bar — and two copies of one
+ * animation stay in step by themselves where two timers would drift; it runs
+ * on the compositor, so it can't judder the way the scrolling parallax did;
+ * and the reduced-motion rule further down stops it along with everything
+ * else, leaving the first photograph up.
+ */
+@keyframes hero-cycle {
+  0%,
+  23% {
+    opacity: 1;
+  }
+  25%,
+  98% {
     opacity: 0;
   }
-  :root:not([data-theme="light"]) .hero-img-dark {
+  100% {
     opacity: 1;
   }
 }
-:root[data-theme="dark"] .hero-img-light {
-  opacity: 0;
+
+.hero-rotate {
+  animation: hero-cycle 80s linear infinite;
 }
-:root[data-theme="dark"] .hero-img-dark {
-  opacity: 1;
+
+/* The arrow at the foot of the hero, breathing rather than blinking. */
+@keyframes hero-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.35rem);
+  }
+}
+
+.hero-nudge {
+  animation: hero-nudge 2.2s ease-in-out infinite;
 }
 
 /* Same swap for the portrait: one face per theme, the other faded out. */
@@ -189,27 +222,6 @@ body {
     );
 }
 
-/*
- * On a phone the menu bar is solid rather than a window onto the wallpaper,
- * so the photo under it would start on a hard horizontal edge. Fading the top
- * of the photo into the page colour lets the two meet without a seam. Above
- * `sm` the bar shows the photo continuing, so there is no seam to hide.
- */
-@media (max-width: 639px) {
-  .hero-scrim {
-    background:
-      linear-gradient(
-        to bottom,
-        var(--bg) 0%,
-        var(--bg) 9%,
-        color-mix(in srgb, var(--bg) 70%, transparent) 16%,
-        color-mix(in srgb, var(--bg) 46%, transparent) 25%,
-        color-mix(in srgb, var(--bg) var(--scrim), transparent) 36%,
-        color-mix(in srgb, var(--bg) var(--scrim), transparent) 60%,
-        var(--bg) 100%
-      );
-  }
-}
 
 /*
  * The theme toggle renders both glyphs and CSS picks one, so the correct

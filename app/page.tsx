@@ -1,7 +1,7 @@
 import {
-  about,
   activities,
   awardRecord,
+  bio,
   languages,
   links,
   profile,
@@ -23,7 +23,7 @@ import { HeroBackdrop } from "@/components/hero-backdrop";
 
 // Document order matters — the nav highlights the topmost visible entry.
 const nav = [
-  { id: "about", label: "About", show: about.length > 0 },
+  { id: "bio", label: "Bio", show: bio.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Honors", show: awardRecord.length > 0 },
@@ -93,24 +93,13 @@ export default function Home() {
           className="flex flex-col justify-center gap-6 pt-16 pb-6 sm:min-h-svh sm:flex-row sm:items-center sm:gap-12 sm:pt-24 sm:pb-8"
         >
           <div className="min-w-0 flex-1">
-            <h1 className="display-hero">
-              {/* The middle name is what stops this holding one line on a
-                  phone, and the name reads worse broken than shortened. */}
-              <span className="sm:hidden">{profile.shortName}</span>
-              <span className="hidden sm:inline">{profile.name}</span>
-            </h1>
+            {/* The short name everywhere. The full one still carries the
+                page title, the structured data and the portrait's alt text,
+                where the middle name is worth having. */}
+            <h1 className="display-hero">{profile.shortName}</h1>
 
-            {/* Straight under the name, and on a phone at the same size as
-                the body text further down the page. */}
-            <p className="mt-3 max-w-[40ch] text-[17px] leading-7 sm:mt-6 sm:text-[26px] sm:leading-snug">
-              {profile.tagline}
-            </p>
-
-            {/* On a phone the portrait runs the full width of the column, on
-                a mat in the page colour so it doesn't float on the wallpaper.
-                No caption: the school line under a photograph read as a date
-                stamp on it. From `sm` up the portrait moves beside the name
-                and the school line is its own line under the description. */}
+            {/* On a phone the portrait runs the full width of the column. From
+                `sm` up it moves beside the name instead. */}
             <div className="mt-5 bg-bg p-3 sm:hidden">
               <Portrait
                 light={profile.photoLight}
@@ -119,9 +108,6 @@ export default function Home() {
                 className="aspect-square w-full"
               />
             </div>
-            <p className="mt-4 hidden text-[15px] text-muted sm:block">
-              {profile.school}
-            </p>
           </div>
           {/* A solid mat in the page background colour, so the portrait reads
               as sitting on the page rather than floating on the wallpaper.
@@ -134,6 +120,25 @@ export default function Home() {
               name={profile.name}
             />
           </div>
+
+          {/* Above `sm` the hero fills the screen and nothing on it says the
+              page carries on. This does, and takes you there — the smooth
+              scroll and the offset for the fixed bar are already set in the
+              stylesheet, so the plain anchor is the whole mechanism. */}
+          <a
+            href="#bio"
+            aria-label="Skip to the bio"
+            className="absolute inset-x-0 bottom-5 mx-auto flex w-12 justify-center text-muted transition-colors hover:text-accent"
+          >
+            <svg
+              className="hero-nudge h-7 w-7 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+            >
+              <path d="M6 9.5L12 15.5L18 9.5" />
+            </svg>
+          </a>
         </div>
 
         {/* Every section is ruled off from the one above it, but the first
@@ -141,10 +146,10 @@ export default function Home() {
             phone it reads as a line under the picture rather than as the start
             of a section. Dropped there only. */}
         <div className="space-y-14 max-sm:[&>section:first-child]:border-t-0 lg:space-y-20">
-          {about.length > 0 && (
-            <Section id="about" label="About">
+          {bio.length > 0 && (
+            <Section id="bio" label="Bio">
               <div className="space-y-4 text-[17px] leading-7">
-                {about.map((p, i) => (
+                {bio.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>

@@ -272,8 +272,10 @@ export function SiteNav({
           aria-expanded={open}
           aria-controls="site-menu"
           // Pulled left by its own padding so the word starts on the same
-          // line as the name in the hero, not three pixels off it.
-          className="nav-tab -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg hover:text-accent sm:hidden"
+          // line as the name in the hero, not three pixels off it. Underlined
+          // the way an open section's tab is, since this stands in for the
+          // whole row of them.
+          className="nav-tab -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg underline decoration-2 underline-offset-8 hover:text-accent sm:hidden"
         >
           Menu
           <ChevronIcon open={open} />
@@ -321,7 +323,7 @@ export function SiteNav({
               <div
                 id="site-more"
                 aria-hidden={!moreOpen}
-                className={`absolute left-0 top-full min-w-[11rem] border border-rule bg-bg py-1 transition duration-150 ease-out ${
+                className={`absolute left-0 top-full min-w-[11rem] bg-bg py-1 transition duration-150 ease-out ${
                   moreOpen
                     ? "translate-y-0 opacity-100"
                     : "pointer-events-none -translate-y-1 opacity-0"
@@ -390,9 +392,9 @@ export function SiteNav({
           Opaque, because the wallpaper runs behind it. */}
       <div
         id="site-menu"
-        className={`relative z-10 border-t border-rule bg-bg sm:hidden ${
-          open ? "" : "hidden"
-        }`}
+        // Same colour as the bar and no rule between them, so the menu reads
+        // as the bar growing rather than as a panel laid over the page.
+        className={`relative z-10 bg-bg sm:hidden ${open ? "" : "hidden"}`}
       >
         <ul className="mx-auto flex max-w-[1600px] flex-col px-5 py-2 text-[17px] font-bold">
           {items.map((item) => (

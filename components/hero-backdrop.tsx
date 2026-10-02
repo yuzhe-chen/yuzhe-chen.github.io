@@ -1,12 +1,53 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect } from "react";
 
-// Renamed whenever a photo changes, so cached copies of the old one can't
-// linger under the same URL. One photo per theme, swapped in CSS.
-const LIGHT = "/hero-coast.webp";
-const DARK = "/hero-dark.jpg";
+/*
+ * Renamed whenever a photo changes, so cached copies of the old one can't
+ * linger under the same URL.
+ *
+ * Day is a set that cycles; night is one photo. Which set shows is decided in
+ * CSS by theme, and the cycling is a CSS animation — see `hero-cycle`.
+ *
+ * Every photo ships at three widths and the browser takes the one it needs:
+ * the day set costs about 280KB on a phone against 1.2MB at full size.
+ *
+ * Plain `img` rather than `next/image` because this site exports statically
+ * with the optimizer off, and an unoptimized `next/image` serves the single
+ * file it was given — no srcset, which would make `sizes` decoration.
+ */
+type Photo = { base: string; full: number; position: string };
+
+const WIDTHS = [800, 1400];
+
+const DAY: Photo[] = [
+  // Held left of centre so the open water sits behind the name and the
+  // headland stays in frame on a phone, where cover crops hard.
+  { base: "/hero-coast", full: 2000, position: "object-[38%_55%]" },
+  { base: "/hero-bridge", full: 1800, position: "object-[50%_55%]" },
+  { base: "/hero-houses", full: 1800, position: "object-[50%_50%]" },
+  { base: "/hero-canal", full: 1800, position: "object-[45%_55%]" },
+];
+/** Seconds each photo holds the screen before crossing to the next. */
+const TURN = 20;
+
+/*
+ * A phone gets no wallpaper at all, and the point is that it shouldn't pay for
+ * one either: hiding the photos in CSS would still fetch every byte. So each
+ * is a `picture` whose only source is gated on the width where the wallpaper
+ * appears, over a transparent single pixel. Below that width nothing matches,
+ * the pixel stands in, and no photograph is requested.
+ */
+const BLANK =
+  "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
+const srcSet = (photo: Photo) =>
+  [
+    ...WIDTHS.map((width) => `${photo.base}-${width}.webp ${width}w`),
+    `${photo.base}.webp ${photo.full}w`,
+  ].join(", ");
+
+const FILL = "absolute inset-0 h-full w-full object-cover";
 
 /**
  * The wallpaper itself, rendered twice: once behind the page, and once inside
@@ -25,25 +66,35 @@ export function HeroLayer({ className = "" }: { className?: string }) {
         data-hero-layer
         className="absolute inset-0 will-change-[transform,opacity]"
       >
-        {/* The coast is held left of centre so the open water sits behind the
-            name and the headland stays in frame on a phone, where cover crops
-            hard. */}
-        <Image
-          src={LIGHT}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hero-img-light object-cover object-[38%_55%]"
-        />
-        <Image
-          src={DARK}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hero-img-dark object-cover object-[45%_28%]"
-        />
+        {DAY.map((photo, i) => (
+          <picture key={photo.base}>
+            <source
+              media="(min-width: 640px)"
+              srcSet={srcSet(photo)}
+              sizes="100vw"
+            />
+            <img
+              src={BLANK}
+              alt=""
+              decoding="async"
+              // Only the one on screen at load competes for bandwidth; the rest
+              // have twenty seconds or more before their turn comes.
+              fetchPriority={i === 0 ? "high" : "low"}
+              className={`hero-rotate ${FILL} ${photo.position}`}
+              style={{
+                // Each photo's turn comes a stretch after the one before it.
+                // The delay is negative, which starts it partway through a
+                // loop that has notionally already been running, rather than
+                // making the page wait for its first turn to come round.
+                animationDelay: `${i === 0 ? 0 : -(DAY.length - i) * TURN}s`,
+                // What shows before the animation takes hold, and the only one
+                // left showing if there is no animation at all, as under
+                // reduced motion.
+                opacity: i === 0 ? undefined : 0,
+              }}
+            />
+          </picture>
+        ))}
       </div>
       {/* The wash stays put. It belongs to the top of the screen — the fade
           out from under the bar — not to the photo drifting behind it, so it
@@ -115,5 +166,7 @@ export function HeroBackdrop() {
     };
   }, []);
 
-  return <HeroLayer className="fixed inset-0 z-0" />;
+  // Nothing behind the page on a phone: no photograph, and so no wash over it
+  // either — which is what made the top of it look cut off against the bar.
+  return <HeroLayer className="fixed inset-0 z-0 hidden sm:block" />;
 }
