@@ -148,6 +148,41 @@ export default function Home() {
         name={profile.shortName}
       />
 
+      {/*
+        * On a tablet the page opens on the portrait itself, filling the screen
+        * edge to edge, with the arrow at its foot going down to the Biography.
+        * A phone has the portrait standing behind the biography text instead,
+        * and a laptop has it bleeding in beside that text, so this belongs to
+        * the width in between and to nothing else.
+        *
+        * The crop is held high: the face is the reason the picture is here, and
+        * a centred crop on a tall box puts the chin at the bottom edge.
+        */}
+      <div className="relative hidden h-[78svh] w-full overflow-hidden sm:block lg:hidden">
+        <Portrait
+          light={profile.photoLight}
+          name={profile.name}
+          className="portrait-breathe absolute inset-0 h-full w-full"
+          position="object-[50%_18%]"
+        />
+        <div className="portrait-wash absolute inset-0" />
+
+        <a
+          href="#biography"
+          aria-label="Skip to the biography"
+          className="absolute inset-x-0 bottom-6 z-10 mx-auto flex w-12 justify-center text-fg"
+        >
+          <svg
+            className="hero-nudge h-7 w-7 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+          >
+            <path d="M6 9.5L12 15.5L18 9.5" />
+          </svg>
+        </a>
+      </div>
+
       <main
         id="top"
         className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8"
@@ -185,11 +220,17 @@ export default function Home() {
                       className="portrait-up portrait-breathe absolute inset-x-0 bottom-0 h-[82%]"
                       position="object-[50%_18%]"
                     />
+                    <div className="portrait-wash absolute inset-0" />
                   </div>
+
+                  {/* On a tablet the portrait has already had the screen
+                      above, so here the heading takes a band like every other
+                      section's — from the same photograph as Activities. */}
+                  <HeadingBand base={WALLPAPERS[0]} position="object-[50%_16%]" />
 
                   <div
                     aria-hidden
-                    className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden sm:block"
+                    className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
                   >
                   {/* Pulled left so the head clears the writing. The box is
                       wider than the picture's aspect, so cover fills it across
@@ -209,7 +250,7 @@ export default function Home() {
                       position="object-[50%_26%]"
                     />
                   </div>
-                    <div className="section-fade absolute inset-0" />
+                    <div className="portrait-fade-x absolute inset-0" />
                   </div>
                 </>
               }

@@ -321,7 +321,12 @@ body {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1;
-  font-size: clamp(1.3rem, 2.8vw, 2.1rem);
+  /*
+   * Never the size of the menu beside it. Its floor sits well above the bar's
+   * own type, which drops to 15px on a phone, so the two read as a name and a
+   * menu rather than as two of the same thing.
+   */
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
   white-space: nowrap;
 }
 
@@ -350,6 +355,40 @@ body {
       color-mix(in srgb, var(--bg) 42%, transparent) 0%,
       color-mix(in srgb, var(--bg) 68%, transparent) 34%,
       var(--bg) 62%
+    );
+}
+
+/*
+ * The portrait's own version of that fade, kept much lighter. The wallpapers
+ * carry paragraphs over them and need the cover; the portrait carries nothing,
+ * and a face is worth seeing. It still reaches solid colour before the text
+ * column starts, and before the picture's own right edge, which would show as
+ * a seam otherwise.
+ */
+.portrait-fade-x {
+  background:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--bg) 10%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 32%, transparent) 38%,
+      var(--bg) 66%
+    );
+}
+
+/*
+ * The wash over the portrait, lighter than the one over the wallpapers: there
+ * is a face under this one and it should be seen. Vertical, so the picture is
+ * clearest through the middle and settles into the page at the foot, where the
+ * arrow sits and the section below begins.
+ */
+.portrait-wash {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg) 10%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 6%, transparent) 55%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 88%,
+      var(--bg) 100%
     );
 }
 

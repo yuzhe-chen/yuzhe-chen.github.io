@@ -314,7 +314,9 @@ export function SiteNav({
         scrolled ? "is-solid" : ""
       }`}
     >
-      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-4 px-5 py-2 text-[17px] font-bold sm:gap-6 sm:px-8">
+      {/* Smaller type on a phone: it holds the name clear of the menu beside
+          it, and takes width off a bar that already carries four things. */}
+      <div className="relative z-10 mx-auto flex max-w-[1600px] items-center gap-4 px-5 py-2 text-[15px] font-bold sm:gap-6 sm:px-8 sm:text-[17px]">
         {/* The name holds the corner at a size of its own and goes back to the
             top. Pulled left by its own padding so it starts on the page's own
             margin. It's the page's h1 — the only one. */}
