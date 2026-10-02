@@ -38,7 +38,7 @@ export function Section({
       // picture runs to the foot of the section rather than stopping on the
       // last line of writing.
       className={`relative isolate border-t border-rule pt-5 lg:pt-7 ${
-        backdrop ? "pb-12 lg:pb-16" : ""
+        backdrop ? "sm:pb-12 lg:pb-16" : ""
       }`}
     >
       {backdrop}

@@ -79,15 +79,17 @@ body {
   line-height: 0.88;
   font-size: clamp(2.5rem, 7.5vw, 5.5rem);
   /*
-   * In light mode the label sits in a block of page colour, so it holds up
-   * against the photograph behind it. `table` rather than `block` so the
-   * block shrink-wraps the words instead of running the column's full width,
-   * and the negative margin puts the text back on the page's own margin after
-   * the padding has pushed it in.
+   * In light mode the label sits in page colour, so it holds up against the
+   * photograph behind it. Inline with the decoration cloned, so a label that
+   * wraps gets a box per line, each ending where its own words do — set as a
+   * block it would draw one rectangle as wide as the longest line and leave
+   * SELECTED HONORS trailing a slab past the second word.
    */
-  display: table;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
   background: var(--bg);
-  padding: 0.06em 0.16em;
+  padding: 0.03em 0.16em;
   margin-left: -0.16em;
 }
 
@@ -118,6 +120,15 @@ body {
 @media (max-width: 639px) {
   .display {
     font-size: clamp(1.5rem, 9vw, 3rem);
+    /*
+     * No block behind the label on a phone: the photograph there is a narrow
+     * band rather than a field the text sits on, so there is nothing for the
+     * label to need protecting from.
+     */
+    display: block;
+    background: none;
+    padding: 0;
+    margin-left: 0;
   }
 }
 
@@ -166,6 +177,20 @@ body {
 
 .portrait-breathe {
   animation: portrait-breathe 16s ease-in-out infinite;
+}
+
+/*
+ * On a phone the portrait sits in the column rather than behind it, so it
+ * needs its own edges: a soft oval that fades the picture out all round
+ * instead of cutting it off on a hard square.
+ */
+.portrait-vignette {
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    #000 50%,
+    transparent 85%
+  );
+  mask-image: radial-gradient(ellipse at center, #000 50%, transparent 85%);
 }
 
 

@@ -37,7 +37,9 @@ function PhotoBackdrop({ base }: { base: string }) {
   return (
     <div
       aria-hidden
-      className="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
+      // On a phone it's a slim band behind the heading alone, so the writing
+      // below it keeps the plain page. From `sm` up it fills the section.
+      className="absolute left-1/2 top-0 -z-10 h-[5.25rem] w-screen -translate-x-1/2 overflow-hidden sm:bottom-0 sm:h-auto"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- static export,
           so next/image would serve one size with no srcset at all. */}
@@ -125,6 +127,19 @@ export default function Home() {
             <Section
               id="biography"
               label="Biography"
+              // On a phone the portrait comes into the column itself, under
+              // the heading and above the writing, centred and faded out at
+              // its edges. Above that it goes back to the bleed behind the
+              // text, below.
+              aside={
+                <div className="mt-6 sm:hidden">
+                  <Portrait
+                    light={profile.photoLight}
+                    name={profile.name}
+                    className="portrait-vignette portrait-breathe mx-auto aspect-square w-[80%]"
+                  />
+                </div>
+              }
               // The portrait sits on the heading side and bleeds to the edge
               // of the screen, like every other section's photograph, fading
               // rightward into the page colour so the text sits on solid
@@ -135,7 +150,11 @@ export default function Home() {
                   aria-hidden
                   className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden sm:block"
                 >
-                  <div className="portrait-breathe absolute inset-y-0 left-0 w-[55%]">
+                  {/* Wider than the point where the fade above it reaches
+                      solid page colour, so the picture's own edge is already
+                      covered when it arrives — at 55% the edge landed inside
+                      the gradient and showed as a seam. */}
+                  <div className="portrait-breathe absolute inset-y-0 left-0 w-[72%]">
                     <Portrait
                       light={profile.photoLight}
                       name=""
