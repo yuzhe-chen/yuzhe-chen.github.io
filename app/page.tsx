@@ -94,20 +94,6 @@ export default function Home() {
               name is worth having. */}
           <h1 className="display-hero">{profile.shortName}</h1>
 
-          <a
-            href="#biography"
-            aria-label="Skip to the biography"
-            className="mt-6 flex w-12 justify-center"
-          >
-            <svg
-              className="hero-nudge h-7 w-7 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden
-            >
-              <path d="M6 15.5L12 9.5L18 15.5" />
-            </svg>
-          </a>
         </div>
 
         {/* Every section is ruled off from the one above it, but the first
@@ -264,6 +250,24 @@ export default function Home() {
 
         </div>
 
+        {/* At the foot of the page rather than under the name — there's no
+            screenful of hero for it to sit at the bottom of any more. It
+            points back the way you came; the smooth scroll is already set in
+            the stylesheet, so the plain anchor is the whole mechanism. */}
+        <a
+          href="#top"
+          aria-label="Back to the top"
+          className="mx-auto mt-16 flex w-12 justify-center text-muted"
+        >
+          <svg
+            className="hero-nudge h-7 w-7 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+          >
+            <path d="M6 15.5L12 9.5L18 15.5" />
+          </svg>
+        </a>
       </main>
 
       <footer className="no-print relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 text-[13px] text-muted sm:px-8">
