@@ -11,12 +11,15 @@ export function Section({
   label,
   count,
   children,
+  aside,
   below,
 }: {
   id: string;
   label: string;
   count?: number;
   children?: ReactNode;
+  /** Sits under the label, in the label's own column — for the portrait. */
+  aside?: ReactNode;
   /** Rendered full-width beneath the label row — for the video grid. */
   below?: ReactNode;
 }) {
@@ -29,9 +32,12 @@ export function Section({
       <div className="grid gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)_5.5rem] lg:gap-x-10">
         {/* Tighter gap on a phone: every pixel between the label and its
             count is a pixel the longest label doesn't have. */}
-        <div className="flex items-start justify-between gap-3 sm:gap-6">
-          <h2 className="display">{label}</h2>
-          {n && <span className="count lg:hidden">{n}</span>}
+        <div>
+          <div className="flex items-start justify-between gap-3 sm:gap-6">
+            <h2 className="display">{label}</h2>
+            {n && <span className="count lg:hidden">{n}</span>}
+          </div>
+          {aside}
         </div>
         <div className="lg:pt-2">{children}</div>
         <span className="count hidden text-right lg:block">{n}</span>
@@ -106,44 +112,25 @@ export function Monogram({
 
 export function Portrait({
   light,
-  dark,
   name,
   className = PORTRAIT_SIZE,
 }: {
   light: string | null;
-  dark: string | null;
   name: string;
   className?: string;
 }) {
-  if (!light && !dark) return <Monogram name={name} className={className} />;
+  if (!light) return <Monogram name={name} className={className} />;
 
-  // Both portraits ship in the markup and CSS picks one, so the right face is
-  // there on the first paint instead of swapping in after mount — same trick
-  // as the wallpaper. The alt text sits on the light copy only; the dark copy
-  // is decorative so a screen reader doesn't read the name twice.
   return (
     <div className={`relative shrink-0 overflow-hidden ${className}`}>
-      {light && (
-        <Image
-          src={light}
-          alt={name}
-          fill
-          priority
-          sizes="(max-width: 640px) 100vw, 320px"
-          className="portrait-light object-cover"
-        />
-      )}
-      {dark && (
-        <Image
-          src={dark}
-          alt=""
-          aria-hidden
-          fill
-          priority
-          sizes="(max-width: 640px) 100vw, 320px"
-          className="portrait-dark object-cover"
-        />
-      )}
+      <Image
+        src={light}
+        alt={name}
+        fill
+        priority
+        sizes="(max-width: 640px) 100vw, 320px"
+        className="object-cover"
+      />
     </div>
   );
 }
@@ -161,7 +148,7 @@ export function TitleLink({
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noreferrer" : undefined}
-      className="underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+      className="rule-hover"
     >
       {children}
     </a>

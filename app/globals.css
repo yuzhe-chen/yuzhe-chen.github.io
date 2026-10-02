@@ -193,31 +193,19 @@ body {
   animation: hero-nudge 2.2s ease-in-out infinite;
 }
 
-/* Same swap for the portrait: one face per theme, the other faded out. */
-.portrait-dark {
-  opacity: 0;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .portrait-light {
-    opacity: 0;
-  }
-  :root:not([data-theme="light"]) .portrait-dark {
-    opacity: 1;
-  }
-}
-:root[data-theme="dark"] .portrait-light {
-  opacity: 0;
-}
-:root[data-theme="dark"] .portrait-dark {
-  opacity: 1;
-}
 
+/*
+ * The shading over the wallpaper is black in both themes, so the top of the
+ * page reads the same either way and the white name over it always has
+ * something dark to sit on. Only the foot of it follows the theme, fading into
+ * whatever colour the page below is.
+ */
 .hero-scrim {
   background:
     linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--bg) var(--scrim), transparent) 0%,
-      color-mix(in srgb, var(--bg) var(--scrim), transparent) 55%,
+      rgb(0 0 0 / 0.55) 0%,
+      rgb(0 0 0 / 0.45) 50%,
       var(--bg) 100%
     );
 }
@@ -249,6 +237,38 @@ body {
 /* Nav tabs are plain bold text in the body colour — no boxes. */
 .nav-tab {
   transition: color 0.15s ease;
+}
+
+/*
+ * Hovering doesn't recolour anything. A rule grows out from under the middle
+ * of the text instead, which says "this is a link" without the page changing
+ * colour under the pointer. Used on the nav tabs and on linked titles alike.
+ */
+.rule-hover {
+  position: relative;
+}
+.rule-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.05em;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
+}
+.rule-hover:hover::after,
+.rule-hover:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* The nav's own version sits where the active tab's underline sits. */
+.nav-tab.rule-hover::after {
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.1rem;
 }
 
 /*

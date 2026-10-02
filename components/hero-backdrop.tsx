@@ -21,9 +21,6 @@ type Photo = { base: string; full: number; position: string };
 const WIDTHS = [800, 1400];
 
 const DAY: Photo[] = [
-  // Held left of centre so the open water sits behind the name and the
-  // headland stays in frame on a phone, where cover crops hard.
-  { base: "/hero-coast", full: 2000, position: "object-[38%_55%]" },
   { base: "/hero-bridge", full: 1800, position: "object-[50%_55%]" },
   { base: "/hero-houses", full: 1800, position: "object-[50%_50%]" },
   { base: "/hero-canal", full: 1800, position: "object-[45%_55%]" },
@@ -128,11 +125,14 @@ export function HeroBackdrop() {
 
     const apply = () => {
       raf = 0;
-      const hero = document.getElementById("hero");
-      const height = hero?.offsetHeight ?? window.innerHeight;
+      // The wallpaper belongs to the top of the page — the name and the
+      // biography under it — and is gone by the time that's behind you.
+      const zone = document.getElementById("biography") ?? document.getElementById("hero");
+      const bottom = zone
+        ? zone.getBoundingClientRect().bottom + window.scrollY
+        : window.innerHeight;
       const y = window.scrollY;
-      // Fully gone a little before the hero has finished scrolling past.
-      const p = Math.min(1, Math.max(0, y / Math.max(1, height * 0.8)));
+      const p = Math.min(1, Math.max(0, y / Math.max(1, bottom * 0.85)));
       const transform =
         reduced.matches || !drifts.matches
           ? ""

@@ -112,7 +112,7 @@ function ThemeToggle() {
           ? `Switch to ${theme === "dark" ? "light" : "dark"} mode`
           : "Toggle theme"
       }
-      className="nav-tab inline-flex shrink-0 items-center justify-center px-3 py-2 hover:text-accent"
+      className="nav-tab inline-flex shrink-0 items-center justify-center px-3 py-2"
     >
       {/* Both render; CSS shows one, so the right icon is there on first
           paint. Drawn rather than typed, because the Unicode moon renders
@@ -217,6 +217,11 @@ export function SiteNav({
     schedule();
     const observer = new ResizeObserver(schedule);
     observer.observe(row);
+    // The first measurement happens in a fallback face, because the real one
+    // is still loading. Fallback metrics are usually narrower, so the row
+    // looks like it fits, More never appears, and the tabs are quietly clipped
+    // the moment the real font lands. Measure again once it has.
+    document.fonts?.ready.then(schedule).catch(() => {});
     return () => {
       observer.disconnect();
       if (raf) cancelAnimationFrame(raf);
@@ -249,7 +254,7 @@ export function SiteNav({
   // underline rather than a colour change, so every tab stays the same weight
   // and colour as the body text.
   const tabClass = (id: string) =>
-    `nav-tab px-3 py-2 uppercase tracking-wide text-fg underline-offset-8 hover:text-accent ${
+    `nav-tab rule-hover px-3 py-2 uppercase tracking-wide text-fg underline-offset-8 ${
       active === id ? "underline decoration-2" : ""
     }`;
 
@@ -275,7 +280,7 @@ export function SiteNav({
           // line as the name in the hero, not three pixels off it. Underlined
           // the way an open section's tab is, since this stands in for the
           // whole row of them.
-          className="nav-tab -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg underline decoration-2 underline-offset-8 hover:text-accent sm:hidden"
+          className="nav-tab -ml-3 flex flex-1 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg underline decoration-2 underline-offset-8 sm:hidden"
         >
           Menu
           <ChevronIcon open={open} />
@@ -379,7 +384,7 @@ export function SiteNav({
               href={l.href}
               target={l.href.startsWith("http") ? "_blank" : undefined}
               rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-              className="nav-tab hidden shrink-0 px-3 py-2 uppercase tracking-wide hover:text-accent sm:inline"
+              className="nav-tab rule-hover hidden shrink-0 px-3 py-2 uppercase tracking-wide sm:inline"
             >
               {l.label}
             </a>
@@ -416,7 +421,7 @@ export function SiteNav({
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel={l.href.startsWith("http") ? "noreferrer" : undefined}
                 onClick={() => setOpen(false)}
-                className="nav-tab -ml-3 block px-3 py-2 uppercase tracking-wide text-fg hover:text-accent"
+                className="nav-tab rule-hover -ml-3 block px-3 py-2 uppercase tracking-wide text-fg"
               >
                 {l.label}
               </a>

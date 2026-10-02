@@ -20,10 +20,8 @@ export const profile = {
   siteUrl: "https://yuzhe-chen.github.io",
   metaDescription:
     "Yuzhe (Julian) Chen, pianist and student at Langley High School. Competition awards, National Symphony Orchestra chamber program, and service through music.",
-  // One portrait per theme, swapped in CSS the same way the wallpaper is.
-  // Set either to null to fall back to the monogram.
+  // One portrait, both themes. Set to null to fall back to the monogram.
   photoLight: "/portrait-light.jpg" as string | null, // cropped from MVC_4948.jpg
-  photoDark: "/portrait-dark.jpg" as string | null, // cropped from IMG_6103.jpg
 };
 
 /** Nav and hero links. No contact details: the site deliberately carries none. */

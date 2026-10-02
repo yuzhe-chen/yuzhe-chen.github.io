@@ -23,7 +23,7 @@ import { HeroBackdrop } from "@/components/hero-backdrop";
 
 // Document order matters — the nav highlights the topmost visible entry.
 const nav = [
-  { id: "bio", label: "Bio", show: bio.length > 0 },
+  { id: "biography", label: "Biography", show: bio.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Honors", show: awardRecord.length > 0 },
@@ -83,52 +83,21 @@ export default function Home() {
             labels below; portrait right. Sized so the wallpaper reads. */}
         <div
           id="hero"
-          // Full viewport, with the nav's height reserved at the top so the
-          // content lands optically centred on screen rather than under it.
-          // No forced height on a phone: the hero is as tall as what's in it,
-          // the name starts just under the bar, and the page below begins
-          // right after the picture instead of a screenful later. Above that
-          // it still fills the screen — svh rather than vh, since `100vh`
-          // counts the space behind a phone browser's address bar.
-          className="flex flex-col justify-center gap-6 pt-16 pb-6 sm:min-h-svh sm:flex-row sm:items-center sm:gap-12 sm:pt-24 sm:pb-8"
+          // The name sits at the top of the page now rather than centred in a
+          // screenful of its own, so the biography starts straight under it.
+          // White from `sm` up, where the shaded photograph is behind it; on a
+          // phone there's no wallpaper, so it takes the page's own colour.
+          className="pt-16 pb-8 sm:pt-24 sm:pb-10 sm:text-white"
         >
-          <div className="min-w-0 flex-1">
-            {/* The short name everywhere. The full one still carries the
-                page title, the structured data and the portrait's alt text,
-                where the middle name is worth having. */}
-            <h1 className="display-hero">{profile.shortName}</h1>
+          {/* The short name. The full one still carries the page title, the
+              structured data and the portrait's alt text, where the middle
+              name is worth having. */}
+          <h1 className="display-hero">{profile.shortName}</h1>
 
-            {/* On a phone the portrait runs the full width of the column. From
-                `sm` up it moves beside the name instead. */}
-            <div className="mt-5 bg-bg p-3 sm:hidden">
-              <Portrait
-                light={profile.photoLight}
-                dark={profile.photoDark}
-                name={profile.name}
-                className="aspect-square w-full"
-              />
-            </div>
-          </div>
-          {/* A solid mat in the page background colour, so the portrait reads
-              as sitting on the page rather than floating on the wallpaper.
-              From `sm` up only: on a phone the portrait is up in the column
-              above, at the full width of the text. */}
-          <div className="hidden shrink-0 self-start bg-bg p-3 sm:block sm:self-auto sm:rounded-full">
-            <Portrait
-              light={profile.photoLight}
-              dark={profile.photoDark}
-              name={profile.name}
-            />
-          </div>
-
-          {/* Above `sm` the hero fills the screen and nothing on it says the
-              page carries on. This does, and takes you there — the smooth
-              scroll and the offset for the fixed bar are already set in the
-              stylesheet, so the plain anchor is the whole mechanism. */}
           <a
-            href="#bio"
-            aria-label="Skip to the bio"
-            className="absolute inset-x-0 bottom-5 mx-auto flex w-12 justify-center text-muted transition-colors hover:text-accent"
+            href="#biography"
+            aria-label="Skip to the biography"
+            className="mt-6 flex w-12 justify-center"
           >
             <svg
               className="hero-nudge h-7 w-7 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
@@ -136,7 +105,7 @@ export default function Home() {
               fill="none"
               aria-hidden
             >
-              <path d="M6 9.5L12 15.5L18 9.5" />
+              <path d="M6 15.5L12 9.5L18 15.5" />
             </svg>
           </a>
         </div>
@@ -147,7 +116,20 @@ export default function Home() {
             of a section. Dropped there only. */}
         <div className="space-y-14 max-sm:[&>section:first-child]:border-t-0 lg:space-y-20">
           {bio.length > 0 && (
-            <Section id="bio" label="Bio">
+            <Section
+              id="biography"
+              label="Biography"
+              // Under the heading, in the heading's own column: square, and as
+              // wide as that column is, so it fills it on a phone and on a
+              // tablet alike without a size of its own to go wrong.
+              aside={
+                <Portrait
+                  light={profile.photoLight}
+                  name={profile.name}
+                  className="mt-6 aspect-square w-full"
+                />
+              }
+            >
               <div className="space-y-4 text-[17px] leading-7">
                 {bio.map((p, i) => (
                   <p key={i}>{p}</p>
