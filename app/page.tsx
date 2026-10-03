@@ -121,8 +121,9 @@ function SectionWallpaper({
 
 // Document order matters — the nav highlights the topmost visible entry.
 const nav: { id: string; label: string; href?: string; show: boolean }[] = [
-  // Its section is the first thing on the page, so the tab and the name in
-  // the corner of the bar go to the same place.
+  // Straight to where the writing starts, which is where `main` starts. The
+  // name in the bar goes further up than this on a phone -- to the picture
+  // above it -- so the two are no longer the same place.
   { id: "biography", label: "Biography", href: "#top", show: bio.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
@@ -165,6 +166,11 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
+
+      {/* The top of the document, above the profile picture, for the name in
+          the bar to point at. A phone opens on the picture and `main` begins
+          below it, so `#top` would skip it. */}
+      <div id="page-top" aria-hidden />
 
       <SiteNav
         items={nav

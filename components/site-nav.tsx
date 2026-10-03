@@ -75,9 +75,14 @@ function YouTubeIcon() {
       className="h-[22px] w-[22px] shrink-0"
       viewBox="0 0 24 24"
       fill="currentColor"
+      // The glyph is drawn to three decimals rather than one. At one, the two
+      // long arcs that round the left and right ends don't quite meet the
+      // straight top and bottom, and the join shows as a kink at each corner --
+      // which at 22px is most of what you see of the shape.
+      shapeRendering="geometricPrecision"
       aria-hidden
     >
-      <path d="M23.5 6.9a3 3 0 0 0-2.1-2.1C19.5 4.3 12 4.3 12 4.3s-7.5 0-9.4.5A3 3 0 0 0 .5 6.9 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.1 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.1zM9.6 15.6V8.4l6.3 3.6z" />
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
     </svg>
   );
 }
@@ -220,6 +225,7 @@ export function SiteNav({
   const [menuSpan, setMenuSpan] = useState<number | null>(null);
   const visible = useRef<Set<string>>(new Set());
   const rowRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const probeRef = useRef<HTMLDivElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -391,9 +397,32 @@ export function SiteNav({
    */
   useEffect(() => {
     if (!open) return;
-    const close = () => setOpen(false);
+
+    /**
+     * A scroll event says the page moved, never what moved it — and a scroll
+     * that began inside the menu is someone reading it, not someone done with
+     * it. So the origin is taken from the gesture that starts the scroll and
+     * remembered until the next one, which also covers the momentum still
+     * arriving after a finger has lifted.
+     */
+    let fromMenu = false;
+    const note = (e: Event) => {
+      fromMenu =
+        e.target instanceof Node &&
+        (menuRef.current?.contains(e.target) ?? false);
+    };
+    const close = () => {
+      if (!fromMenu) setOpen(false);
+    };
+
+    window.addEventListener("touchstart", note, { passive: true });
+    window.addEventListener("wheel", note, { passive: true });
     window.addEventListener("scroll", close, { passive: true });
-    return () => window.removeEventListener("scroll", close);
+    return () => {
+      window.removeEventListener("touchstart", note);
+      window.removeEventListener("wheel", note);
+      window.removeEventListener("scroll", close);
+    };
   }, [open]);
 
   // Generous padding — these are the tap targets on a phone. Active gets an
@@ -418,7 +447,12 @@ export function SiteNav({
             margin. It's the page's h1 — the only one. */}
         <h1 className="shrink-0">
           <a
-            href="#top"
+            // The document's own top, not `#top`, which is where `main` and so
+            // the biography begins. On a phone the profile picture has the
+            // screen above that, and the name is how you get back to it. On a
+            // laptop there is no picture up there and `main` starts at the top
+            // of the page anyway, so the one target serves both.
+            href="#page-top"
             className="brand nav-tab rule-hover -ml-3 block px-3 py-2 text-fg"
           >
             {name}
@@ -553,12 +587,17 @@ export function SiteNav({
           page. */}
       <div
         id="site-menu"
+        ref={menuRef}
         aria-hidden={!open}
         inert={!open}
-        className={`absolute inset-x-0 top-full bg-bg transition duration-150 ease-out sm:hidden ${
+        // It rolls up rather than fading on the spot: squashed towards its own
+        // top edge and lifted under the bar as it goes, which is the shape of
+        // going back where it came from. Slight, and over in a fifth of a
+        // second -- reduced-motion drops it along with every other transition.
+        className={`absolute inset-x-0 top-full origin-top bg-bg transition duration-200 ease-out sm:hidden ${
           open
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-1 opacity-0"
+            ? "translate-y-0 scale-y-100 opacity-100"
+            : "pointer-events-none -translate-y-2 scale-y-95 opacity-0"
         }`}
       >
         {/* No top padding: the icons' own row answers for the space under the
@@ -572,7 +611,12 @@ export function SiteNav({
               Pulled up into the bar's own bottom padding to take the slack out
               of the gap. The tap areas follow them up into it, which is empty:
               the button's box stops where that padding starts. */}
-          <li className="-mt-2 flex justify-end">
+          {/* -mb-3 as well as -mt-2: the row is a tap target a good deal taller
+              than the glyphs in it, and the tabs below were being held off by
+              the whole of it. Pulled up at both ends, so the list starts closer
+              to the name in the bar while the tap areas stay the size they
+              were. */}
+          <li className="-mb-3 -mt-2 flex justify-end">
             <NavIcons
               right={right}
               spread
