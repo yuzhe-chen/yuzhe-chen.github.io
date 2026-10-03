@@ -121,10 +121,10 @@ function SectionWallpaper({
 
 // Document order matters — the nav highlights the topmost visible entry.
 const nav: { id: string; label: string; href?: string; show: boolean }[] = [
-  // Straight to where the writing starts, which is where `main` starts. The
-  // name in the bar goes further up than this on a phone -- to the picture
-  // above it -- so the two are no longer the same place.
-  { id: "biography", label: "Biography", href: "#top", show: bio.length > 0 },
+  // No href of its own: it goes to its own section, like every other tab. The
+  // name in the bar used to share this target and now reaches past it, to the
+  // picture above the writing.
+  { id: "biography", label: "Biography", show: bio.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Honors", show: awardRecord.length > 0 },
@@ -167,10 +167,11 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      {/* The top of the document, above the profile picture, for the name in
-          the bar to point at. A phone opens on the picture and `main` begins
-          below it, so `#top` would skip it. */}
-      <div id="page-top" aria-hidden />
+      {/* The top of the page: above the profile picture, and above `main`. A
+          phone opens on the picture, so anything anchored to where the writing
+          starts would skip it. Both the name in the bar and the arrow at the
+          foot of the page come back here. */}
+      <div id="top" aria-hidden />
 
       <SiteNav
         items={nav
@@ -214,10 +215,9 @@ export default function Home() {
         </a>
       </div>
 
-      <main
-        id="top"
-        className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8"
-      >
+      {/* No id of its own. What used to be anchored here is the biography,
+          and the biography is a section with its own. */}
+      <main className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8">
         {/* The name is in the bar now, and the first section carries it at
             full size, so the page opens straight into it. Every section is
             ruled off from the one above — except the first, whose rule would
@@ -464,9 +464,11 @@ export default function Home() {
         </div>
 
         {/* At the foot of the page rather than under the name — there's no
-            screenful of hero for it to sit at the bottom of any more. It
-            points back the way you came; the smooth scroll is already set in
-            the stylesheet, so the plain anchor is the whole mechanism. */}
+            screenful of hero for it to sit at the bottom of any more. It points
+            back the way you came, as far as the page goes: on a phone that is
+            the profile picture, not the first line of writing. The smooth
+            scroll is already set in the stylesheet, so the plain anchor is the
+            whole mechanism. */}
         <a
           href="#top"
           aria-label="Back to the top"

@@ -447,12 +447,11 @@ export function SiteNav({
             margin. It's the page's h1 — the only one. */}
         <h1 className="shrink-0">
           <a
-            // The document's own top, not `#top`, which is where `main` and so
-            // the biography begins. On a phone the profile picture has the
-            // screen above that, and the name is how you get back to it. On a
-            // laptop there is no picture up there and `main` starts at the top
-            // of the page anyway, so the one target serves both.
-            href="#page-top"
+            // The top of the page, which on a phone is the profile picture and
+            // not the first line of writing — the name is how you get back to
+            // it. On a laptop there is no picture up there and the writing
+            // starts at the top anyway, so the one target serves both.
+            href="#top"
             className="brand nav-tab rule-hover -ml-3 block px-3 py-2 text-fg"
           >
             {name}
