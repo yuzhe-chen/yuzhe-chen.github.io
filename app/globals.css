@@ -107,33 +107,12 @@ body {
 }
 
 /*
- * The band behind a heading is the heading's own line plus equal air above and
- * below it, so the picture shows the same amount over the words as under them.
- * Derived from the label's size rather than set to a number, or the two sides
- * stop matching the moment the type scales.
- *
- * `2.5rem` is the section's top padding counted twice — once for the real
- * space above the words, once to answer it underneath. `0.88` is the label's
- * line-height, which turns its font size into the height of the line itself.
- *
- * Any further space between the band and the writing below is the page's own
- * colour: the grid's row gap, not more photograph.
+ * `.heading-band` used to live here: the strip of photograph behind a heading
+ * on mobile, sized from the label's own type. Mobile fills the whole section
+ * with the picture now, so the rule is parked in `docs/bands-archive.md`
+ * rather than kept here unused. The clamps it depended on are `.display`'s,
+ * above.
  */
-.heading-band {
-  height: calc(2.5rem + 0.88 * clamp(1.5rem, 9vw, 3rem));
-}
-@media (min-width: 640px) {
-  .heading-band {
-    height: calc(2.5rem + 0.88 * clamp(2.5rem, 7.5vw, 5.5rem));
-  }
-}
-/* From `lg` the label moves beside the text and the photograph fills the
-   section instead, so the height comes from the insets. */
-@media (min-width: 1024px) {
-  .heading-band {
-    height: auto;
-  }
-}
 
 /* The arrow at the foot of the page, breathing rather than blinking. */
 @keyframes hero-nudge {
@@ -151,9 +130,14 @@ body {
 }
 
 /*
- * The portrait breathes: in and out over a quarter of a minute, by three and
- * a half percent. It should read as the picture being alive rather than as
- * anything moving — if you can see it happen it's too much.
+ * The portrait breathes: in and out over a quarter of a minute, by six and a
+ * half percent. It should read as the picture being alive rather than as
+ * anything moving — but at half this it was doing neither, so the travel is
+ * wider than it was while the pace stays the same.
+ *
+ * The floor stays at 1.07 rather than dropping to meet the new ceiling: both
+ * boxes this runs in are filled by `cover`, and the overfill is what keeps an
+ * edge from swinging into view.
  */
 @keyframes portrait-breathe {
   0%,
@@ -161,12 +145,48 @@ body {
     transform: scale(1.07);
   }
   50% {
-    transform: scale(1.105);
+    transform: scale(1.135);
   }
 }
 
 .portrait-breathe {
   animation: portrait-breathe 16s ease-in-out infinite;
+}
+
+/*
+ * A phone held sideways gives the profile picture a box that is very wide and
+ * very shallow, and `cover` answers that by throwing away everything but a
+ * band through the middle of a square photograph — which is the part with the
+ * chin in it. Fit the whole picture instead: smaller, letterboxed into the
+ * page colour, but a face rather than a crop of one.
+ *
+ * `orientation: landscape` is width >= height, so this catches a short desktop
+ * window at these widths as well, which has the same shallow box.
+ */
+@media (orientation: landscape) and (max-height: 520px) {
+  .portrait-hero img {
+    object-fit: contain;
+    object-position: 50% 50%;
+  }
+
+  /*
+   * `contain` fits the picture to the box exactly, so the breathe above —
+   * which never goes below 1.07 — would scale it straight back out of frame.
+   * Same movement, anchored at 1 instead.
+   */
+  .portrait-hero.portrait-breathe {
+    animation-name: portrait-breathe-fit;
+  }
+}
+
+@keyframes portrait-breathe-fit {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
 }
 
 
@@ -330,21 +350,31 @@ body {
 }
 
 /*
- * Below `lg` the same fade is covering a band — a strip behind a heading, not
- * a field behind paragraphs — so it can be laid on much more lightly. There is
- * only one line of type over it, and that line has no block of page colour
- * behind it at these widths precisely so the photograph can be seen.
+ * Mobile's wash. The picture fills the whole section here rather than sitting
+ * beside the text, so paragraphs run straight over it and there is no solid
+ * column to escape into — which means this can't be a fade in any direction.
+ * It is a flat veil, laid on heavily enough that readability is never the
+ * question.
+ *
+ * Measured in rem rather than percentages so the lighter top is the heading's
+ * own depth whatever the section's length: a short Venues and a four-paragraph
+ * Biography get the same treatment, instead of the gradient stretching to fit.
+ * The giant label survives thinner cover than body type does, so it gets the
+ * clearest view of the photograph; by the time the writing starts, the veil is
+ * at its heaviest.
+ *
+ * The floor is set by dark mode, not light: white type over a bright patch of
+ * photograph is the hard case, and 68% is about where the label still clears
+ * 3:1 against it.
  */
-@media (max-width: 1023px) {
-  .section-fade {
-    background:
-      linear-gradient(
-        to right,
-        color-mix(in srgb, var(--bg) 18%, transparent) 0%,
-        color-mix(in srgb, var(--bg) 40%, transparent) 42%,
-        var(--bg) 78%
-      );
-  }
+.section-veil {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg) 68%, transparent) 0,
+      color-mix(in srgb, var(--bg) 82%, transparent) 5rem,
+      color-mix(in srgb, var(--bg) 88%, transparent) 100%
+    );
 }
 
 

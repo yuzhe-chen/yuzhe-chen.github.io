@@ -14,6 +14,7 @@ export function Section({
   aside,
   below,
   backdrop,
+  mobileBackdrop,
 }: {
   id: string;
   label: string;
@@ -25,29 +26,47 @@ export function Section({
   /** Rendered full-width beneath the label row — for the video grid. */
   below?: ReactNode;
   /**
-   * A layer behind the section's own content — the photograph that bleeds out
-   * to the edge of the screen and fades into the page colour. Sits under
-   * everything here via `isolate`, so it can't come out over the text.
+   * The laptop layer behind the section's own content — the wallpaper that
+   * bleeds out to the edge of the screen and fades rightward into the page
+   * colour. Sits under everything here via `isolate`, so it can't come out
+   * over the text.
    */
   backdrop?: ReactNode;
+  /**
+   * The same slot for mobile, where the picture fills the section outright
+   * rather than sitting beside the text. Separate from `backdrop` because the
+   * two formats want different room underneath, and a single `ReactNode` can't
+   * be asked which widths it covers.
+   */
+  mobileBackdrop?: ReactNode;
 }) {
+  // Room under the text wherever a picture fills the section and would
+  // otherwise stop dead on the last line of writing.
+  //
+  // Mobile is asked separately because it only recently started needing this:
+  // a section is padded there when it carries a picture of its own, and left
+  // alone when it doesn't. The laptop figure answers to either slot, so a
+  // section whose laptop wallpaper is hung on a wrapper around it — Venues and
+  // Languages share one — still gets its room from the mobile slot.
+  const roomBelow = [
+    mobileBackdrop ? "pb-10" : "",
+    backdrop || mobileBackdrop ? "lg:pb-16" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <section
       id={id}
-      // Room under the text on a laptop, where a wallpaper fills the section
-      // and would otherwise stop on the last line of writing. Below that the
-      // photograph is only a band behind the heading, so there is nothing
-      // down there needing room.
-      className={`relative isolate border-t border-rule pt-5 lg:pt-7 ${
-        backdrop ? "lg:pb-16" : ""
-      }`}
+      className={`relative isolate border-t border-rule pt-5 lg:pt-7 ${roomBelow}`}
     >
       {backdrop}
+      {mobileBackdrop}
       {/* Label on the left, everything it introduces on the right, running to
           the margin — there is no third column now that nothing is counted. */}
-      {/* More air under the label on a phone, where the photograph is a band
-          behind it and the writing would otherwise start against its edge.
-          The band is a phone thing, so the extra air is too. */}
+      {/* More air under the label on mobile, where the photograph runs behind
+          the whole section and the writing would otherwise start hard against
+          the underside of the heading. */}
       <div className="grid gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10 lg:gap-y-6">
         <div>
           <Heading className="display">{label}</Heading>
