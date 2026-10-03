@@ -143,6 +143,47 @@ function ThemeToggle() {
   );
 }
 
+/**
+ * The two things at the end of the bar that aren't sections. From `sm` up — the
+ * tablet bar, which carries tabs and a More button — they sit in the bar itself.
+ * On a phone the bar holds only the name and the Menu button, so they move
+ * inside the menu, onto its first row.
+ *
+ * `className` carries the display rather than this setting `flex` itself: the
+ * bar's copy has to be hidden below `sm`, and when both `hidden` and `flex` are
+ * on one element it's Tailwind's own ordering that decides, not the order they
+ * are written in.
+ */
+function NavIcons({
+  right,
+  className,
+}: {
+  right: { label: string; href: string }[];
+  className: string;
+}) {
+  return (
+    <div
+      className={`shrink-0 items-center gap-1.5 text-fg sm:gap-2 ${className}`}
+    >
+      {/* An icon rather than a word: wherever these two end up, they are the
+          only things there that aren't a destination. */}
+      {right.map((l) => (
+        <a
+          key={l.label}
+          href={l.href}
+          target={l.href.startsWith("http") ? "_blank" : undefined}
+          rel={l.href.startsWith("http") ? "noreferrer" : undefined}
+          aria-label={l.label}
+          className="nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3"
+        >
+          <YouTubeIcon />
+        </a>
+      ))}
+      <ThemeToggle />
+    </div>
+  );
+}
+
 export function SiteNav({
   items,
   right,
@@ -396,36 +437,23 @@ export function SiteNav({
         </div>
 
 
-        {/* The phone's stand-in for the whole row, at the far end like the
-            tabs it replaces. */}
+        {/* The phone's stand-in for the whole row. With the icons gone from the
+            bar at this width it is the last thing on the line, so it takes the
+            corner outright rather than stopping short of it — pulled right by
+            its own padding so the word ends on the page's margin, which is what
+            the name does on the left. */}
         <button
           type="button"
           onClick={() => setOpen((wasOpen) => !wasOpen)}
           aria-expanded={open}
           aria-controls="site-menu"
-          className="nav-tab rule-hover is-active ml-auto flex shrink-0 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg sm:hidden"
+          className="nav-tab rule-hover is-active -mr-3 ml-auto flex shrink-0 items-center gap-1.5 px-3 py-2 uppercase tracking-wide text-fg sm:hidden"
         >
           Menu
           <ChevronIcon open={open} />
         </button>
 
-        <div className="flex shrink-0 items-center gap-1.5 text-fg sm:gap-2">
-          {/* An icon rather than a word, and at every width: it's one of only
-              two things that live at this end of the bar. */}
-          {right.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              target={l.href.startsWith("http") ? "_blank" : undefined}
-              rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-              aria-label={l.label}
-              className="nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3"
-            >
-              <YouTubeIcon />
-            </a>
-          ))}
-          <ThemeToggle />
-        </div>
+        <NavIcons right={right} className="hidden sm:flex" />
       </div>
 
       {/* Every section, plus the links the bar has no room for at this width.
@@ -437,8 +465,16 @@ export function SiteNav({
         className={`relative z-10 bg-bg sm:hidden ${open ? "" : "hidden"}`}
       >
         <ul className="mx-auto flex max-w-[1600px] flex-col px-5 py-2 text-[17px] font-bold">
-          {items.map((item) => (
-            <li key={item.id}>
+          {items.map((item, i) => (
+            <li
+              key={item.id}
+              // The icons ride on the first row rather than taking one of their
+              // own: a row to themselves would read as another destination, and
+              // they aren't one.
+              className={
+                i === 0 ? "flex items-center justify-between gap-4" : ""
+              }
+            >
               <a
                 href={item.href ?? `#${item.id}`}
                 onClick={() => setOpen(false)}
@@ -447,8 +483,15 @@ export function SiteNav({
               >
                 {item.label}
               </a>
+              {i === 0 && <NavIcons right={right} className="-mr-3 flex" />}
             </li>
           ))}
+          {/* No sections to hang them on, so they take a row after all. */}
+          {items.length === 0 && (
+            <li className="flex justify-end">
+              <NavIcons right={right} className="-mr-3 flex" />
+            </li>
+          )}
         </ul>
       </div>
     </header>
