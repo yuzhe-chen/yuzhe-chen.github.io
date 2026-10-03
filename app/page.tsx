@@ -184,13 +184,10 @@ export default function Home() {
         * a centred crop on a tall box puts the chin at the bottom edge.
         */}
       <div className="relative h-[78svh] w-full overflow-hidden lg:hidden">
-        {/* `portrait-hero` is the hook for the sideways-phone case, where this
-            box goes wide and shallow and the crop has to give way to a fit —
-            see `portrait-hero` in the stylesheet. */}
         <Portrait
           light={profile.photoLight}
           name={profile.name}
-          className="portrait-hero portrait-breathe absolute inset-0 h-full w-full"
+          className="portrait-breathe absolute inset-0 h-full w-full"
           position="object-[50%_18%]"
         />
         <div className="portrait-wash absolute inset-0" />

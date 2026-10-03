@@ -314,6 +314,27 @@ export function SiteNav({
     };
   }, []);
 
+  /**
+   * Scrolling closes the phone menu. It stands in for the entire row of tabs and
+   * sits over the top of the page while it is open, so moving the page under it
+   * is as good as saying you are done with it.
+   *
+   * Only the phone menu: `open` is set by a button that exists below `sm` alone,
+   * so there is nothing to guard. The More menu on a tablet is deliberately left
+   * to stand — it hangs off a single tab in a bar that is still entirely visible,
+   * and scrolling past it is not the same as dismissing it.
+   *
+   * Hung on `open` so there is no listener at all until there is a menu to shut,
+   * and so tapping an item — which closes the menu itself, then smooth-scrolls —
+   * has already removed this by the time the scrolling starts.
+   */
+  useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    window.addEventListener("scroll", close, { passive: true });
+    return () => window.removeEventListener("scroll", close);
+  }, [open]);
+
   // Generous padding — these are the tap targets on a phone. Active gets an
   // underline rather than a colour change, so every tab stays the same weight
   // and colour as the body text.
@@ -471,9 +492,7 @@ export function SiteNav({
               // The icons ride on the first row rather than taking one of their
               // own: a row to themselves would read as another destination, and
               // they aren't one.
-              className={
-                i === 0 ? "flex items-center justify-between gap-4" : ""
-              }
+              className={i === 0 ? "relative" : ""}
             >
               <a
                 href={item.href ?? `#${item.id}`}
@@ -483,7 +502,18 @@ export function SiteNav({
               >
                 {item.label}
               </a>
-              {i === 0 && <NavIcons right={right} className="-mr-3 flex" />}
+              {/* Laid over the end of the row rather than sharing it: as a flex
+                  item the link beside them would shrink to its own word, and the
+                  rule under it is measured from the link's box — so the first
+                  row's underline would come up short while every other row's
+                  spanned the menu. Out of the flow, the link keeps the full
+                  width and the rule with it. */}
+              {i === 0 && (
+                <NavIcons
+                  right={right}
+                  className="absolute inset-y-0 right-0 -mr-3 flex"
+                />
+              )}
             </li>
           ))}
           {/* No sections to hang them on, so they take a row after all. */}

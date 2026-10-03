@@ -153,42 +153,6 @@ body {
   animation: portrait-breathe 16s ease-in-out infinite;
 }
 
-/*
- * A phone held sideways gives the profile picture a box that is very wide and
- * very shallow, and `cover` answers that by throwing away everything but a
- * band through the middle of a square photograph — which is the part with the
- * chin in it. Fit the whole picture instead: smaller, letterboxed into the
- * page colour, but a face rather than a crop of one.
- *
- * `orientation: landscape` is width >= height, so this catches a short desktop
- * window at these widths as well, which has the same shallow box.
- */
-@media (orientation: landscape) and (max-height: 520px) {
-  .portrait-hero img {
-    object-fit: contain;
-    object-position: 50% 50%;
-  }
-
-  /*
-   * `contain` fits the picture to the box exactly, so the breathe above —
-   * which never goes below 1.07 — would scale it straight back out of frame.
-   * Same movement, anchored at 1 instead.
-   */
-  .portrait-hero.portrait-breathe {
-    animation-name: portrait-breathe-fit;
-  }
-}
-
-@keyframes portrait-breathe-fit {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.035);
-  }
-}
-
 
 /*
  * The theme toggle renders both glyphs and CSS picks one, so the correct
