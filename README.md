@@ -1,5 +1,31 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Vocabulary
+
+Three words for the photographs, used in the code and when talking about it.
+Which one applies often depends on the format — laptop (`lg` and up) or mobile
+(below `lg`, phones and iPads alike).
+
+- **Profile picture** — the portrait of Julian, as opposed to the three scenery
+  photographs. On mobile it stands on its own at the top of the page, filling
+  the screen with the chevron at its foot, and the Biography below it has a band
+  of its own. On laptop it moves behind the Biography, bleeding in beside the
+  writing. Changes to bands never affect it: it answers to `portrait-wash`,
+  `portrait-fade-x` and `portrait-breathe`, not to `.heading-band` or
+  `.section-fade`.
+- **Wallpaper** — the two-column picture format on laptops: the photograph fills
+  the whole section, running behind the label and the text beside it. Most
+  sections get one from `SectionWallpaper` in `app/page.tsx`; the Biography's is
+  the profile picture.
+- **Band** — the short strip of picture behind a heading on mobile, where the
+  label sits above the writing rather than beside it. Rendered by `HeadingBand`
+  in `app/page.tsx`; its height is derived from the label's own type size by
+  `.heading-band` in `app/globals.css`.
+
+A section can have a band without a wallpaper or the other way round, and two
+sections can share a photograph by cropping it differently — that is what
+`position` sets.
+
 ## Getting Started
 
 First, run the development server:
