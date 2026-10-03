@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 export type NavItem = {
@@ -94,7 +95,7 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
-function ThemeToggle() {
+function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(
     subscribeTheme,
     readTheme,
@@ -132,7 +133,7 @@ function ThemeToggle() {
           ? `Switch to ${theme === "dark" ? "light" : "dark"} mode`
           : "Toggle theme"
       }
-      className="nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-3 py-2"
+      className={`nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-3 py-2 ${className}`}
     >
       {/* Both render; CSS shows one, so the right icon is there on first
           paint. Drawn rather than typed, because the Unicode moon renders
@@ -157,29 +158,45 @@ function ThemeToggle() {
 function NavIcons({
   right,
   className,
+  spread = false,
+  style,
 }: {
   right: { label: string; href: string }[];
   className: string;
+  /**
+   * Hold the two icons at the ends of the box instead of letting them sit
+   * together, and cancel their own padding while doing it — so what lands on
+   * the edges is the glyphs, which is what you can see, rather than their
+   * buttons' invisible boxes.
+   */
+  spread?: boolean;
+  /** Carries the measured width the spread is measured against. */
+  style?: CSSProperties;
 }) {
   return (
     <div
-      className={`shrink-0 items-center gap-1.5 text-fg sm:gap-2 ${className}`}
+      style={style}
+      className={`shrink-0 items-center gap-1.5 text-fg sm:gap-2 ${
+        spread ? "justify-between" : ""
+      } ${className}`}
     >
       {/* An icon rather than a word: wherever these two end up, they are the
           only things there that aren't a destination. */}
-      {right.map((l) => (
+      {right.map((l, i) => (
         <a
           key={l.label}
           href={l.href}
           target={l.href.startsWith("http") ? "_blank" : undefined}
           rel={l.href.startsWith("http") ? "noreferrer" : undefined}
           aria-label={l.label}
-          className="nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3"
+          className={`nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3 ${
+            spread && i === 0 ? "-ml-2" : ""
+          }`}
         >
           <YouTubeIcon />
         </a>
       ))}
-      <ThemeToggle />
+      <ThemeToggle className={spread ? "-mr-3" : ""} />
     </div>
   );
 }
@@ -199,9 +216,12 @@ export function SiteNav({
   // How many tabs fit on the line at this width; the rest go under More.
   const [shown, setShown] = useState(items.length);
   const [moreOpen, setMoreOpen] = useState(false);
+  // How wide the rule under the Menu button is; the icons in the menu span it.
+  const [menuSpan, setMenuSpan] = useState<number | null>(null);
   const visible = useRef<Set<string>>(new Set());
   const rowRef = useRef<HTMLElement>(null);
   const probeRef = useRef<HTMLDivElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const sections = items
@@ -291,6 +311,47 @@ export function SiteNav({
       if (raf) cancelAnimationFrame(raf);
     };
   }, [items]);
+
+  /**
+   * The icons in the menu are hung on the Menu button's own rule: one at each
+   * end of it. That rule is inset from the button's box by its padding, so its
+   * width is the button's content box — which is a measurement, since the word
+   * and the chevron size with the type.
+   *
+   * Measured for the same reason the tab row is, and with the same care: the
+   * first reading happens in a fallback face, so take another once the real one
+   * has landed.
+   */
+  useEffect(() => {
+    const button = menuBtnRef.current;
+    if (!button) return;
+    let raf = 0;
+
+    const measure = () => {
+      raf = 0;
+      const style = getComputedStyle(button);
+      const span =
+        button.clientWidth -
+        parseFloat(style.paddingLeft) -
+        parseFloat(style.paddingRight);
+      // Zero from `sm` up, where the button is display:none and the menu it
+      // belongs to is gone with it.
+      setMenuSpan(span > 0 ? span : null);
+    };
+
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+
+    schedule();
+    const observer = new ResizeObserver(schedule);
+    observer.observe(button);
+    document.fonts?.ready.then(schedule).catch(() => {});
+    return () => {
+      observer.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // Escape closes either menu, and so does widening the window back to where
   // the full row of tabs fits — otherwise one is left open behind the tabs.
@@ -464,6 +525,7 @@ export function SiteNav({
             its own padding so the word ends on the page's margin, which is what
             the name does on the left. */}
         <button
+          ref={menuBtnRef}
           type="button"
           onClick={() => setOpen((wasOpen) => !wasOpen)}
           aria-expanded={open}
@@ -477,51 +539,63 @@ export function SiteNav({
         <NavIcons right={right} className="hidden sm:flex" />
       </div>
 
-      {/* Every section, plus the links the bar has no room for at this width.
-          Opaque, because the wallpaper runs behind it. */}
+      {/* Every section, plus the two icons the bar has no room for at this
+          width. Opaque, because the wallpaper runs behind it.
+
+          Hung below the bar rather than sitting in it, and kept in the DOM and
+          faded rather than switched off — which is what gives it something to
+          animate when a scroll dismisses it, instead of the whole menu
+          blinking out from under your thumb. Out of the flow because the bar's
+          background is the header's: left in it, a menu at zero opacity would
+          still have the header painting a tall block of page colour over the
+          picture below. Same colour as the bar and no rule between them, so it
+          still reads as the bar growing rather than as a panel laid over the
+          page. */}
       <div
         id="site-menu"
-        // Same colour as the bar and no rule between them, so the menu reads
-        // as the bar growing rather than as a panel laid over the page.
-        className={`relative z-10 bg-bg sm:hidden ${open ? "" : "hidden"}`}
+        aria-hidden={!open}
+        inert={!open}
+        className={`absolute inset-x-0 top-full bg-bg transition duration-150 ease-out sm:hidden ${
+          open
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-1 opacity-0"
+        }`}
       >
-        <ul className="mx-auto flex max-w-[1600px] flex-col px-5 py-2 text-[17px] font-bold">
-          {items.map((item, i) => (
-            <li
-              key={item.id}
-              // The icons ride on the first row rather than taking one of their
-              // own: a row to themselves would read as another destination, and
-              // they aren't one.
-              className={i === 0 ? "relative" : ""}
-            >
+        {/* No top padding: the icons' own row answers for the space under the
+            bar, and it wants less of it than a tab would. */}
+        <ul className="mx-auto flex max-w-[1600px] flex-col px-5 pb-2 text-[17px] font-bold">
+          {/* A row of their own, spanning the rule under the Menu button — the
+              YouTube glyph at its left end, the theme toggle at its right — so
+              they read as having dropped out of the button rather than as two
+              more things to go to.
+
+              Pulled up into the bar's own bottom padding to take the slack out
+              of the gap. The tap areas follow them up into it, which is empty:
+              the button's box stops where that padding starts. */}
+          <li className="-mt-2 flex justify-end">
+            <NavIcons
+              right={right}
+              spread
+              className="flex"
+              style={menuSpan ? { width: `${menuSpan}px` } : undefined}
+            />
+          </li>
+          {items.map((item) => (
+            <li key={item.id}>
               <a
                 href={item.href ?? `#${item.id}`}
                 onClick={() => setOpen(false)}
                 aria-current={active === item.id ? "true" : undefined}
-                className={`${tabClass(item.id)} -ml-3 block`}
+                // -mr-3 as much as -ml-3. A tab's rule is inset from its own
+                // box, so without it every rule in here would stop short of
+                // the one under the Menu button they came out of, and the
+                // right-hand ends wouldn't line up.
+                className={`${tabClass(item.id)} -ml-3 -mr-3 block`}
               >
                 {item.label}
               </a>
-              {/* Laid over the end of the row rather than sharing it: as a flex
-                  item the link beside them would shrink to its own word, and the
-                  rule under it is measured from the link's box — so the first
-                  row's underline would come up short while every other row's
-                  spanned the menu. Out of the flow, the link keeps the full
-                  width and the rule with it. */}
-              {i === 0 && (
-                <NavIcons
-                  right={right}
-                  className="absolute inset-y-0 right-0 -mr-3 flex"
-                />
-              )}
             </li>
           ))}
-          {/* No sections to hang them on, so they take a row after all. */}
-          {items.length === 0 && (
-            <li className="flex justify-end">
-              <NavIcons right={right} className="-mr-3 flex" />
-            </li>
-          )}
         </ul>
       </div>
     </header>
