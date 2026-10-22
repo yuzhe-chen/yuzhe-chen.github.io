@@ -269,7 +269,7 @@ export const projects: {
     description:
       "A Latin site: a translator that builds its Latin from grammar rules rather than guessing, conjugation and declension tables, Whitaker's Words, and Cambridge Latin Course vocabulary by stage.",
     why: "Free translators are bad at Latin. I wanted one that parses a sentence the way I'm taught to, and shows its work.",
-    links: [],
+    links: [{ label: "GitHub", href: "https://github.com/yuzhe-chen/interpres" }],
   },
   {
     title: "Aglet / Saxon Planner",
@@ -277,7 +277,7 @@ export const projects: {
     description:
       "A planner for Langley students: assignments, tasks, a calendar, courses, shared resources and chat in one place, with an arcade for the breaks in between.",
     why: "Schoolwork lives in too many apps. I wanted one screen that tells me what's due and what to do next.",
-    links: [{ label: "GitHub (arcade)", href: "https://github.com/yuzhe-chen/saxon-arcade" }],
+    links: [{ label: "GitHub", href: "https://github.com/yuzhe-chen/aglet" }],
   },
   {
     title: "Harmonizing Latin with Opera",
