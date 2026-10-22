@@ -97,11 +97,14 @@ export function Entry({
   meta,
   body,
   href,
+  children,
 }: {
   title: string;
   meta?: string;
   body?: string;
   href?: string;
+  /** Anything that follows the body, such as a row of links. */
+  children?: ReactNode;
 }) {
   return (
     <div className="mb-6">
@@ -110,6 +113,7 @@ export function Entry({
       </p>
       {meta && <p className="mt-1 text-[15px] leading-snug text-muted">{meta}</p>}
       {body && <p className="mt-2 text-[15px] leading-6 text-muted">{body}</p>}
+      {children}
     </div>
   );
 }
