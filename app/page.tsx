@@ -5,7 +5,6 @@ import {
   languages,
   links,
   profile,
-  projects,
   venues,
   videos,
   writing,
@@ -369,7 +368,7 @@ export default function Home() {
                           }`}
                         >
                           {item.title}
-                          <LevelTag level={item.level} />
+                          <LevelTag level={item.level} href={item.href} />
                         </li>
                       ))}
                     </ul>
@@ -428,22 +427,6 @@ export default function Home() {
                 </Section>
               )}
             </div>
-          )}
-
-          {projects.length > 0 && (
-            <Section id="projects" label="Projects">
-              <Columns>
-                {projects.map((p) => (
-                  <Entry
-                    key={p.title}
-                    title={p.title}
-                    meta={`${p.role} - ${p.year}`}
-                    body={p.description}
-                    href={p.href}
-                  />
-                ))}
-              </Columns>
-            </Section>
           )}
 
           {writing.length > 0 && (

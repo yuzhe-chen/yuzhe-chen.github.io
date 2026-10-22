@@ -73,7 +73,8 @@ export const awardRecord = [
       { title: "Distinguished Theory Award, Maryland State Music Teachers Association Music Theory Testing Program", level: "Regional", kind: "music" },
       { title: "1st Place, Young Artist Award Competition, City of Gaithersburg and the Kentlands Community Foundation", level: "Regional", kind: "music" },
       { title: "1st Place, Advanced Group, Maryland State Music Teachers Association Gertrude S. Brown Memorial Piano Concerto Competition", level: "Regional", kind: "music" },
-      { title: "AP Scholar with Distinction, College Board", level: "National", kind: "academic" },
+      // The "National" here is the one way into the projects page.
+      { title: "AP Scholar with Distinction, College Board", level: "National", kind: "academic", href: "/projects/" },
       { title: "School Recognition Award, College Board National Recognition Program", level: "National", kind: "academic" },
       { title: "Gold Medal, Level IV, National Spanish Examinations, American Association of Teachers of Spanish and Portuguese", level: "National", kind: "academic" },
       { title: "Academic Excellence in Honors Chemistry, Langley High School", level: "School", kind: "academic" },
@@ -242,14 +243,70 @@ export const videos: {
 ];
 
 /** Empty for now. These sections hide themselves until you add something. */
+/**
+ * The projects page. It isn't in the menu, the sitemap or anywhere else on the
+ * site: the only way in is the "National" beside AP Scholar with Distinction in
+ * Selected Honors. Keep it that way -- nothing on the home page reads this.
+ */
 export const projects: {
   title: string;
-  year: string;
-  role: string;
+  status: string;
   description: string;
-  skills: string[];
-  href?: string;
-}[] = [];
+  why: string;
+  links: { label: string; href: string }[];
+}[] = [
+  {
+    title: "ProfeGPT",
+    status: "Live",
+    description:
+      "A Spanish learning site: a two-way translator, full conjugation tables, the RAE dictionary, and a tutor that answers only from the site's own data. Typing \"mode: french\" or \"mode: latin\" turns the whole site into another language.",
+    why: "I wanted one place for everything I kept opening five tabs for in Spanish class, and a tutor that never makes things up.",
+    links: [{ label: "GitHub", href: "https://github.com/yuzhe-chen/profegpt" }],
+  },
+  {
+    title: "Interpres",
+    status: "Live",
+    description:
+      "A Latin site: a translator that builds its Latin from grammar rules rather than guessing, conjugation and declension tables, Whitaker's Words, and Cambridge Latin Course vocabulary by stage.",
+    why: "Free translators are bad at Latin. I wanted one that parses a sentence the way I'm taught to, and shows its work.",
+    links: [],
+  },
+  {
+    title: "Aglet / Saxon Planner",
+    status: "In progress",
+    description:
+      "A planner for Langley students: assignments, tasks, a calendar, courses, shared resources and chat in one place, with an arcade for the breaks in between.",
+    why: "Schoolwork lives in too many apps. I wanted one screen that tells me what's due and what to do next.",
+    links: [{ label: "GitHub (arcade)", href: "https://github.com/yuzhe-chen/saxon-arcade" }],
+  },
+  {
+    title: "Harmonizing Latin with Opera",
+    status: "Upcoming research",
+    description:
+      "Harmonizing Latin words with a sorting mechanism built from past operas: sort how composers have already set words to music, then use that to harmonize new Latin text.",
+    why: "I play music and study Latin. I want to see whether the operas that came before can tell us how Latin wants to be sung.",
+    links: [],
+  },
+];
+
+/** Research ideas -- on the projects page only, like everything above. */
+export const researchIdeas: { title: string; description: string }[] = [
+  {
+    title: "Rameau's French vs. Carmen's \"French\"",
+    description:
+      "Rameau wrote his operas around the rhythm of spoken French. Carmen is set in Spain and sung in French, with an exotic \"Spanish\" color that's mostly invented. I want to compare how each one treats the language.",
+  },
+  {
+    title: "Music and Racism",
+    description:
+      "Music has been used to fight racism, and also to justify it. I want to trace both sides and what made the difference.",
+  },
+  {
+    title: "What Seniors Listen To, by Mood",
+    description:
+      "A difference-in-differences survey of seniors: does the music they choose change with their mood, and how?",
+  },
+];
 
 export const writing: {
   year: string;
