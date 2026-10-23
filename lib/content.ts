@@ -262,8 +262,8 @@ export const projects: {
       "A Spanish learning site: a two-way translator, full conjugation tables, the RAE dictionary, and a tutor that answers only from the site's own data. Typing \"mode: french\" or \"mode: latin\" turns the whole site into another language.",
     why: "I wanted one place for everything I kept opening five tabs for in Spanish class, and a tutor that never makes things up.",
     links: [
-      { label: "Website", href: "https://profegpt.onrender.com" },
-      { label: "GitHub", href: "https://github.com/yuzhe-chen/profegpt" },
+      { label: "Website", href: "https://profegpt.github.io/" },
+      { label: "GitHub", href: "https://github.com/profegpt/profegpt.github.io" },
     ],
   },
   {
@@ -281,8 +281,8 @@ export const projects: {
       "A planner for Langley students: assignments, tasks, a calendar, courses, shared resources and chat in one place, with an arcade for the breaks in between.",
     why: "Schoolwork lives in too many apps. I wanted one screen that tells me what's due and what to do next.",
     links: [
-      { label: "Website", href: "https://yuzhe-chen.github.io/aglet/" },
-      { label: "GitHub", href: "https://github.com/yuzhe-chen/aglet" },
+      { label: "Website", href: "https://saxlan.github.io/" },
+      { label: "GitHub", href: "https://github.com/saxlan/saxlan.github.io" },
     ],
   },
   {
