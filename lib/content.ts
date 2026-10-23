@@ -264,6 +264,8 @@ export const projects: {
     links: [
       { label: "Website", href: "https://profegpt.github.io/" },
       { label: "GitHub", href: "https://github.com/profegpt/profegpt.github.io" },
+      { label: "Apps Script", href: "https://script.google.com/macros/s/AKfycbzQJSe8rHdR9ZDTmpEfFtOtUaHbirB9jQd0rP8GuOYqA-5MNLCDGZYBfOPirBDVybsObQ/exec" },
+      { label: "TinyURL", href: "https://tinyurl.com/profegpt-spanish" },
     ],
   },
   {
@@ -275,6 +277,8 @@ export const projects: {
     links: [
       { label: "Website", href: "https://interpres-latin.github.io/" },
       { label: "GitHub", href: "https://github.com/yuzhe-chen/interpres" },
+      { label: "Apps Script", href: "https://script.google.com/macros/s/AKfycbyfS0EeA5rlHcOyaDjO88BjaxAes0Zwvsh92wXzPKYgDciVoRuDa2eQXZ_eiJNECofn/exec" },
+      { label: "TinyURL", href: "https://tinyurl.com/interpres-latin" },
     ],
   },
   {

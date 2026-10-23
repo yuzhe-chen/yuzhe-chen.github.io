@@ -39,7 +39,7 @@ export default function ProjectsPage() {
                   body={`${p.description} ${p.why}`}
                 >
                   {p.links.length > 0 && (
-                    <p className="mt-2 flex gap-4 text-[15px] leading-snug">
+                    <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[15px] leading-snug">
                       {p.links.map((l) => (
                         <TitleLink key={l.href} href={l.href}>
                           {l.label}
