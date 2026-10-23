@@ -272,7 +272,10 @@ export const projects: {
     description:
       "A Latin site: a translator that builds its Latin from grammar rules rather than guessing, conjugation and declension tables, Whitaker's Words, and Cambridge Latin Course vocabulary by stage.",
     why: "Free translators are bad at Latin. I wanted one that parses a sentence the way I'm taught to, and shows its work.",
-    links: [{ label: "GitHub", href: "https://github.com/yuzhe-chen/interpres" }],
+    links: [
+      { label: "Website", href: "https://interpres-latin.github.io/" },
+      { label: "GitHub", href: "https://github.com/yuzhe-chen/interpres" },
+    ],
   },
   {
     title: "Aglet / Saxon Planner",
