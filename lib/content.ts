@@ -278,7 +278,7 @@ export const projects: {
     ],
   },
   {
-    title: "Aglet / Saxon Planner",
+    title: "Saxlan",
     status: "In progress",
     description:
       "A planner for Langley students: assignments, tasks, a calendar, courses, shared resources and chat in one place, with an arcade for the breaks in between.",
