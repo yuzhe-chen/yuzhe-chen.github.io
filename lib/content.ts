@@ -288,6 +288,18 @@ export const projects: {
     ],
   },
   {
+    title: "Trajan's Column",
+    status: "Live",
+    description:
+      "A scroll-through site about Trajan's Column. You climb a 3D model of the column with the whole frieze wrapped around it, stopping at the big scenes, then read the inscription and Trajan's coins with a magnifying glass, follow his conquests on a map, and read what the Romans themselves wrote about him.",
+    why: "I wanted to see the column the way nobody can in Rome: up close, all the way to the top, with the Latin explained as you go.",
+    links: [
+      { label: "Website", href: "https://yuzhe-chen.github.io/trajans-column/" },
+      { label: "Firebase", href: "https://trajans-column.web.app" },
+      { label: "GitHub", href: "https://github.com/yuzhe-chen/trajans-column" },
+    ],
+  },
+  {
     title: "Saxlan",
     status: "In progress",
     description:
