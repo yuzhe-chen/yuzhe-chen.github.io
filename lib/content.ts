@@ -258,17 +258,18 @@ export const projects: {
   title: string;
   status: string;
   description: string;
-  why: string;
+  why?: string;
   links: { label: string; href: string }[];
 }[] = [
   {
     title: "ProfeGPT",
     status: "Live",
     description:
-      "A Spanish learning site: a two-way translator, full conjugation tables, the RAE dictionary, and a tutor that answers only from the site's own data. Typing \"mode: french\" or \"mode: latin\" turns the whole site into another language.",
+      "A language learning site for Spanish, French, Italian, German, Dutch and Portuguese: for each, a two-way translator, full conjugation tables, a dictionary and a tutor that answers only from the site's own data. Spanish came first and uses the RAE dictionary.",
     why: "I wanted one place for everything I kept opening five tabs for in Spanish class, and a tutor that never makes things up.",
     links: [
       { label: "Website", href: "https://profegpt.github.io/" },
+      { label: "Firebase", href: "https://profegpt.web.app" },
       { label: "GitHub", href: "https://github.com/profegpt/profegpt.github.io" },
       { label: "Apps Script", href: "https://script.google.com/macros/s/AKfycbzQJSe8rHdR9ZDTmpEfFtOtUaHbirB9jQd0rP8GuOYqA-5MNLCDGZYBfOPirBDVybsObQ/exec" },
       { label: "TinyURL", href: "https://tinyurl.com/profegpt-spanish" },
@@ -282,6 +283,7 @@ export const projects: {
     why: "Free translators are bad at Latin. I wanted one that parses a sentence the way I'm taught to, and shows its work.",
     links: [
       { label: "Website", href: "https://interpres-latin.github.io/" },
+      { label: "Firebase", href: "https://interpres.web.app" },
       { label: "GitHub", href: "https://github.com/yuzhe-chen/interpres" },
       { label: "Apps Script", href: "https://script.google.com/macros/s/AKfycbyfS0EeA5rlHcOyaDjO88BjaxAes0Zwvsh92wXzPKYgDciVoRuDa2eQXZ_eiJNECofn/exec" },
       { label: "TinyURL", href: "https://tinyurl.com/interpres-latin" },
@@ -300,15 +302,54 @@ export const projects: {
     ],
   },
   {
-    title: "Saxlan",
-    status: "In progress",
+    title: "Saxon Planner",
+    status: "Live",
     description:
-      "A planner for Langley students: assignments, tasks, a calendar, courses, shared resources and chat in one place, with an arcade for the breaks in between.",
+      "A planner for Langley students: classes, a Green/Gold day calendar, assignments, to-dos and study resources in one place. This is the version without the games.",
     why: "Schoolwork lives in too many apps. I wanted one screen that tells me what's due and what to do next.",
-    links: [
-      { label: "Website", href: "https://saxlan.github.io/" },
-      { label: "GitHub", href: "https://github.com/saxlan/saxlan.github.io" },
-    ],
+    links: [{ label: "Website", href: "https://lectern.web.app" }],
+  },
+  {
+    title: "Departed",
+    status: "Live",
+    description:
+      "A daily mystery on a train through time: seven passengers killed at seven moments in history. Date each death from its clue, then find the murderer. It also has Orange Pip, a multiplayer mode.",
+    links: [{ label: "Website", href: "https://epitaph.web.app" }],
+  },
+  {
+    title: "Jamborine",
+    status: "Live",
+    description:
+      "Two party games for a room of friends. In Jamboree everyone builds a beat and performs it on one stage; in Mashup everyone pitches an invention made from two everyday objects, and the room votes for the best pitch.",
+    links: [{ label: "Website", href: "https://jamborine.web.app" }],
+  },
+  {
+    title: "Stead",
+    status: "Live",
+    description:
+      "Part of the Jamborine series: a shared pixel canvas where each player places one pixel every 30 minutes and a new canvas starts every 72 hours, with a chat beside it.",
+    links: [{ label: "Website", href: "https://stead.web.app" }],
+  },
+  {
+    title: "Scrapyard",
+    status: "In development",
+    description:
+      "A junkyard game: your yard digs up parts, you fuse them into inventions, and a daily Expo decides whose invention is best. It is deployed but not finished.",
+    links: [{ label: "Website", href: "https://scrapyard-expo.web.app" }],
+  },
+  {
+    title: "Mazurka",
+    status: "Live",
+    description:
+      "A music notation and composition studio in the browser: the score is the interface, and harmonizing is a tool that proposes changes rather than overwriting what you wrote.",
+    links: [{ label: "Website", href: "https://mazurka.web.app" }],
+  },
+  {
+    title: "Ambicant",
+    status: "Live",
+    description:
+      "A series of Chrome extensions: Candid (free) and Ambicant (paid) type text at a chosen speed with human touches such as pauses and typos, and Poignant (free) pastes only the parts of a text that changed. Ambivalence, the first one, is retired.",
+    links: [{ label: "Website", href: "https://ambicant.web.app" }],
   },
   {
     title: "Harmonizing Latin with Opera",

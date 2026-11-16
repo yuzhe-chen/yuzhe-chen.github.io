@@ -36,7 +36,7 @@ export default function ProjectsPage() {
                   key={p.title}
                   title={p.title}
                   meta={p.status}
-                  body={`${p.description} ${p.why}`}
+                  body={p.why ? `${p.description} ${p.why}` : p.description}
                 >
                   {p.links.length > 0 && (
                     <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[15px] leading-snug">
