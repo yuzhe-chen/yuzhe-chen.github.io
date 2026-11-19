@@ -259,10 +259,13 @@ export const projects: {
   status: string;
   description: string;
   why?: string;
+  /** A screenshot of the live site, in public/projects/. */
+  preview?: { src: string; alt: string; href: string };
   links: { label: string; href: string }[];
 }[] = [
   {
     title: "ProfeGPT",
+    preview: { src: "/projects/profegpt.jpg", alt: "The ProfeGPT home page with the language picker and a French to Spanish lookup", href: "https://profegpt.web.app" },
     status: "Live",
     description:
       "A language learning site for Spanish, French, Italian, German, Dutch and Portuguese: for each, a two-way translator, full conjugation tables, a dictionary and a tutor that answers only from the site's own data. Spanish came first and uses the RAE dictionary.",
@@ -277,6 +280,7 @@ export const projects: {
   },
   {
     title: "Interpres",
+    preview: { src: "/projects/interpres.jpg", alt: "The Interpres home page with its Colosseum illustration and links to the dictionary and conjugation tables", href: "https://interpres.web.app" },
     status: "Live",
     description:
       "A Latin site: a translator that builds its Latin from grammar rules rather than guessing, conjugation and declension tables, Whitaker's Words, and Cambridge Latin Course vocabulary by stage.",
@@ -291,6 +295,7 @@ export const projects: {
   },
   {
     title: "Trajan's Column",
+    preview: { src: "/projects/trajans.jpg", alt: "The opening screen of the Trajan's Column site: the column and the Roman Forum at sunset", href: "https://trajans-column.web.app" },
     status: "Live",
     description:
       "A scroll-through site about Trajan's Column. You climb a 3D model of the column with the whole frieze wrapped around it, stopping at the big scenes, then read the inscription and Trajan's coins with a magnifying glass, follow his conquests on a map, and read what the Romans themselves wrote about him.",
@@ -303,14 +308,28 @@ export const projects: {
   },
   {
     title: "Saxon Planner",
+    preview: { src: "/projects/planner.jpg", alt: "The Saxon Planner log in screen next to its backpack and globe illustration", href: "https://lectern.web.app" },
     status: "Live",
     description:
-      "A planner for Langley students: classes, a Green/Gold day calendar, assignments, to-dos and study resources in one place. This is the version without the games.",
+      "A planner for high school students: classes, a two-day-type calendar, assignments, to-dos and study resources in one place. This is the version without the games.",
     why: "Schoolwork lives in too many apps. I wanted one screen that tells me what's due and what to do next.",
     links: [{ label: "Website", href: "https://lectern.web.app" }],
   },
   {
+    title: "Stonks",
+    status: "Live",
+    preview: { src: "/projects/stonks.jpg", alt: "The Stonks feed with the net worth, the next events and the ticker of made-up companies", href: "https://brrr.web.app" },
+    description:
+      "A paper trading game with a made-up market. Two hundred invented companies in twenty real sectors move every five minutes, pushed by real news that is turned into signals and retold as made-up headlines, so nobody can lose real money. It has a leaderboard, a shop, quests and a weekly showdown.",
+    why: "I wanted to learn how a market reacts to the news without the risk, and to make something my friends could compete in.",
+    links: [
+      { label: "Website", href: "https://brrr.web.app" },
+      { label: "GitHub", href: "https://github.com/yuzhe-chen/stonks" },
+    ],
+  },
+  {
     title: "Departed",
+    preview: { src: "/projects/departed.jpg", alt: "The Departed start screen: a red train crossing a snowy mountain pass", href: "https://epitaph.web.app" },
     status: "Live",
     description:
       "A daily mystery on a train through time: seven passengers killed at seven moments in history. Date each death from its clue, then find the murderer. It also has Orange Pip, a multiplayer mode.",
@@ -318,6 +337,7 @@ export const projects: {
   },
   {
     title: "Jamborine",
+    preview: { src: "/projects/jamborine.jpg", alt: "The Jamborine home page with its Jamboree, Mashup and Stead buttons", href: "https://jamborine.web.app" },
     status: "Live",
     description:
       "Two party games for a room of friends. In Jamboree everyone builds a beat and performs it on one stage; in Mashup everyone pitches an invention made from two everyday objects, and the room votes for the best pitch.",
@@ -325,6 +345,7 @@ export const projects: {
   },
   {
     title: "Stead",
+    preview: { src: "/projects/stead.jpg", alt: "The Stead shared pixel canvas with its color palette and chat", href: "https://stead.web.app" },
     status: "Live",
     description:
       "Part of the Jamborine series: a shared pixel canvas where each player places one pixel every 30 minutes and a new canvas starts every 72 hours, with a chat beside it.",
@@ -332,6 +353,7 @@ export const projects: {
   },
   {
     title: "Scrapyard",
+    preview: { src: "/projects/scrapyard.jpg", alt: "The Scrapyard account screen with the avatar picker", href: "https://scrapyard-expo.web.app" },
     status: "In development",
     description:
       "A junkyard game: your yard digs up parts, you fuse them into inventions, and a daily Expo decides whose invention is best. It is deployed but not finished.",
@@ -339,6 +361,7 @@ export const projects: {
   },
   {
     title: "Mazurka",
+    preview: { src: "/projects/mazurka.jpg", alt: "The Mazurka home page: Write music, hear the harmony", href: "https://mazurka.web.app" },
     status: "Live",
     description:
       "A music notation and composition studio in the browser: the score is the interface, and harmonizing is a tool that proposes changes rather than overwriting what you wrote.",
@@ -346,6 +369,7 @@ export const projects: {
   },
   {
     title: "Ambicant",
+    preview: { src: "/projects/ambicant.jpg", alt: "The Ambicant home page with the extension popup: Typing, reimagined", href: "https://ambicant.web.app" },
     status: "Live",
     description:
       "A series of Chrome extensions: Candid (free) and Ambicant (paid) type text at a chosen speed with human touches such as pauses and typos, and Poignant (free) pastes only the parts of a text that changed. Ambivalence, the first one, is retired.",

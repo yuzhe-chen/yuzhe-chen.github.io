@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { links, profile, projects, researchIdeas } from "@/lib/content";
 import { Columns, Entry, Section, TitleLink } from "@/components/sections";
 import { SiteNav } from "@/components/site-nav";
@@ -38,6 +39,23 @@ export default function ProjectsPage() {
                   meta={p.status}
                   body={p.why ? `${p.description} ${p.why}` : p.description}
                 >
+                  {p.preview && (
+                    <a
+                      href={p.preview.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 block overflow-hidden rounded-md border border-rule"
+                    >
+                      <Image
+                        src={p.preview.src}
+                        alt={p.preview.alt}
+                        width={960}
+                        height={600}
+                        loading="lazy"
+                        className="block h-auto w-full"
+                      />
+                    </a>
+                  )}
                   {p.links.length > 0 && (
                     <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[15px] leading-snug">
                       {p.links.map((l) => (
