@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { profile } from "@/lib/content";
+import { projects } from "@/lib/projects";
 
 // A sitemap is a Route Handler under the hood, and this build exports to plain
 // files with no server behind them. Without this, the build fails rather than
@@ -19,5 +20,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: `${profile.siteUrl}/projects/`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    // The hidden research page is deliberately not listed.
+    ...projects.map((p) => ({
+      url: `${profile.siteUrl}/projects/${p.slug}/`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
   ];
 }

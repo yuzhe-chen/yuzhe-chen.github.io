@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { SearchButton, SearchOverlay } from "@/components/site-search";
 
 export type NavItem = {
   id: string;
@@ -201,6 +202,7 @@ function NavIcons({
           <YouTubeIcon />
         </a>
       ))}
+      <SearchButton />
       <ThemeToggle className={spread ? "-mr-3" : ""} />
     </div>
   );
@@ -620,7 +622,7 @@ export function SiteNav({
               right={right}
               spread
               className="flex"
-              style={menuSpan ? { width: `${menuSpan}px` } : undefined}
+              style={menuSpan ? { width: `${Math.max(menuSpan, 120)}px` } : undefined}
             />
           </li>
           {items.map((item) => (
@@ -641,6 +643,7 @@ export function SiteNav({
           ))}
         </ul>
       </div>
+      <SearchOverlay />
     </header>
   );
 }

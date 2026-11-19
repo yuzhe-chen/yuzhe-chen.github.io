@@ -356,7 +356,7 @@ export default function Home() {
                           }`}
                         >
                           {item.title}
-                          <LevelTag level={item.level} href={item.href} />
+                          <LevelTag level={item.level} />
                         </li>
                       ))}
                     </ul>

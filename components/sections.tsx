@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 /**
@@ -233,17 +232,10 @@ export function VideoEmbed({
  * International and National read as the top tier; the rest stay quiet.
  * With an href it's a link that looks exactly like the plain tag.
  */
-export function LevelTag({ level, href }: { level: string; href?: string }) {
+export function LevelTag({ level }: { level: string }) {
   const loud = level === "International" || level === "National";
   const className = `ml-2 align-middle text-[11px] uppercase tracking-wider ${
     loud ? "text-fg" : "text-muted"
   }`;
-  if (href) {
-    return (
-      <Link href={href} className={className}>
-        {level}
-      </Link>
-    );
-  }
   return <span className={className}>{level}</span>;
 }

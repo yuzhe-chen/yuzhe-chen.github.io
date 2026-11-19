@@ -11,6 +11,8 @@ const all: (NavItem & { show: boolean })[] = [
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Honors", show: awardRecord.length > 0 },
   { id: "venues", label: "Venues", show: venues.length > 0 },
+  // A page of its own, not a section of this one.
+  { id: "projects", label: "Projects", href: "/projects/", show: true },
 ];
 
 /** The menu bar's tabs, shared by every page so the bar reads the same. */
