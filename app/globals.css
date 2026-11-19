@@ -390,7 +390,24 @@ section,
   }
 }
 
-/* ---------- Projects: gallery, boxes, highlight ---------- */
+/* ---------- Type scale for headings ----------
+   h1: .display above, the page title only.
+   h2: section headings, noticeably smaller than the title.
+   h3: card and entry titles. Body text is 17px, secondary text 15px, labels 13px. */
+.t-h2 {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+}
+.t-h3 {
+  font-weight: 600;
+  line-height: 1.3;
+  font-size: 1.0625rem;
+}
+
+/* ---------- Projects: gallery wheel, boxes, timeline, highlight ---------- */
 
 /* Keyboard focus is always visible on this site's own controls. */
 .pj-focus:focus-visible,
@@ -400,39 +417,52 @@ section,
   outline-offset: 3px;
 }
 
-/* The gallery: one slide centered, the neighbors peeking in at the sides. */
-.gal-track {
-  --sw: 84%;
-  --gap: 16px;
-  display: flex;
-  gap: var(--gap);
-  transition: transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  transform: translateX(calc(var(--i, 0) * (var(--sw) + var(--gap)) * -1));
+/* A screenshot that fades into the card colour below it, in light and dark. */
+.fade-img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
 }
-@media (min-width: 1024px) {
-  .gal-track {
-    --sw: 66%;
-    --gap: 24px;
+
+/* The gallery wheel: the active card centred and larger, the others receding
+   to both sides. The offset d of each card from the centre drives everything. */
+.wheel {
+  --cw: min(760px, 64vw);
+  --step: 0.66;
+  position: relative;
+  height: calc(var(--cw) * 0.625 + 7.5rem);
+  perspective: 1500px;
+  overflow: hidden;
+}
+@media (max-width: 639px) {
+  .wheel {
+    --cw: 78vw;
+    --step: 0.74;
   }
 }
-.gal-slide {
-  flex: 0 0 var(--sw);
-  min-width: 0;
-  opacity: 0.45;
-  transform: scale(0.94);
+.wheel-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--cw);
+  margin-left: calc(var(--cw) / -2);
+  z-index: var(--z);
+  opacity: var(--o);
+  transform: translateX(calc(var(--d) * var(--cw) * var(--step))) translateZ(calc(var(--ad) * -90px))
+    rotateY(calc(var(--d) * -7deg)) scale(var(--s));
   transform-origin: center top;
-  transition: opacity 380ms ease-out, transform 380ms ease-out;
+  transition: transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 380ms ease-out;
 }
-.gal-slide[data-active="true"] {
-  opacity: 1;
-  transform: scale(1);
+/* Cards far from the centre are parked: they move without animating and only
+   fade, so a wrap around never sweeps one across the screen. */
+.wheel-card[data-far="true"] {
+  transition: opacity 380ms ease-out;
+  pointer-events: none;
 }
-.gal-slide[data-active="true"] .gal-img {
-  transform: scale(1);
+.wheel-cap {
+  transition: opacity 380ms ease-out;
 }
-.gal-img {
-  transform: scale(1.03);
-  transition: transform 380ms ease-out;
+.wheel-card[data-active="false"] .wheel-cap {
+  opacity: 0;
 }
 
 /* The box a gallery card jumped to: outlined, then the outline fades. */
@@ -451,10 +481,20 @@ section,
   }
 }
 
+/* The history timeline: dated nodes on one hairline, snapping on a phone. */
+.tl-scroll {
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+.tl-item {
+  scroll-snap-align: start;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .gal-track,
-  .gal-slide,
-  .gal-img {
+  .wheel-card,
+  .wheel-card[data-far="true"],
+  .wheel-cap {
     transition: none;
   }
 }

@@ -69,7 +69,7 @@ export function Section({
           the underside of the heading. */}
       <div className="grid gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10 lg:gap-y-6">
         <div>
-          <Heading className="display">{label}</Heading>
+          <Heading className={Heading === "h1" ? "display" : "t-h2"}>{label}</Heading>
           {aside}
         </div>
         <div className="lg:pt-2">{children}</div>

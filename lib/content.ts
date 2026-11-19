@@ -199,8 +199,8 @@ export const activities = [
 export const languages = [
   { name: "English", level: "Native" },
   { name: "Chinese", level: "Native" },
-  { name: "French", level: "Bilingual - AP French: 5" },
-  { name: "Spanish", level: "Fluent - National Spanish Examinations Gold Medal, Levels III & IV" },
+  { name: "French", level: "Bilingual" },
+  { name: "Spanish", level: "Fluent" },
   { name: "German", level: "Functional" },
   { name: "Italian", level: "Functional" },
 ];

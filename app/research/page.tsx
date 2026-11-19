@@ -29,11 +29,12 @@ export default function ResearchPage() {
           <p className="mt-4 max-w-xl text-[17px] leading-snug text-muted">
             Draft ideas. None of these has been run, and none of them has a result yet.
           </p>
+          <h2 className="sr-only">Ideas</h2>
           <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:mt-14 lg:grid-cols-3">
             {researchIdeas.map((r) => (
               <li key={r.title} className="flex flex-col border border-rule p-5">
                 <p className="text-[13px] text-muted">{r.area}</p>
-                <h2 className="mt-2 text-[17px] font-semibold leading-snug">{r.title}</h2>
+                <h3 className="t-h3 mt-2">{r.title}</h3>
                 <p className="mt-3 text-[15px] leading-6">{r.question}</p>
                 <p className="mt-3 text-[15px] leading-6 text-muted">{r.method}</p>
               </li>

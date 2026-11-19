@@ -25,15 +25,25 @@ export default function ProjectsPage() {
             Websites and apps I have built.
           </p>
 
-          <div className="mt-10 lg:mt-14">
-            <ProjectGallery projects={projects} />
-          </div>
+          <section className="mt-12 border-t border-rule pt-5 lg:mt-16" aria-labelledby="gallery-h">
+            <h2 id="gallery-h" className="t-h2">
+              Gallery
+            </h2>
+            <div className="mt-8">
+              <ProjectGallery projects={projects} />
+            </div>
+          </section>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
-            {projects.map((p) => (
-              <ProjectBox key={p.slug} p={p} />
-            ))}
-          </div>
+          <section className="mt-16 border-t border-rule pt-5 lg:mt-24" aria-labelledby="catalog-h">
+            <h2 id="catalog-h" className="t-h2">
+              Catalog
+            </h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((p) => (
+                <ProjectBox key={p.slug} p={p} />
+              ))}
+            </div>
+          </section>
         </section>
       </main>
 

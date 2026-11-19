@@ -37,11 +37,11 @@ export function ProjectBox({ p }: { p: Project }) {
         height={800}
         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
         loading="lazy"
-        className="block h-auto w-full border-b border-rule"
+        className="fade-img block h-auto w-full"
       />
-      <div className="flex grow flex-col p-5">
+      <div className="relative -mt-12 flex grow flex-col px-5 pb-5">
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className="text-[17px] font-semibold leading-snug">
+          <h3 className="t-h3">
             <a
               href={`/projects/${p.slug}/`}
               className="after:absolute after:inset-0 after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -51,12 +51,40 @@ export function ProjectBox({ p }: { p: Project }) {
           </h3>
           <span className="shrink-0 text-[13px] text-muted">{p.status}</span>
         </div>
-        <p className="mt-3 text-[15px] leading-6 text-muted">{p.motivation}</p>
+        <p className="mt-3 text-[15px] leading-6 text-muted">{p.summary}</p>
         <p className="mt-2 text-[15px] leading-6 text-muted">{p.does}</p>
         <div className="mt-auto pt-5">
           <ProjectLinks links={p.links} raised />
         </div>
       </div>
     </article>
+  );
+}
+
+/**
+ * A horizontal timeline: dated nodes on one hairline. It scrolls sideways and
+ * snaps on a phone, and the track is focusable so the arrow keys scroll it.
+ */
+export function Timeline({ items, label }: { items: Project["timeline"]; label: string }) {
+  return (
+    <div
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+      className="tl-scroll pj-focus -mx-5 overflow-x-auto px-5 pb-3 sm:mx-0 sm:px-0"
+    >
+      <ol className="relative flex min-w-max">
+        {items.map((t, i) => (
+          <li key={t.date + t.label} className="tl-item relative w-[13.5rem] shrink-0 pr-6 pt-7 sm:w-60">
+            <span aria-hidden className="absolute left-0 right-0 top-[7px] h-px bg-rule" />
+            <span aria-hidden className={`absolute left-0 top-0 h-[15px] w-[15px] border-2 border-fg ${i === items.length - 1 ? "bg-fg" : "bg-bg"}`} />
+            <time dateTime={t.date} className="block text-[13px] leading-5 text-muted">
+              {t.date}
+            </time>
+            <p className="mt-1 text-[15px] leading-6">{t.label}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { links, profile } from "@/lib/content";
 import { projectBySlug, projects } from "@/lib/projects";
-import { ProjectLinks } from "@/components/project-parts";
+import { ProjectLinks, Timeline } from "@/components/project-parts";
 import { SiteNav } from "@/components/site-nav";
 import { navFromElsewhere } from "@/lib/nav";
 
@@ -30,8 +30,8 @@ export async function generateMetadata({
 
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="grid gap-y-3 border-t border-rule pt-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10">
-      <h2 className="text-[13px] font-semibold uppercase tracking-[0.08em] text-muted">{label}</h2>
+    <section className="grid gap-y-4 border-t border-rule pt-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10">
+      <h2 className="t-h2">{label}</h2>
       <div className="space-y-4 text-[17px] leading-7">{children}</div>
     </section>
   );
@@ -80,40 +80,28 @@ export default async function ProjectPage({
           </div>
 
           <div className="mt-16 space-y-10 lg:mt-20">
-            <Block label="Why I made it">
-              {p.why.map((t) => (
+            <Block label="Motivation">
+              {p.story.map((t) => (
                 <p key={t}>{t}</p>
               ))}
             </Block>
-            <Block label="What it does">
-              {p.what.map((t) => (
+            <Block label="Features">
+              {p.features.map((t) => (
                 <p key={t}>{t}</p>
               ))}
             </Block>
-            <Block label="How it was built">
-              {p.built.map((t) => (
+            <Block label="Build">
+              {p.build.map((t) => (
                 <p key={t}>{t}</p>
               ))}
             </Block>
-            <Block label="History">
-              {p.timeline.length > 0 ? (
-                <ol className="space-y-3">
-                  {p.timeline.map((t) => (
-                    <li key={t.date + t.text} className="grid gap-x-6 sm:grid-cols-[7rem_1fr]">
-                      <time dateTime={t.date} className="text-[15px] text-muted">
-                        {t.date}
-                      </time>
-                      <span>{t.text}</span>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <p className="text-muted">
-                  The code for this project is private, so there is no public commit history to show here.
-                </p>
-              )}
-            </Block>
-            <Block label="What is next">
+            <section className="border-t border-rule pt-5">
+              <h2 className="t-h2">History</h2>
+              <div className="mt-6">
+                <Timeline items={p.timeline} label={`${p.title} history`} />
+              </div>
+            </section>
+            <Block label="Next">
               <ul className="list-disc space-y-2 pl-5">
                 {p.next.map((t) => (
                   <li key={t}>{t}</li>
@@ -121,9 +109,9 @@ export default async function ProjectPage({
               </ul>
             </Block>
             <section className="border-t border-rule pt-5">
-              <h2 className="text-[13px] font-semibold uppercase tracking-[0.08em] text-muted">More screenshots</h2>
-              <div className="mt-4 grid gap-6 md:grid-cols-2">
-                {(p.shots.length > 1 ? p.shots.slice(1) : p.shots).map((s, n) => (
+              <h2 className="t-h2">Screenshots</h2>
+              <div className="mt-6 grid gap-6 md:grid-cols-2">
+                {p.shots.slice(1).map((s, n) => (
                   <figure key={s.src}>
                     <Image
                       src={s.src}
@@ -142,7 +130,7 @@ export default async function ProjectPage({
           </div>
 
           <nav
-            aria-label="More projects"
+            aria-label="Projects"
             className="mt-16 grid gap-4 border-t border-rule pt-5 sm:grid-cols-2"
           >
             <a href={`/projects/${prev.slug}/`} className="group block">

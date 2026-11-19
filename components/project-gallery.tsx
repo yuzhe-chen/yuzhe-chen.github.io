@@ -43,6 +43,13 @@ function Arrow({ dir }: { dir: "prev" | "next" }) {
 const btn =
   "inline-flex h-10 w-10 items-center justify-center border border-rule text-fg transition-colors hover:border-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
+/** The signed distance of card i from the centre, wrapping around the ring. */
+function offset(i: number, centre: number, n: number) {
+  let d = (((i - centre) % n) + n) % n;
+  if (d > n / 2) d -= n;
+  return d;
+}
+
 export function ProjectGallery({ projects }: { projects: Project[] }) {
   const [index, setIndex] = useState(0);
   // "auto" follows the visitor's motion setting until they press the button.
@@ -50,7 +57,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
   const calm = useSyncExternalStore(subscribeCalm, readCalm, () => true);
   const playing = mode === "play" || (mode === "auto" && !calm);
   const [held, setHeld] = useState(false);
-  const drag = useRef<{ x: number; moved: boolean } | null>(null);
+  const drag = useRef<{ x: number } | null>(null);
   const suppressClick = useRef(false);
   const count = projects.length;
 
@@ -94,10 +101,11 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
       className="pj-focus"
     >
       <div
-        className="overflow-hidden"
+        className="wheel"
         style={{ touchAction: "pan-y" }}
+        aria-live={playing && !held ? "off" : "polite"}
         onPointerDown={(e) => {
-          drag.current = { x: e.clientX, moved: false };
+          drag.current = { x: e.clientX };
         }}
         onPointerUp={(e) => {
           const d = drag.current;
@@ -112,67 +120,79 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
         }}
         onPointerCancel={() => (drag.current = null)}
       >
-        <div className="gal-track" style={{ ["--i" as string]: index }} aria-live={playing && !held ? "off" : "polite"}>
-          {projects.map((p, i) => {
-            const active = i === index;
-            const tab = active ? 0 : -1;
-            return (
-              <article
-                key={p.slug}
-                className="gal-slide"
-                data-active={active}
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${count}: ${p.title}`}
-                aria-hidden={active ? undefined : true}
-                onClick={(e) => {
-                  if (suppressClick.current) return;
-                  if ((e.target as HTMLElement).closest("a,button")) return;
-                  if (!active) go(i);
-                  else jumpToProject(p.slug);
-                }}
-              >
-                <div className="cursor-pointer border border-rule">
-                  <Image
-                    src={p.shots[0].src}
-                    alt={p.shots[0].alt}
-                    width={1280}
-                    height={800}
-                    sizes="(min-width: 1024px) 66vw, 84vw"
-                    priority={i === 0}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    draggable={false}
-                    className="gal-img block h-auto w-full"
-                  />
+        {projects.map((p, i) => {
+          const d = offset(i, index, count);
+          const ad = Math.abs(d);
+          const active = d === 0;
+          const far = ad > 2;
+          const tab = active ? 0 : -1;
+          const opacity = ad === 0 ? 1 : ad === 1 ? 0.55 : ad === 2 ? 0.22 : 0;
+          return (
+            <article
+              key={p.slug}
+              className="wheel-card"
+              data-active={active}
+              data-far={far}
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${count}: ${p.title}`}
+              aria-hidden={active ? undefined : true}
+              style={
+                {
+                  "--d": d,
+                  "--ad": ad,
+                  "--s": Math.max(0.7, 1 - 0.13 * ad),
+                  "--o": opacity,
+                  "--z": 10 - ad,
+                } as React.CSSProperties
+              }
+              onClick={(e) => {
+                if (suppressClick.current || far) return;
+                if ((e.target as HTMLElement).closest("a,button")) return;
+                if (!active) go(i);
+                else jumpToProject(p.slug);
+              }}
+            >
+              <div className="cursor-pointer">
+                <Image
+                  src={p.shots[0].src}
+                  alt={p.shots[0].alt}
+                  width={1280}
+                  height={800}
+                  sizes="(min-width: 1024px) 760px, 78vw"
+                  priority={i === 0}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  draggable={false}
+                  className="fade-img block h-auto w-full"
+                />
+              </div>
+              <div className="wheel-cap relative -mt-14 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 px-1">
+                <div className="min-w-0">
+                  <h3 className="t-h3">
+                    <button
+                      type="button"
+                      tabIndex={tab}
+                      onClick={() => jumpToProject(p.slug)}
+                      className="text-left hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    >
+                      {p.title}
+                    </button>
+                  </h3>
+                  <p className="text-[15px] leading-6 text-muted">{p.tagline}</p>
                 </div>
-                <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <div className="min-w-0">
-                    <h3 className="text-[17px] font-semibold leading-snug">
-                      <button
-                        type="button"
-                        tabIndex={tab}
-                        onClick={() => jumpToProject(p.slug)}
-                        className="text-left hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                      >
-                        {p.title}
-                      </button>
-                    </h3>
-                    <p className="text-[15px] leading-6 text-muted">{p.tagline}</p>
-                  </div>
-                  <a
-                    href={`/projects/${p.slug}/`}
-                    tabIndex={tab}
-                    className="shrink-0 border border-fg px-3.5 py-2 text-[15px] font-semibold leading-none transition-colors hover:bg-fg hover:text-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                  >
-                    Read more
-                  </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                <a
+                  href={`/projects/${p.slug}/`}
+                  tabIndex={tab}
+                  className="shrink-0 border border-fg bg-bg px-3.5 py-2 text-[15px] font-semibold leading-none transition-colors hover:bg-fg hover:text-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  Read more
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-4">
+      <div className="mt-4 flex items-center justify-between gap-4">
         <div className="flex min-w-0 items-center" role="group" aria-label="Choose a project">
           {projects.map((p, i) => (
             <button
@@ -181,7 +201,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
               aria-label={`Show ${p.title}`}
               aria-current={i === index ? "true" : undefined}
               onClick={() => go(i)}
-              className="group flex h-8 w-4 items-center justify-center sm:w-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
+              className="group flex h-8 w-4 items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent sm:w-6"
             >
               <span
                 className={`block h-[3px] transition-all duration-300 ease-out ${
@@ -202,11 +222,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
             aria-pressed={!playing}
             onClick={() => setMode(playing ? "pause" : "play")}
           >
-            <svg
-              className="h-[16px] w-[16px] fill-current"
-              viewBox="0 0 24 24"
-              aria-hidden
-            >
+            <svg className="h-[16px] w-[16px] fill-current" viewBox="0 0 24 24" aria-hidden>
               {playing ? <path d="M6 4h4v16H6zM14 4h4v16h-4z" /> : <path d="M7 4l13 8-13 8z" />}
             </svg>
           </button>
