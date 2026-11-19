@@ -35,7 +35,7 @@ export const bio = [
   "Yuzhe (Julian) is a junior at Langley High School. Currently, he studies piano with Dr. Dmitri Nazarenko and music theory with Ms. Lora Baronian.",
   "Julian has won top prizes in piano competitions at regional, national, and international levels, including the MTNA Piano Competition (Virginia State Winner in 2026-2027; 3rd place in the National Final and Winner in Southern Division and Virginia State in 2025-2026; 2nd place in Eastern Division and Maryland State Winner in 2024-2025), Friday Morning Music Club Piano Competition (1st Place and George Manos Prize), MSMTA Gertrude Brown Memorial Concerto Competition (winner in 2022, 2024, and 2026), Maryland State Music Teachers Association Elizabeth R. Davis Memorial Piano Competition (1st place in 2025), Thomas F. Hulbert International Piano Competition, William Knabe Piano Institute (2nd place in 2023, 2025), MSMTA Chase Sonata Competition (2024), Maria and Nataliya Yeshchenko International II Piano Competition (Grand Prix among 6 age categories in 2023), and Kaufman International Youth Piano Competition (1st place and the Steinway & Sons Prize for the best Romantic Piece in Junior I group, 2022).",
   "Julian has performed at the Kennedy Center, Merkin Hall, the Linehan Concert Hall, the Beethoven House, and Harris Theatre. He has been featured on NPR's Daily Joy program, and was an NSO Youth Fellow in the Chamber Program (2025-2026).",
-  "Apart from being a musician, Julian is a linguist, a globetrotter, and a booknerd. He speaks fluent Chinese, English, French, and Spanish, and reports for the school magazine Saxon Scope. He also serves as chief intern of the Tacy Foundation, a non-profit dedicated to helping his elderly community through the power of music. He spends his free time playing tennis, hiking, and taking photos. His favorite museums are the Smithsonian National Museum of Natural History, the Museo Nacional del Prado, and the Louvre, and the artists he keeps coming back to are Monet and Schumann.",
+  "Apart from being a musician, Julian is a linguist, a globetrotter, and a booknerd. He speaks English and Chinese natively, French bilingually, Spanish fluently, and German and Italian functionally, and reports for the school magazine Saxon Scope. He also serves as chief intern of the Tacy Foundation, a non-profit dedicated to helping his elderly community through the power of music. He spends his free time playing tennis, hiking, and taking photos. His favorite museums are the Smithsonian National Museum of Natural History, the Museo Nacional del Prado, and the Louvre, and the artists he keeps coming back to are Monet and Schumann.",
 ];
 
 /**
@@ -198,10 +198,12 @@ export const activities = [
 ];
 
 export const languages = [
-  { name: "Chinese", level: "Fluent" },
-  { name: "English", level: "Fluent" },
-  { name: "French", level: "Fluent - AP French: 5" },
+  { name: "English", level: "Native" },
+  { name: "Chinese", level: "Native" },
+  { name: "French", level: "Bilingual - AP French: 5" },
   { name: "Spanish", level: "Fluent - National Spanish Examinations Gold Medal, Levels III & IV" },
+  { name: "German", level: "Functional" },
+  { name: "Italian", level: "Functional" },
 ];
 
 /**
