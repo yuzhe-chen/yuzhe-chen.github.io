@@ -165,7 +165,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
                   className="fade-img block h-auto w-full"
                 />
               </div>
-              <div className="wheel-cap relative -mt-14 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 px-1">
+              <div className="wheel-cap relative -mt-10 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 px-1">
                 <div className="min-w-0">
                   <h3 className="t-h3">
                     <button

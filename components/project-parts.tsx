@@ -39,7 +39,7 @@ export function ProjectBox({ p }: { p: Project }) {
         loading="lazy"
         className="fade-img block h-auto w-full"
       />
-      <div className="relative -mt-12 flex grow flex-col px-5 pb-5">
+      <div className="relative -mt-9 flex grow flex-col px-5 pb-5">
         <div className="flex items-baseline justify-between gap-4">
           <h3 className="t-h3">
             <a

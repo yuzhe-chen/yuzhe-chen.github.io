@@ -399,7 +399,7 @@ section,
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1;
-  font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 2rem);
 }
 .t-h3 {
   font-weight: 600;
@@ -419,8 +419,8 @@ section,
 
 /* A screenshot that fades into the card colour below it, in light and dark. */
 .fade-img {
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
-  mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 90%);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent 90%);
 }
 
 /* The gallery wheel: the active card centred and larger, the others receding
@@ -446,6 +446,7 @@ section,
   width: var(--cw);
   margin-left: calc(var(--cw) / -2);
   z-index: var(--z);
+  background: var(--bg);
   opacity: var(--o);
   transform: translateX(calc(var(--d) * var(--cw) * var(--step))) translateZ(calc(var(--ad) * -90px))
     rotateY(calc(var(--d) * -7deg)) scale(var(--s));
