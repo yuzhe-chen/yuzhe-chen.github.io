@@ -187,7 +187,7 @@ export const activities = [
     period: "2025-present",
     title: "Runner",
     org: "Cross Country, Langley High School",
-    description: "Two seasons of 5K cross country.",
+    description: "Two seasons of cross country.",
   },
   {
     period: "2024-present",
