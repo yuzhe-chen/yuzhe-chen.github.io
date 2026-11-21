@@ -334,7 +334,7 @@ export const projects: Project[] = [
       "I like collecting games where combining things matters more than owning them. Parts that fuse into new inventions came from that idea, and a daily Expo where players judge one another's inventions makes it something people do together.",
     ],
     features: [
-      "Your yard digs up parts. You fuse two parts into an invention and enter it in a daily Expo, where players decide whose invention is best. The game is deployed but not finished. The cards can also be opened, fused and traded inside Saxon Planner as Scrapyard Trading.",
+      "Your yard digs up parts. You fuse two parts into an invention and enter it in a daily Expo, where players decide whose invention is best. The game is deployed but not finished.",
     ],
     build: [
       "A browser game with a 3D yard, published on Firebase Hosting, with a server on Cloudflare and a relay for restricted networks. The part pictures are cut-outs from Wikimedia Commons.",
