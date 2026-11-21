@@ -543,7 +543,7 @@ a {
   color: var(--muted);
 }
 .bio-name {
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-2);
   font-size: var(--t-h2);
   font-weight: 400;
   letter-spacing: -0.04em;
