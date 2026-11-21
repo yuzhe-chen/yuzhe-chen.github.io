@@ -54,23 +54,21 @@ export default function Home() {
       <SiteNav items={nav} name={profile.shortName} />
 
       <main>
-        {/* The page opens on the biography, so the name isn't a headline on
-            the page. It is still the page's one h1, for search engines and
-            screen readers. */}
-        <h1 className="sr-only">{profile.name}</h1>
-
         {bio.length > 0 && (
           <section id="biography" className="ch ch-b" aria-labelledby="biography-h">
-            <div className="wrap bio-grid">
-              <h2 id="biography-h" className="t-h2 reveal">
-                Biography
-              </h2>
-              <div className="bio-copy">
-                {bio.map((p, i) => (
-                  <p key={i} className="reveal" style={{ ["--d" as string]: `${Math.min(i, 3) * 80}ms` }}>
-                    {p}
-                  </p>
-                ))}
+            <div className="wrap">
+              {/* The name is the title: above the heading and the text, which
+                  are then level with each other as they were. */}
+              <h1 className="bio-name reveal">{profile.shortName}</h1>
+              <div className="bio-grid">
+              {/* The left column holds the heading and the portrait, and sticks
+                  as one while the biography scrolls past. The portrait takes
+                  the width of the column and no more; it does not have to
+                  match the height of the text. */}
+              <div className="bio-side">
+                <h2 id="biography-h" className="t-h2 reveal">
+                  Biography
+                </h2>
                 {profile.photoLight && (
                   <figure className="bio-photo reveal-scale">
                     <Img
@@ -81,6 +79,14 @@ export default function Home() {
                     />
                   </figure>
                 )}
+              </div>
+              <div className="bio-copy">
+                {bio.map((p, i) => (
+                  <p key={i} className="reveal" style={{ ["--d" as string]: `${Math.min(i, 3) * 80}ms` }}>
+                    {p}
+                  </p>
+                ))}
+              </div>
               </div>
             </div>
           </section>
