@@ -6,7 +6,7 @@ const all: (NavItem & { show: boolean })[] = [
   { id: "biography", label: "Biography", show: bio.length > 0 },
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
-  { id: "honors", label: "Honors", show: awardRecord.length > 0 },
+  { id: "honors", label: "Awards", show: awardRecord.length > 0 },
   { id: "venues", label: "Venues", show: venues.length > 0 },
   { id: "projects", label: "Projects", href: "/projects/", show: true },
 ];

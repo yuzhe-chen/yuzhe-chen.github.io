@@ -17,7 +17,7 @@ export const searchEntries: SearchEntry[] = [
   { title: "Biography", description: "A short biography", href: "/#biography", kind: "Section", keywords: "about" },
   { title: "Activities", description: "Programs, festivals and fellowships", href: "/#activities", kind: "Section", keywords: "fellowship festival" },
   { title: "Performances", description: "Videos of recent performances", href: "/#performances", kind: "Section", keywords: "video piano youtube" },
-  { title: "Honors", description: "Competitions and awards", href: "/#honors", kind: "Section", keywords: "awards competition prize" },
+  { title: "Awards", description: "Selected honors: competitions and awards", href: "/#honors", kind: "Section", keywords: "honors awards competition prize" },
   { title: "Venues", description: "Halls and places performed", href: "/#venues", kind: "Section", keywords: "hall concert" },
   { title: "Projects", description: "Websites and apps I have built", href: "/projects/", kind: "Page", keywords: "websites apps code" },
   ...projects.map((p) => ({

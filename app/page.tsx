@@ -13,6 +13,7 @@ import { SiteNav } from "@/components/site-nav";
 import { Footer } from "@/components/footer";
 import { VideoGrid } from "@/components/video-grid";
 import { Img } from "@/components/img";
+import { Puzzle } from "@/components/puzzle";
 import { nav } from "@/lib/nav";
 
 /**
@@ -94,27 +95,15 @@ export default function Home() {
 
         {activities.length > 0 && (
           <section id="activities" className="ch" aria-labelledby="activities-h">
-            <div className="wrap-wide">
+            {/* The same width as every other section, not the wider one the
+                cards used. */}
+            <div className="wrap">
               <div className="ch-head center reveal">
                 <h2 id="activities-h" className="t-h2">
                   Activities
                 </h2>
               </div>
-              <ul className="cards three">
-                {activities.map((a, i) => (
-                  <li
-                    key={a.title + a.org}
-                    className="card reveal"
-                    style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}
-                  >
-                    <h3 className="t-h3">{a.title}</h3>
-                    <p className="card-meta">
-                      {a.org} - {a.period}
-                    </p>
-                    {a.description && <p className="card-body">{a.description}</p>}
-                  </li>
-                ))}
-              </ul>
+              <Puzzle activities={activities} photos={["/hero-bridge", "/hero-houses"]} />
             </div>
           </section>
         )}
@@ -139,7 +128,7 @@ export default function Home() {
             <div className="wrap">
               <div className="ch-head reveal">
                 <h2 id="honors-h" className="t-h2">
-                  Honors
+                  Selected Honors
                 </h2>
               </div>
               <ol className="years">

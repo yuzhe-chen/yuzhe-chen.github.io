@@ -575,6 +575,110 @@ a {
     top: calc(var(--nav-h) + var(--sp-5));
   }
 }
+/* ---- activities: the puzzle -------------------------------------------- */
+/*
+ * Each piece is a square with a margin round it for its tabs, clipped to its
+ * own outline (components/puzzle.tsx). Neighbouring pieces touch only at their
+ * margins, so they stay separate. The grid is pulled out by exactly that margin
+ * on both sides, so the pieces' bodies line up with the page's own margin like
+ * every other section. A piece is square at least and grows with its text.
+ */
+.puzzle {
+  --cols: 1;
+  --edge: 0.09; /* set by the page from PIECE_MARGIN in lib/puzzle.ts */
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  margin: 0 calc(var(--edge) * -100% / (var(--cols) - 2 * var(--edge)));
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 640px) {
+  .puzzle {
+    --cols: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .puzzle {
+    --cols: 3;
+  }
+}
+.pz-cell {
+  display: flex;
+}
+.pz {
+  position: relative;
+  flex: 1 1 auto;
+  aspect-ratio: 1 / 1;
+  background: var(--card);
+  /* The outline cut for this many columns; set on the piece by the page. */
+  clip-path: var(--c1);
+  transition: transform 0.5s var(--ease);
+}
+@media (min-width: 640px) {
+  .pz {
+    clip-path: var(--c2);
+  }
+}
+@media (min-width: 1100px) {
+  .pz {
+    clip-path: var(--c3);
+  }
+}
+.pz-cell:hover .pz {
+  transform: scale(1.02);
+}
+.pz-text {
+  padding: 19% 19% 17%;
+}
+.pz img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pz-title {
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.pz-meta {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: var(--t-cap);
+  line-height: 1.35;
+}
+.pz-body {
+  margin: 0.6rem 0 0;
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+/* The photographs are there to finish the rows. Which are needed depends on
+   how many columns there are, and the page says so (data-c3, data-c2): three
+   across, the ones three across needs; two across, the ones two across needs;
+   one across never needs any. */
+@media (min-width: 1100px) {
+  .pz-photo[data-c3="0"] {
+    display: none;
+  }
+}
+@media (min-width: 640px) and (max-width: 1099px) {
+  .pz-photo[data-c2="0"] {
+    display: none;
+  }
+}
+@media (max-width: 639px) {
+  .pz-photo {
+    display: none;
+  }
+  .pz {
+    aspect-ratio: 1.15 / 1;
+  }
+}
+
 /* ---- cards ------------------------------------------------------------- */
 .cards {
   display: grid;
