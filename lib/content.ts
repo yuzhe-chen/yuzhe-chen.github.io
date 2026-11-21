@@ -218,8 +218,8 @@ export const videos: {
   // Newest and hardest first. The Kaufman final stays last because it's the
   // video evidence for a first prize listed above, not because of its views.
   {
-    id: "6zPwgr40SmE",
-    title: "Horowitz: Variations on Themes from Bizet's Carmen",
+    id: "FhvyzatlO8I",
+    title: "Scriabin: Fantasy in B Minor, Op. 28",
     detail: "2026",
   },
   {

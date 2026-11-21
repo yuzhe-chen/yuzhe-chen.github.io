@@ -74,30 +74,16 @@ body {
 }
 
 /*
- * The giant uppercase labels: the page's title on the Projects pages. Sized
- * against the viewport so they stay edge-filling on a phone and don't get
- * comical on a 27" display. `.heading` shares these sizes, and only these.
+ * The giant uppercase labels: the home page's section headings and the page
+ * title on the Projects pages. Sized against the viewport so they stay
+ * edge-filling on a phone and don't get comical on a 27" display.
  */
-.display,
-.heading {
-  font-size: clamp(2.5rem, 7.5vw, 5.5rem);
-}
 .display {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.035em;
   line-height: 0.88;
-}
-
-/*
- * The home page's section headings: the Apple version's type — sentence case,
- * bold, tight — at the sizes the labels had before the Projects pages brought
- * in a smaller scale. Same size rules as `.display`, so there is one scale.
- */
-.heading {
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.06;
+  font-size: clamp(2.5rem, 7.5vw, 5.5rem);
 }
 
 /*
@@ -108,8 +94,7 @@ body {
  * the breakpoint.
  */
 @media (max-width: 639px) {
-  .display,
-  .heading {
+  .display {
     font-size: clamp(1.5rem, 9vw, 3rem);
   }
 }
@@ -120,8 +105,7 @@ body {
  * the whole viewport it outgrows that share, so scale it against the share.
  */
 @media (min-width: 1024px) {
-  .display,
-  .heading {
+  .display {
     font-size: clamp(2rem, calc(6vw - 14px), 5.5rem);
   }
 }
@@ -297,19 +281,39 @@ body {
  */
 .section-fade,
 .portrait-fade-x {
-  --fade-from: 38%;
+  --fade-from: 22%;
   --fade-solid: 44%;
+  /* An ease-in rather than a straight ramp: a straight line from the edge is
+     already half colour a quarter of the way across, which is where the face
+     sits. This stays close to the picture until two-thirds of the way, then
+     closes quickly, and is still solid at --fade-solid. */
   background:
     linear-gradient(
       to right,
       color-mix(in srgb, var(--wash) var(--fade-from), transparent) 0%,
-      color-mix(in srgb, var(--wash) 72%, transparent) calc(var(--fade-solid) * 0.6),
+      color-mix(
+          in srgb,
+          var(--wash) calc(var(--fade-from) + (100% - var(--fade-from)) * 0.2),
+          transparent
+        )
+        calc(var(--fade-solid) * 0.5),
+      color-mix(in srgb, var(--wash) 78%, transparent) calc(var(--fade-solid) * 0.82),
       var(--wash) var(--fade-solid)
     );
 }
+/* The foot of the square portrait, for a section taller than it is wide. */
+.portrait-fade-y {
+  background: linear-gradient(
+    to bottom,
+    transparent 70%,
+    var(--wash) 96%,
+    var(--wash) 100%
+  );
+}
+
 /* A face is worth seeing: the portrait starts almost clear. */
 .portrait-fade-x {
-  --fade-from: 8%;
+  --fade-from: 0%;
 }
 
 /*
@@ -367,6 +371,9 @@ body {
  */
 :root {
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Corner radii, so the rounding is one scale and not a number per rule. */
+  --round-lg: 20px;
+  --round-xl: 28px;
 }
 .js .reveal {
   opacity: 0;
@@ -398,34 +405,35 @@ body {
   opacity: 1;
 }
 
-/* ---- performances: a rail of thumbnails -------------------------------- */
-/* Bleeds to the screen edge on laptops and phones by cancelling the page
-   gutter, and puts the same gutter back as padding, so the first card lines
-   up with the heading above it. */
-.rail {
-  --gutter: 1.25rem;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0 calc(var(--gutter) * -1);
-  padding: 0 var(--gutter);
+/*
+ * The type the sections share, so a title is a title wherever it is. Two
+ * sizes and one weight step: a 17px semibold title and 15px detail beneath it,
+ * with the 17px regular of the body text and awards between them. Activities,
+ * performances, honors' years, venues and languages all take these two, and
+ * none sets its own size or weight.
+ */
+.title {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.375;
+}
+.detail {
+  font-size: 15px;
+  line-height: 1.375;
+}
+
+/* ---- performances: two across ------------------------------------------ */
+.vgrid {
+  display: grid;
+  gap: 2.5rem 2rem;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gutter);
-  scrollbar-width: none;
 }
 @media (min-width: 640px) {
-  .rail {
-    --gutter: 2rem;
+  .vgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
-.rail::-webkit-scrollbar {
-  display: none;
-}
-.rail > li {
-  flex: 0 0 min(86vw, 640px);
-  scroll-snap-align: start;
 }
 .vid {
   position: relative;
@@ -433,7 +441,7 @@ body {
   width: 100%;
   aspect-ratio: 16 / 9;
   padding: 0;
-  border: 1px solid var(--rule);
+  border-radius: var(--round-lg);
   overflow: hidden;
   background: var(--fg);
   cursor: pointer;
@@ -471,66 +479,11 @@ body {
   height: 26px;
   margin-left: 3px;
 }
-.rail-ctl {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-.rail-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  color: var(--fg);
-  transition:
-    border-color 0.2s ease,
-    transform 0.18s ease;
-}
-.rail-btn:hover {
-  border-color: var(--fg);
-}
-.rail-btn:active {
-  transform: scale(0.94);
-}
-.rail-btn svg {
-  width: 20px;
-  height: 20px;
-}
 
 /* ---- honors: the count, then each year --------------------------------- */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3rem 1.5rem;
-  margin: 0 0 clamp(4rem, 9vw, 7rem);
-  padding: 0;
-  list-style: none;
-}
-@media (min-width: 800px) {
-  .stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-.stat-n {
-  display: block;
-  font-size: clamp(3.5rem, 9vw, 6.5rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.055em;
-  font-variant-numeric: tabular-nums;
-}
-.stat-l {
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 0.9375rem;
-}
 .years {
   display: grid;
-  gap: 3rem;
+  gap: 3.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -538,8 +491,6 @@ body {
 .year {
   display: grid;
   gap: 1rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule);
 }
 @media (min-width: 900px) {
   .year {
@@ -549,10 +500,6 @@ body {
 }
 .year-n {
   margin: 0;
-  font-size: clamp(1.5rem, 2.4vw, 1.75rem);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.14;
   font-variant-numeric: tabular-nums;
 }
 .year ul {
@@ -581,26 +528,26 @@ body {
 .award .pill {
   justify-self: start;
 }
-/* A hairline where the music awards end and the academic ones begin. */
+/* Where the music awards end and the academic ones begin: a little more air,
+   not a rule. */
 .award + .award.sep {
-  margin-top: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--rule);
+  margin-top: 1.25rem;
 }
+/* Every badge alike: the same fill (the off-white), the same width, so
+   the column of them down the right edge reads as one thing. The width is set
+   by the longest level ("International") with a little to spare. */
 .pill {
   display: inline-block;
-  padding: 2px 10px;
-  border: 1px solid var(--rule);
+  box-sizing: border-box;
+  width: 7.5rem;
+  padding: 2px 0;
   border-radius: 999px;
+  background: var(--wash);
   color: var(--fg);
   font-size: 0.8125rem;
   line-height: 1.5;
+  text-align: center;
   white-space: nowrap;
-}
-.pill.loud {
-  border-color: var(--fg);
-  background: var(--fg);
-  color: var(--bg);
 }
 
 /* ---- venues and languages ---------------------------------------------- */
@@ -610,24 +557,33 @@ body {
   list-style: none;
 }
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 1.5rem;
-  padding: 1.5rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0 0 1.5rem;
 }
-.row:last-child {
-  border-bottom: 1px solid var(--rule);
-}
-.row-n {
-  font-size: clamp(1.3125rem, 2.1vw, 1.75rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
+.row-n,
+.row-m {
+  display: block;
 }
 .row-m {
-  font-size: 1.0625rem;
+  margin-top: 0.25rem;
+}
+/* The list on the left, one rounded picture on the right. The picture is
+   as tall as the list beside it (it fills its cell), and below the list on a
+   narrow screen, where there is no beside. */
+.venue-split {
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 1024px) {
+  .venue-split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2.5rem;
+  }
+}
+.venue-photo {
+  position: relative;
+  min-height: 20rem;
+  overflow: hidden;
+  border-radius: var(--round-xl);
 }
 .langs {
   display: grid;
@@ -644,19 +600,14 @@ body {
 }
 .lang {
   padding: 1.5rem;
-  border-radius: 20px;
+  border-radius: var(--round-lg);
   background: var(--wash);
 }
 .lang-n {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.14;
 }
 .lang p {
-  margin: 0.5rem 0 0;
-  font-size: 0.9375rem;
+  margin: 0.25rem 0 0;
 }
 
 /*
@@ -753,7 +704,11 @@ section,
   font-size: 1.0625rem;
 }
 
-/* ---------- Projects: gallery wheel, boxes, timeline, highlight ---------- */
+/* ---------- Projects, in the Apple version's layout ------------------------
+   Centred, narrow, rounded, with the off-white (--wash) for everything that
+   needs a fill: the bands, the buttons and the badges. Cards are the page
+   colour sitting on a wash band, so a button — wash — shows on them. No rules
+   anywhere; space does the separating. */
 
 /* Keyboard focus is always visible on this site's own controls. */
 .pj-focus:focus-visible,
@@ -763,85 +718,471 @@ section,
   outline-offset: 3px;
 }
 
-/* A screenshot that fades into the card colour below it, in light and dark. */
-.fade-img {
-  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 90%);
-  mask-image: linear-gradient(to bottom, #000 45%, transparent 90%);
+.pj-wrap {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+.pj-wide {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+.pj-hero {
+  padding-block: clamp(5.5rem, 12vw, 9rem) clamp(2.5rem, 6vw, 4rem);
+  text-align: center;
+}
+.pj-lead {
+  max-width: 34ch;
+  margin: 1.25rem auto 0;
+  font-size: clamp(1.1875rem, 2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.pj-eyebrow {
+  margin: 0 0 1rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+.pj-band {
+  background: var(--wash);
+  padding-block: clamp(3rem, 7vw, 5rem);
+}
+.pj-head {
+  margin-bottom: 2.5rem;
+  text-align: center;
 }
 
-/* The gallery wheel: the active card centred and larger, the others receding
-   to both sides. The offset d of each card from the centre drives everything. */
-.wheel {
-  --cw: min(760px, 64vw);
-  --step: 0.66;
-  position: relative;
-  height: calc(var(--cw) * 0.625 + 7.5rem);
-  perspective: 1500px;
-  overflow: hidden;
+/* The buttons: wash fill, body-colour text. Same on every page. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: var(--wash);
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: transform 0.18s ease;
 }
-@media (max-width: 639px) {
-  .wheel {
-    --cw: 78vw;
-    --step: 0.74;
-  }
+.btn:hover {
+  transform: scale(1.04);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-sm {
+  padding: 0.55rem 1.1rem;
+}
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+.tlink {
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.tlink::after {
+  content: " \203A";
+}
+.tlink:hover {
+  text-decoration: underline;
+}
+.card-title {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.status {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* A screenshot that fades into the card colour below it, in light and dark. */
+.fade-img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+}
+
+/* The gallery wheel: the current project centred and large, the one before and
+   after showing at either side. */
+.wheel {
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.5rem 1rem;
+}
+.wheel-stage {
+  position: relative;
+  height: clamp(380px, 52vw, 600px);
+  perspective: 1600px;
 }
 .wheel-card {
   position: absolute;
-  top: 0;
   left: 50%;
-  width: var(--cw);
-  margin-left: calc(var(--cw) / -2);
-  z-index: var(--z);
+  top: 0;
+  width: min(78vw, 760px);
+  height: 100%;
+  margin-left: calc(min(78vw, 760px) / -2);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--round-xl);
   background: var(--bg);
-  opacity: var(--o);
-  transform: translateX(calc(var(--d) * var(--cw) * var(--step))) translateZ(calc(var(--ad) * -90px))
-    rotateY(calc(var(--d) * -7deg)) scale(var(--s));
-  transform-origin: center top;
-  transition: transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 380ms ease-out;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.8s var(--ease),
+    opacity 0.8s var(--ease);
+  will-change: transform;
 }
-/* Cards far from the centre are parked: they move without animating and only
-   fade, so a wrap around never sweeps one across the screen. */
-.wheel-card[data-far="true"] {
-  transition: opacity 380ms ease-out;
+.wheel-card[data-pos="0"] {
+  transform: translateX(0) translateZ(0) scale(1);
+  opacity: 1;
+  z-index: 3;
+}
+.wheel-card[data-pos="-1"] {
+  transform: translateX(-76%) translateZ(-120px) scale(0.82) rotateY(10deg);
+  opacity: 0.55;
+  z-index: 2;
+}
+.wheel-card[data-pos="1"] {
+  transform: translateX(76%) translateZ(-120px) scale(0.82) rotateY(-10deg);
+  opacity: 0.55;
+  z-index: 2;
+}
+.wheel-card[data-pos="far"] {
+  transform: translateX(0) translateZ(-300px) scale(0.6);
+  opacity: 0;
+  z-index: 1;
   pointer-events: none;
 }
-.wheel-cap {
-  transition: opacity 380ms ease-out;
+.wheel-img {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
-.wheel-card[data-active="false"] .wheel-cap {
-  opacity: 0;
+.wheel-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.wheel-copy {
+  position: relative;
+  flex: none;
+  padding: 0 2rem 2rem;
+  margin-top: -1rem;
+}
+.wheel-copy p {
+  margin: 0.5rem 0 1rem;
+  font-size: 17px;
+}
+.wheel-card:not([data-pos="0"]) .wheel-copy a,
+.wheel-card:not([data-pos="0"]) .wheel-copy button {
+  visibility: hidden;
+}
+.wheel-ctl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+}
+/* On a phone the eleven dots plus the arrows and the pause button are wider
+   than the screen: narrower dots, and the pause button may wrap beneath. */
+@media (max-width: 520px) {
+  .dot {
+    width: 16px;
+  }
+}
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dot {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--fg) 26%, transparent);
+  transition:
+    width 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+.dot[aria-current="true"]::before {
+  width: 22px;
+  background: var(--fg);
+}
+.ctl-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+}
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  color: var(--fg);
+}
+.ctl-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
-/* The box a gallery card jumped to: outlined, then the outline fades. */
-.project-flash {
-  animation: project-flash 2.6s ease-out forwards;
+/* Project cards. */
+.pgrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-@keyframes project-flash {
-  0%,
-  60% {
-    outline: 3px solid var(--accent);
-    outline-offset: 6px;
+@media (min-width: 760px) {
+  .pgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  100% {
-    outline: 3px solid transparent;
-    outline-offset: 6px;
+}
+@media (min-width: 1180px) {
+  .pgrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+.pcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  scroll-margin-top: 6rem;
+  border-radius: var(--round-xl);
+  background: var(--bg);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease);
+}
+.pcard:hover {
+  transform: translateY(-2px);
+}
+.pcard-img {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.pcard-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.pcard-body {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 0 2rem 2rem;
+  margin-top: -1.5rem;
+}
+.pcard-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.pcard-top a {
+  text-decoration: none;
+}
+.pcard-top a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.pcard-body p {
+  margin: 0.5rem 0 0;
+}
+.pcard-body .cta-row {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+.is-picked {
+  outline: 3px solid var(--fg);
+  outline-offset: 4px;
 }
 
-/* The history timeline: dated nodes on one hairline, snapping on a phone. */
-.tl-scroll {
+/* A project's own page. */
+.pp-hero {
+  padding-top: clamp(5.5rem, 12vw, 8rem);
+  text-align: center;
+}
+.pp-hero .pj-lead {
+  margin-top: 1.25rem;
+}
+.pp-hero .cta-row {
+  justify-content: center;
+  margin-top: 2rem;
+}
+.pp-shot {
+  width: min(100% - 3rem, 1120px);
+  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
+  border-radius: var(--round-xl) var(--round-xl) 0 0;
+  overflow: hidden;
+  background: var(--wash);
+}
+.pp-shot img {
+  width: 100%;
+  height: auto;
+}
+.split {
+  display: grid;
+  gap: 1.5rem;
+}
+.split p {
+  margin: 0 0 1.25rem;
+  max-width: 60ch;
+}
+.split p:last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 4rem;
+  }
+}
+.nextlist {
+  display: grid;
+  gap: 1rem;
+  max-width: 60ch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* The history: dated nodes on one line, running sideways. The line is the
+   timeline itself, not a divider. */
+.tl-wrap {
+  margin-top: 2rem;
+}
+.tl {
+  display: flex;
+  margin: 0;
+  padding: 1.5rem max(1.5rem, calc((100vw - 1080px) / 2));
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
+  scroll-padding-inline: max(1.5rem, calc((100vw - 1080px) / 2));
   scrollbar-width: thin;
   scrollbar-color: var(--rule) transparent;
 }
-.tl-item {
+.tl > li {
+  position: relative;
+  flex: 0 0 min(76vw, 300px);
+  padding: 1.5rem 1.5rem 0 0;
+  border-top: 2px solid var(--fg);
   scroll-snap-align: start;
+}
+.tl > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--fg);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+.tl time {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.tl p {
+  margin: 0;
+}
+.tl:focus-visible {
+  outline-offset: -2px;
+}
+.shots {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .shots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.shots figure {
+  margin: 0;
+}
+.shots img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--round-lg);
+}
+.shots figcaption {
+  margin-top: 0.5rem;
+}
+.pager {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 700px) {
+  .pager {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pager a:last-child {
+    text-align: right;
+  }
+}
+.pager a {
+  display: block;
+  padding: 2rem;
+  border-radius: var(--round-xl);
+  background: var(--bg);
+  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wheel-card,
-  .wheel-card[data-far="true"],
-  .wheel-cap {
+  .wheel-card {
     transition: none;
   }
 }

@@ -212,11 +212,18 @@ export function SiteNav({
   items,
   right,
   name,
+  home = "#top",
 }: {
   items: NavItem[];
   right: { label: string; href: string }[];
   /** Sits in the corner of the bar and goes back to the top. */
   name: string;
+  /**
+   * Where the name goes. "#top" is the top of this page, which is right on the
+   * home page and wrong anywhere else: from another page it has to be "/", or
+   * the name just scrolls that page to its own top.
+   */
+  home?: string;
 }) {
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
@@ -453,7 +460,7 @@ export function SiteNav({
             // not the first line of writing — the name is how you get back to
             // it. On a laptop there is no picture up there and the writing
             // starts at the top anyway, so the one target serves both.
-            href="#top"
+            href={home}
             className="brand nav-tab rule-hover -ml-3 block px-3 py-2 text-fg"
           >
             {name}

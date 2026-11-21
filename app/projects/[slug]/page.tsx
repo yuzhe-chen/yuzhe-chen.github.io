@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { links, profile } from "@/lib/content";
 import { projectBySlug, projects } from "@/lib/projects";
-import { ProjectLinks, Timeline } from "@/components/project-parts";
 import { SiteNav } from "@/components/site-nav";
 import { navFromElsewhere } from "@/lib/nav";
 
@@ -28,13 +27,12 @@ export async function generateMetadata({
   };
 }
 
-function Block({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <section className="grid gap-y-4 border-t border-rule pt-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10">
-      <h2 className="t-h2">{label}</h2>
-      <div className="space-y-4 text-[17px] leading-7">{children}</div>
-    </section>
-  );
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** "2026-09-05" to "Sep 5, 2026", with no time zone involved; anything else as written. */
+function when(d: string) {
+  const [y, m, day] = d.split("-").map(Number);
+  if (!y || !m || !day) return d;
+  return `${MONTHS[m - 1]} ${day}, ${y}`;
 }
 
 export default async function ProjectPage({
@@ -47,105 +45,162 @@ export default async function ProjectPage({
   const i = projects.findIndex((x) => x.slug === p.slug);
   const prev = projects[(i - 1 + projects.length) % projects.length];
   const next = projects[(i + 1) % projects.length];
+  const site = p.links[0];
+  const repo = p.links.find((l) => l !== site && /github\.com/.test(l.href));
+  const shots = p.shots.length > 1 ? p.shots.slice(1) : p.shots;
 
   return (
     <>
       <div id="top" aria-hidden />
-      <SiteNav items={navFromElsewhere} right={links} name={profile.shortName} />
+      <SiteNav items={navFromElsewhere} right={links} name={profile.shortName} home="/" />
 
-      <main className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8">
-        <div className="pt-20 sm:pt-24">
-          <Link href="/projects/" className="rule-hover text-[15px] font-semibold">
-            All projects
-          </Link>
-
-          <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10">
-            <div>
-              <h1 className="display">{p.title}</h1>
-              <p className="mt-4 text-[17px] leading-snug text-muted">{p.status}</p>
-              <p className="mt-4 max-w-md text-[17px] leading-7">{p.does}</p>
-              <div className="mt-6">
-                <ProjectLinks links={p.links} />
-              </div>
+      <main className="grow">
+        <section className="pp-hero" aria-labelledby="pp-title">
+          <div className="pj-wrap">
+            <p className="pj-eyebrow reveal">{p.status}</p>
+            <h1 id="pp-title" className="display reveal" style={{ ["--d" as string]: "80ms" }}>
+              {p.title}
+            </h1>
+            <p className="pj-lead reveal" style={{ ["--d" as string]: "160ms" }}>
+              {p.tagline}
+            </p>
+            <div className="cta-row reveal" style={{ ["--d" as string]: "240ms" }}>
+              {site && (
+                <a className="btn" href={site.href} target="_blank" rel="noopener noreferrer">
+                  {site.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              )}
+              {repo && (
+                <a className="tlink" href={repo.href} target="_blank" rel="noopener noreferrer">
+                  {repo.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              )}
             </div>
+          </div>
+          <div className="pp-shot reveal-scale" style={{ ["--d" as string]: "200ms" }}>
             <Image
               src={p.shots[0].src}
               alt={p.shots[0].alt}
               width={1280}
               height={800}
-              sizes="(min-width: 1024px) 55vw, 92vw"
+              sizes="(min-width: 1180px) 1120px, 92vw"
               priority
-              className="block h-auto w-full border border-rule"
             />
           </div>
+        </section>
 
-          <div className="mt-16 space-y-10 lg:mt-20">
-            <Block label="Motivation">
-              {p.story.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
-            </Block>
-            <Block label="Features">
-              {p.features.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
-            </Block>
-            <Block label="Build">
-              {p.build.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
-            </Block>
-            <section className="border-t border-rule pt-5">
-              <h2 className="t-h2">History</h2>
-              <div className="mt-6">
-                <Timeline items={p.timeline} label={`${p.title} history`} />
-              </div>
-            </section>
-            <Block label="Next">
-              <ul className="list-disc space-y-2 pl-5">
-                {p.next.map((t) => (
-                  <li key={t}>{t}</li>
+        <section className="pj-band" aria-label="Overview">
+          <div className="pj-wrap" style={{ display: "grid", gap: "clamp(3rem, 7vw, 5rem)" }}>
+            <div className="split">
+              <h2 className="t-h2 reveal">Motivation</h2>
+              <div className="reveal">
+                {p.story.map((t) => (
+                  <p key={t}>{t}</p>
                 ))}
-              </ul>
-            </Block>
-            <section className="border-t border-rule pt-5">
-              <h2 className="t-h2">Screenshots</h2>
-              <div className="mt-6 grid gap-6 md:grid-cols-2">
-                {p.shots.slice(1).map((s, n) => (
-                  <figure key={s.src}>
+              </div>
+            </div>
+            <div className="split">
+              <h2 className="t-h2 reveal">Features</h2>
+              <div className="reveal">
+                {p.features.map((t) => (
+                  <p key={t}>{t}</p>
+                ))}
+              </div>
+            </div>
+            <div className="split">
+              <h2 className="t-h2 reveal">Build</h2>
+              <div className="reveal">
+                {p.build.map((t) => (
+                  <p key={t}>{t}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pj-band" style={{ background: "none" }} aria-labelledby="history-h">
+          <div className="pj-wrap">
+            <h2 id="history-h" className="display reveal">
+              History
+            </h2>
+          </div>
+          {p.timeline.length > 0 ? (
+            <div className="tl-wrap reveal">
+              <ol className="tl pj-focus" tabIndex={0} aria-label={`${p.title} history, scroll sideways`}>
+                {p.timeline.map((t) => (
+                  <li key={t.date + t.label}>
+                    <time dateTime={t.date}>{when(t.date)}</time>
+                    <p className="detail">{t.label}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : (
+            <div className="pj-wrap">
+              <p className="detail reveal mt-6 max-w-[52ch]">
+                The code for this project is private, so there is no public commit history to show here.
+              </p>
+            </div>
+          )}
+        </section>
+
+        <section className="pj-band" aria-labelledby="screens-h">
+          <div className="pj-wide">
+            <h2 id="screens-h" className="display pj-head reveal">
+              Screens
+            </h2>
+            <ul className="shots">
+              {shots.map((s, n) => (
+                <li key={s.src} className="reveal" style={{ ["--d" as string]: `${(n % 2) * 80}ms` }}>
+                  <figure>
                     <Image
                       src={s.src}
                       alt={s.alt}
                       width={1280}
                       height={800}
-                      sizes="(min-width: 768px) 46vw, 92vw"
+                      sizes="(min-width: 900px) 46vw, 92vw"
                       loading={n < 2 ? "eager" : "lazy"}
-                      className="block h-auto w-full border border-rule"
                     />
-                    <figcaption className="mt-2 text-[15px] leading-6 text-muted">{s.alt}</figcaption>
+                    <figcaption className="detail">{s.alt}</figcaption>
                   </figure>
-                ))}
-              </div>
-            </section>
+                </li>
+              ))}
+            </ul>
           </div>
+        </section>
 
-          <nav
-            aria-label="Projects"
-            className="mt-16 grid gap-4 border-t border-rule pt-5 sm:grid-cols-2"
-          >
-            <a href={`/projects/${prev.slug}/`} className="group block">
-              <span className="text-[13px] text-muted">Previous project</span>
-              <span className="mt-1 block text-[17px] font-semibold group-hover:underline">{prev.title}</span>
-            </a>
-            <a href={`/projects/${next.slug}/`} className="group block sm:text-right">
-              <span className="text-[13px] text-muted">Next project</span>
-              <span className="mt-1 block text-[17px] font-semibold group-hover:underline">{next.title}</span>
-            </a>
-          </nav>
-        </div>
+        <section style={{ padding: "clamp(3.5rem, 8vw, 6rem) 0" }} aria-labelledby="next-h">
+          <div className="pj-wrap">
+            <div className="split">
+              <h2 id="next-h" className="t-h2 reveal">
+                Next
+              </h2>
+              <ul className="nextlist reveal">
+                {p.next.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="pj-band" aria-label="More projects">
+          <div className="pj-wrap pager">
+            <Link href={`/projects/${prev.slug}/`}>
+              <span className="detail block">Previous project</span>
+              <span className="title mt-1 block">{prev.title}</span>
+            </Link>
+            <Link href={`/projects/${next.slug}/`}>
+              <span className="detail block">Next project</span>
+              <span className="title mt-1 block">{next.title}</span>
+            </Link>
+          </div>
+        </section>
       </main>
 
-      <footer className="no-print relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 text-[13px] text-muted sm:px-8">
+      <footer className="no-print relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 pt-10 text-[13px] sm:px-8">
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </>

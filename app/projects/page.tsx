@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { links, profile } from "@/lib/content";
 import { projects } from "@/lib/projects";
 import { ProjectGallery } from "@/components/project-gallery";
-import { ProjectBox } from "@/components/project-parts";
+import { ProjectCard } from "@/components/project-parts";
 import { SiteNav } from "@/components/site-nav";
 import { navFromElsewhere } from "@/lib/nav";
 
@@ -12,42 +12,41 @@ export const metadata: Metadata = {
   alternates: { canonical: "/projects/" },
 };
 
+/** The Apple version's layout: a centred opening, the wheel, then every project in a card. */
 export default function ProjectsPage() {
   return (
     <>
       <div id="top" aria-hidden />
-      <SiteNav items={navFromElsewhere} right={links} name={profile.shortName} />
+      <SiteNav items={navFromElsewhere} right={links} name={profile.shortName} home="/" />
 
-      <main className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8">
-        <section id="projects" className="pt-20 sm:pt-24 lg:pt-28">
-          <h1 className="display">Projects</h1>
-          <p className="mt-4 max-w-xl text-[17px] leading-snug text-muted">
-            Websites and apps I have built.
-          </p>
+      <main className="grow">
+        <section className="pj-hero" aria-labelledby="projects-title">
+          <div className="pj-wrap">
+            <p className="pj-eyebrow reveal">Websites and apps</p>
+            <h1 id="projects-title" className="display reveal" style={{ ["--d" as string]: "80ms" }}>
+              Projects
+            </h1>
+            <p className="pj-lead reveal" style={{ ["--d" as string]: "160ms" }}>
+              Websites and apps I have built.
+            </p>
+          </div>
+        </section>
 
-          <section className="mt-12 border-t border-rule pt-5 lg:mt-16" aria-labelledby="gallery-h">
-            <h2 id="gallery-h" className="t-h2">
-              Gallery
-            </h2>
-            <div className="mt-8">
-              <ProjectGallery projects={projects} />
-            </div>
-          </section>
+        <section id="gallery" className="pj-band" aria-label="Projects">
+          <ProjectGallery projects={projects} />
 
-          <section className="mt-16 border-t border-rule pt-5 lg:mt-24" aria-labelledby="catalog-h">
-            <h2 id="catalog-h" className="t-h2">
-              Catalog
-            </h2>
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div id="all" className="pj-wide" style={{ marginTop: "clamp(3.5rem, 8vw, 6rem)" }}>
+            <h2 className="display pj-head reveal">Everything</h2>
+            <ul className="pgrid">
               {projects.map((p) => (
-                <ProjectBox key={p.slug} p={p} />
+                <ProjectCard key={p.slug} p={p} />
               ))}
-            </div>
-          </section>
+            </ul>
+          </div>
         </section>
       </main>
 
-      <footer className="no-print relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 text-[13px] text-muted sm:px-8">
+      <footer className="no-print relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 pt-10 text-[13px] sm:px-8">
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </>

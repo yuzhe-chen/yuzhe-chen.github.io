@@ -48,9 +48,9 @@ export function Section({
    */
   stacked?: boolean;
   /**
-   * The home page's heading: large, in the Apple version's type, and revealed
-   * as it scrolls in. Without it the heading is the small `t-h2` that the
-   * Projects and Research pages use.
+   * The home page's heading: the large uppercase label, in a box that stays
+   * under the bar, revealed as it scrolls in. Without it the heading is the
+   * small `t-h2` that the Projects and Research pages use.
    */
   large?: boolean;
 }) {
@@ -72,27 +72,41 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative isolate border-t border-rule pt-5 lg:pt-7 ${roomBelow}`}
+      // The Projects pages still rule each section off; the home page doesn't.
+      className={`relative isolate pt-5 lg:pt-7 ${
+        large ? "" : "border-t border-rule"
+      } ${roomBelow}`}
     >
       {backdrop}
       {mobileBackdrop}
       {/* Two strict halves from `lg`: the label in the left one, everything it
-          introduces in the right. The gap is padding inside each half rather
-          than a grid gap, so the boundary is exactly the middle of the page
-          — which is where the wallpaper's fade has to be finished by. Stacked
-          sections put the heading above instead. */}
-      <div
-        className={
-          stacked ? "" : "grid gap-y-9 lg:grid-cols-2 lg:gap-y-6"
-        }
-      >
-        <div className={stacked ? "mb-9 lg:mb-12" : "lg:pr-10"}>
+          introduces in the right. The gap is padding inside the right half
+          rather than a grid gap, so the boundary is exactly the middle of the
+          page — which is where the wallpaper's fade has to be finished by.
+          Stacked sections put the heading above instead.
+
+          A large heading sits in a box of the page colour, rounded, so it
+          reads as a label where it lies over a photograph. Over plain page
+          colour the box is the same colour as what's behind it and simply
+          isn't there. */}
+      <div className={stacked ? "" : "lg:grid lg:grid-cols-2 lg:gap-y-6"}>
+        <div
+          className={
+            large
+              ? `-ml-3 mb-8 w-fit rounded-2xl bg-bg py-1 pl-3 pr-5 ${
+                  stacked ? "lg:mb-10" : "lg:mb-0 lg:self-start"
+                }`
+              : stacked
+                ? "mb-9 lg:mb-12"
+                : "mb-9 lg:mb-0"
+          }
+        >
           <Heading
             className={
               Heading === "h1"
                 ? "display"
                 : large
-                  ? "heading reveal"
+                  ? "display reveal"
                   : "t-h2"
             }
           >
@@ -110,14 +124,15 @@ export function Section({
 }
 
 /**
- * Two-column flow, the way the reference sets its lists: entries run down the
- * first column, then continue in the second. Groups never split across columns.
- * From `lg` the content is only half the page, so it takes one column there and
- * goes back to two once the half is wide enough (`2xl`, 1536px) to hold them.
+ * Entries in a grid: two across where the content has the whole width (tablet),
+ * one down the right half from `lg`, where it only has half the page. A grid
+ * rather than CSS columns: columns balance by height and break entries across
+ * the gap unevenly, and an entry that is still sliding in (see `reveal`) is
+ * transformed, which columns lay out badly. Reading order is left to right.
  */
 export function Columns({ children }: { children: ReactNode }) {
   return (
-    <div className="gap-x-10 md:columns-2 lg:columns-1 2xl:columns-2 [&>*]:break-inside-avoid">
+    <div className="grid gap-x-10 md:grid-cols-2 lg:grid-cols-1">
       {children}
     </div>
   );
@@ -143,18 +158,20 @@ export function Entry({
 }) {
   return (
     <div
-      className={`mb-6${index === undefined ? "" : " reveal"}`}
+      className={`pb-6${index === undefined ? "" : " reveal"}`}
       style={
         index === undefined
           ? undefined
           : { ["--d" as string]: `${(index % 3) * 80}ms` }
       }
     >
-      <p className="text-[17px] leading-snug">
+      {/* Everything is the body colour now, so what sets the title apart is
+          its weight. */}
+      <p className="title">
         <TitleLink href={href}>{title}</TitleLink>
       </p>
-      {meta && <p className="mt-1 text-[15px] leading-snug text-muted">{meta}</p>}
-      {body && <p className="mt-2 text-[15px] leading-6 text-muted">{body}</p>}
+      {meta && <p className="detail mt-1">{meta}</p>}
+      {body && <p className="detail mt-2 leading-6">{body}</p>}
       {children}
     </div>
   );
@@ -237,12 +254,7 @@ export function TitleLink({
   );
 }
 
-/**
- * International and National read as the top tier, filled in; the rest are
- * outlined.
- */
+/** One badge for every level: the same colour and the same size. */
 export function LevelPill({ level }: { level: string }) {
-  const loud = level === "International" || level === "National";
-  const className = `pill${loud ? " loud" : ""}`;
-  return <span className={className}>{level}</span>;
+  return <span className="pill">{level}</span>;
 }

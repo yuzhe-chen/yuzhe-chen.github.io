@@ -21,7 +21,7 @@ export default function ResearchPage() {
   return (
     <>
       <div id="top" aria-hidden />
-      <SiteNav items={navFromElsewhere} right={links} name={profile.shortName} />
+      <SiteNav items={navFromElsewhere} right={links} name={profile.shortName} home="/" />
 
       <main className="relative z-10 mx-auto w-full max-w-[1600px] grow px-5 pb-16 sm:px-8">
         <section className="pt-20 sm:pt-24 lg:pt-28">

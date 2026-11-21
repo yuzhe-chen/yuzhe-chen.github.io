@@ -16,25 +16,12 @@ import {
   Portrait,
   Section,
 } from "@/components/sections";
+import Link from "next/link";
+import { projects } from "@/lib/projects";
+import { ProjectGallery } from "@/components/project-gallery";
 import { SiteNav } from "@/components/site-nav";
-import { VideoRail } from "@/components/video-rail";
+import { VideoGrid } from "@/components/video-grid";
 import { nav } from "@/lib/nav";
-
-/** Counted from the record itself, so the numbers cannot drift from the list. */
-const honorTotal = awardRecord.reduce((n, g) => n + g.items.length, 0);
-const topLevel = awardRecord.reduce(
-  (n, g) =>
-    n +
-    g.items.filter((i) => i.level === "National" || i.level === "International")
-      .length,
-  0,
-);
-const stats = [
-  { n: honorTotal, l: "Honors on record" },
-  { n: topLevel, l: "National and international" },
-  { n: awardRecord.length, l: "Academic years on record" },
-  { n: venues.length, l: "Concert halls" },
-];
 
 /**
  * The photographs don't sit behind the whole page: each one belongs to a
@@ -282,20 +269,26 @@ export default function Home() {
               backdrop={
                 <div
                   aria-hidden
-                  className="reveal-fade absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
+                  className="reveal-fade absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden bg-[var(--wash)] lg:block"
                 >
-                  {/* The left half, and no more. The portrait is square and
-                      the half is close to it, so cover fills across and crops
-                      a little top and bottom. The crop is held high: on a very
-                      wide screen the half is wide and shallow, and a centred
-                      crop cuts straight through the head. */}
-                  <div className="portrait-breathe absolute inset-y-0 left-0 w-1/2">
+                  {/* The picture is square, so its box is too: half the page
+                      wide and as tall as it is wide. Nothing is cropped
+                      sideways at any width, which is what a box stretched to
+                      the section's height couldn't promise — its crop moved
+                      with the length of the text and the size of the window,
+                      and took half the face with it. A section shorter than
+                      the square crops the foot of the picture; a taller one
+                      lets the picture fade out into the colour beneath it. The
+                      fade-out is inside the breathing box, so the two stay
+                      together as it moves. */}
+                  <div className="portrait-breathe absolute left-0 top-0 aspect-square w-1/2">
                     <Portrait
                       light={profile.photoLight}
                       name=""
                       className="h-full w-full"
-                      position="object-[50%_26%]"
+                      position="object-center"
                     />
+                    <div className="portrait-fade-y absolute inset-0" />
                   </div>
                   <div className="portrait-fade-x absolute inset-0" />
                 </div>
@@ -353,28 +346,16 @@ export default function Home() {
 
           {videos.length > 0 && (
             <Section large id="performances" label="Performances" stacked>
-              <VideoRail videos={videos} />
+              <VideoGrid videos={videos} />
             </Section>
           )}
 
           {awardRecord.length > 0 && (
             <Section large id="honors" label="Selected Honors" stacked>
-              <ul className="stats">
-                {stats.map((s, i) => (
-                  <li
-                    key={s.l}
-                    className="reveal"
-                    style={{ ["--d" as string]: `${i * 80}ms` }}
-                  >
-                    <span className="stat-n">{s.n}</span>
-                    <span className="stat-l">{s.l}</span>
-                  </li>
-                ))}
-              </ul>
               <ol className="years">
                 {awardRecord.map((group) => (
                   <li key={group.year} className="year reveal">
-                    <h3 className="year-n">{group.year}</h3>
+                    <h3 className="year-n title">{group.year}</h3>
                     <ul>
                       {group.items.map((item, i) => (
                         <li
@@ -409,18 +390,35 @@ export default function Home() {
 
               {venues.length > 0 && (
                 <Section large id="venues" label="Venues" stacked>
-                  <ul className="rows">
-                    {venues.map((v, i) => (
-                      <li
-                        key={v.name}
-                        className="row reveal"
-                        style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}
-                      >
-                        <span className="row-n">{v.name}</span>
-                        <span className="row-m">{v.city}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="venue-split">
+                    <ul className="rows">
+                      {venues.map((v, i) => (
+                        <li
+                          key={v.name}
+                          className="row reveal"
+                          style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}
+                        >
+                          <span className="row-n title">{v.name}</span>
+                          <span className="row-m detail">{v.city}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div
+                      aria-hidden
+                      className="venue-photo reveal-scale"
+                    >
+                      {/* Filled by the cell, not sized by the picture: the list
+                          sets the height. */}
+                      <div className="absolute inset-0">
+                        <Photo
+                          base={WALLPAPERS[1]}
+                          position="object-[50%_40%]"
+                          overlay={null}
+                          sizes="(min-width: 1024px) 50vw, 100vw"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </Section>
               )}
 
@@ -433,14 +431,36 @@ export default function Home() {
                         className="lang reveal"
                         style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}
                       >
-                        <h3 className="lang-n">{l.name}</h3>
-                        <p>{l.level}</p>
+                        <h3 className="lang-n title">{l.name}</h3>
+                        <p className="detail">{l.level}</p>
                       </li>
                     ))}
                   </ul>
                 </Section>
               )}
             </div>
+          )}
+
+          {/* The Projects page's wheel, on a band of the off-white that bleeds to
+              both edges. The band stops at the wheel: the button under it is
+              the same off-white, and would vanish on it. */}
+          {projects.length > 0 && (
+            <Section large id="projects" label="Projects" stacked>
+              <div className="relative isolate">
+                <div
+                  aria-hidden
+                  className="reveal-fade absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-[var(--wash)]"
+                />
+                <div className="-mx-5 py-8 sm:-mx-8">
+                  <ProjectGallery projects={projects} />
+                </div>
+              </div>
+              <p className="reveal mt-10 text-center">
+                <Link href="/projects/" className="btn">
+                  View projects
+                </Link>
+              </p>
+            </Section>
           )}
 
           {writing.length > 0 && (
