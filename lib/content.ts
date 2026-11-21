@@ -225,7 +225,7 @@ export const videos: {
   {
     id: "l-7YvRzPta8",
     title: "Liszt: Spanish Rhapsody, S. 254",
-    detail: "From the Top, NPR's Daily Joy",
+    detail: "From the Top, NPR's Daily Joy - 2026",
   },
   {
     id: "b-uOBh1JqaM",
