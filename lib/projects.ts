@@ -44,13 +44,12 @@ export const projects: Project[] = [
     slug: "profegpt",
     title: "ProfeGPT",
     status: "Live",
-    tagline: "Six languages, one reference to open.",
-    summary:
-      "Language study spreads across translators, conjugation charts and dictionaries. I wanted them together, with a tutor whose answers can be traced.",
-    does: "A translator, full conjugation tables, a dictionary and a tutor for Spanish, French, Italian, German, Dutch and Portuguese.",
+    tagline: "Six languages, and the reasons behind each word.",
+    summary: "Learning a language is learning how other people think and speak. I wanted learners to meet each word in real sentences, with a tutor that is honest about what it knows.",
+    does: "Helps people learn Spanish, French, Italian, German, Dutch and Portuguese: translations, every verb conjugated, a dictionary with real example sentences, and a tutor whose answers can be traced back to their source.",
     story: [
-      "In Spanish class I moved constantly between a translator, a conjugation chart, a dictionary and a chat window. Each answered in its own format and from its own sources.",
-      "I wanted a single site where every answer comes from data I can inspect, and a tutor that states plainly when the site does not have the answer.",
+      "In Spanish class I kept switching between a translator, a conjugation chart, a dictionary and a chat window, and none of them showed me how the language is actually used. Learning a language should feel like stepping into another culture, not juggling tabs.",
+      "I wanted one place where every answer shows its source, with example sentences drawn from a corpus of real text, and a tutor that says plainly when it does not know. A learner should be able to trust what they are being taught.",
     ],
     features: [
       "Each language has a two-way translator, conjugation tables for every verb, a dictionary and a chat page with a tutor. The tutor answers only from the site's own data: dictionary entries and a corpus of example sentences.",
@@ -91,12 +90,11 @@ export const projects: Project[] = [
     slug: "interpres",
     title: "Interpres",
     status: "Live",
-    tagline: "Latin tables, a dictionary and course vocabulary.",
-    summary:
-      "Most language tools are built around modern languages. I wanted Latin tables and a dictionary organized the way the language is taught.",
-    does: "Conjugation and declension tables, a dictionary built on Whitaker's Words, grammar pages and Cambridge Latin Course vocabulary by stage.",
+    tagline: "Latin, the way it is taught.",
+    summary: "People study Latin to read history and literature in its own words. I wanted students to have tools arranged the way a Latin class actually works.",
+    does: "A Latin study companion: conjugations, declensions, a dictionary built on Whitaker's Words, grammar pages and the vocabulary of each Cambridge Latin Course stage.",
     story: [
-      "Latin is usually an afterthought in general-purpose tools, which treat it like a modern language with a different vocabulary. I wanted a reference arranged around how Latin is actually studied: forms, principal parts and stages of a course.",
+      "Latin is usually an afterthought in general-purpose tools, yet it is where many people first learn how a language is built, and how they come to hear Roman voices directly. I wanted a reference arranged around how Latin is actually studied: forms, principal parts and the stages of a course, so a student can find what the day's lesson needs.",
     ],
     features: [
       "You can conjugate any verb, decline any noun or adjective and look up any word with its principal parts. Grammar pages cover adjectives and other topics, and each stage of the Cambridge Latin Course has its own word list.",
@@ -133,12 +131,11 @@ export const projects: Project[] = [
     slug: "trajans-column",
     title: "Trajan's Column",
     status: "Live",
-    tagline: "A hundred feet of carved story, up close.",
-    summary:
-      "The top of the real column is out of sight from the ground. I wanted to read the whole frieze, with the Latin explained as you go.",
-    does: "A scroll-through site with a 3D column, the inscription, the coins, a map of the conquests and what Romans wrote about Trajan.",
+    tagline: "A hundred feet of carved story, brought down to the ground.",
+    summary: "One of Rome's great works of art tells the story of a war in carved stone, but from the street most of it cannot be read. I wanted anyone to be able to read it, with the Latin explained along the way.",
+    does: "A scroll through the column's carved story: the frieze, the inscription, the coins, a map of the conquests and what Romans wrote about Trajan, with the Latin explained.",
     story: [
-      "The column in Rome carries a story around its full height, and from the street most of it cannot be read. I wanted to follow it from base to summit, with the Latin explained alongside.",
+      "The column in Rome carries a story around its full height, and from the street most of it cannot be read. I wanted to share it with anyone, from base to summit, and let a reader meet the Latin inscription with an explanation beside it, so history, art and language arrive together.",
     ],
     features: [
       "You climb a 3D model with the whole frieze wrapped around it and pause at the major scenes. Then you read the inscription, examine Trajan's coins with a magnifying glass, follow his conquests on a map and read what Roman writers said about him.",
@@ -175,16 +172,14 @@ export const projects: Project[] = [
     slug: "saxon-planner",
     title: "Saxon Planner",
     status: "Live",
-    tagline: "One screen for what is due and what comes next.",
-    summary:
-      "Assignments, tests and notes were scattered across several apps. I wanted one place that shows what is due and what to do next.",
-    does: "Classes, a calendar that knows the two kinds of school day, assignments, resources, chat, news, games and a card collection.",
+    tagline: "A calmer school week.",
+    summary: "School is stressful when everything lives in a different place. I wanted students to see, at a glance, what is due and what comes next.",
+    does: "A planner built around how my school's days actually run: classes, a calendar that knows the two kinds of school day, assignments, resources for each class, news, and chat for study sessions.",
     story: [
-      "Assignments, tests and notes lived in different apps, and none of them knew which kind of school day it was. I wanted a single page that answers what is due and what to do next.",
+      "Assignments, tests and notes lived in different apps, and none of them knew which kind of school day it was. For a student that adds up to stress. I wanted one calm page that answers what is due and what to do next, and a place for classmates to study together.",
     ],
     features: [
-      "You add your classes and the planner builds a calendar for both kinds of school day. Assignments, tests, sticky-note to-dos and a shelf of resources for each class sit together, with chat for study sessions, a news tab and a games menu.",
-      "The newest additions are a home page that sets assignments beside the games, and a trading card collection with fusing and trading.",
+      "You add your classes and the planner builds a calendar for both kinds of school day. Assignments, tests, sticky-note to-dos and a shelf of resources for each class sit together, with chat for study sessions and a news tab.",
     ],
     build: [
       "A single-page web app with its own accounts. Data lives in a Google Sheet behind a Google Apps Script server, and the pages are served from Firebase Hosting.",
@@ -193,20 +188,16 @@ export const projects: Project[] = [
       "Keep load times short as more people use it.",
     ],
     timeline: [
-      { date: "2026-10-12", label: "The first game builds are added to the planner's games menu" },
       { date: "2026-11-13", label: "Chat with study sessions, shared classes and a three-part onboarding" },
-      { date: "2026-11-18", label: "A new home layout, a news tab and the trading card collection" },
+      { date: "2026-11-18", label: "A new home layout and a news tab" },
     ],
     links: [{ label: "Live site", href: "https://saxonplanner.web.app" }],
     shots: [
-      shot("planner", 1, "The Saxon Planner home page with assignments beside the games, using a test account"),
       shot("planner", 2, "The Courses page with a card for each class"),
       shot("planner", 3, "The Calendar page in month view with the two kinds of school day marked"),
       shot("planner", 4, "The Assignments page, sorted by due date"),
       shot("planner", 5, "The Resources page with a shelf for each class"),
       shot("planner", 6, "The Tools page with the graphing calculator, GPA calculator, timer and clock"),
-      shot("planner", 7, "The Games menu with a featured game and the most played"),
-      shot("planner", 8, "Scrapyard Trading inside the planner with five freshly revealed cards"),
     ],
     keywords: "planner school assignments calendar to-do homework",
   },
@@ -214,12 +205,11 @@ export const projects: Project[] = [
     slug: "stonks",
     title: "Stonks",
     status: "Live",
-    tagline: "A paper trading game on a made-up market.",
-    summary:
-      "I wanted to see how prices respond to the news without real money at stake, in a game friends could play against each other.",
-    does: "Two hundred invented companies move every five minutes, pushed by real news. You trade, finish quests and climb a leaderboard.",
+    tagline: "Learn how the news moves a market, with nothing to lose.",
+    summary: "Money and markets can feel out of reach. I wanted a safe, friendly place to learn how the news moves prices, with friends to play against.",
+    does: "A game that shows how news moves markets: two hundred invented companies, no real money at stake, quests to learn from and a leaderboard to climb against friends.",
     story: [
-      "I wanted to learn how prices react to the news without risking anything, and to build something my friends could compete in. An invented market means no one can lose real money and no real company is affected.",
+      "I wanted to learn how prices react to the news without risking anything, and to build something my friends could compete in. An invented market means no one can lose real money and no real company is affected, so it is a safe way to get curious about how markets work.",
     ],
     features: [
       "Two hundred invented companies in twenty real sectors, plus four index funds, move every five minutes. Real news headlines become signals for the sectors they mention, and the game retells each one as an invented headline.",
@@ -257,12 +247,11 @@ export const projects: Project[] = [
     slug: "departed",
     title: "Departed",
     status: "Live",
-    tagline: "A daily mystery on a train through time.",
-    summary:
-      "I like puzzles that reward careful reading. A train crossing history let me set seven deaths in seven different eras.",
-    does: "Seven passengers die at seven moments in history. You date each death from its clue, then identify the murderer.",
+    tagline: "A daily mystery that teaches history.",
+    summary: "History sticks when it is a story. I set seven mysteries in seven eras, so a daily puzzle becomes a small lesson in when things happened.",
+    does: "A daily history puzzle on a train through time: seven passengers die in seven eras, you date each death from its clue, then name the murderer.",
     story: [
-      "I prefer puzzles that reward close reading over quick reflexes. A train that passes through history gave me a reason to place seven deaths in seven different eras, and a daily case gives people a reason to come back.",
+      "I prefer puzzles that reward close reading over quick reflexes, and I like that a mystery can quietly teach. A train that passes through history gave me a reason to place seven deaths in seven different eras, and a new case each day gives people a reason to come back.",
     ],
     features: [
       "You date each death by placing a clue on a timeline, lock in your pin and photograph the murderer's train. A rule book explains the scoring, and there is a list of trains to choose from. Orange Pip is a multiplayer mode.",
@@ -293,29 +282,34 @@ export const projects: Project[] = [
     slug: "jamborine",
     title: "Jamborine",
     status: "Live",
-    tagline: "Party games for a room of friends.",
-    summary:
-      "I wanted games that start from a link and run on everyone's own phone, with nothing to install.",
-    does: "In Jamboree everyone builds a beat and performs it on one stage. In Mashup everyone pitches an invention made from two everyday objects, and the room votes.",
+    tagline: "Games that bring a room together.",
+    summary: "Making music, inventing and drawing are better shared. I wanted games anyone can join from a link on their own phone, so a room of friends, or strangers, can make something together.",
+    does: "Games for a room, played on everyone's own phone: in Jamboree everyone builds a beat and performs it on one stage; in Mashup everyone pitches an invention made from two everyday objects and the room votes; in Stead strangers share one pixel canvas, a pixel each every half hour.",
     story: [
-      "Party games usually ask for an app or a shared screen. I wanted games that begin with a link and run on each person's phone.",
+      "Party games usually ask for an app or a shared screen. I wanted games that begin with a link and run on each person's phone, so nobody is left out. Making music, inventing and drawing are more fun together, and these games turn a room of people into an ensemble, a jury and an art studio.",
     ],
     features: [
-      "Jamboree: everyone composes an eight-measure beat on a set of pads, then the blobs perform together on one stage. Mashup: each round shows two everyday objects, everyone pitches an invention that combines them, and the room votes. Stead, a shared pixel canvas, belongs to the same series.",
+      "Jamboree: everyone composes an eight-measure beat on a set of pads, then the blobs perform together on one stage. Mashup: each round shows two everyday objects, everyone pitches an invention that combines them, and the room votes.",
+      "Stead: a shared pixel canvas. Each player can place one pixel every 30 minutes, a new canvas starts every 72 hours, and a chat sits beside it, so a picture only appears if people coordinate and wait their turn.",
     ],
     build: [
-      "Browser games on Firebase Hosting, with players joining a room by its code and a backup path for networks that block one provider.",
+      "Browser games on Firebase Hosting, with players joining a room by its code and a backup path for networks that block one provider. Stead is its own page in the same series.",
     ],
     next: [
       "More games in the series.",
+      "A gallery of past Stead canvases.",
     ],
     timeline: [
       { date: "2026-11-14", label: "First commit: a sixty-second beat-making game with four sound packs" },
       { date: "2026-11-15", label: "Becomes Jamborine: multiplayer lobby, Jamboree and Mashup with 108 cut-out pictures and credits" },
-      { date: "2026-11-15", label: "A Stead link joins the title screen" },
+      { date: "2026-11-15", label: "Stead, a shared pixel canvas, begins and is linked from the title screen" },
       { date: "2026-11-16", label: "Rooms gain backup servers for networks that block one provider" },
+      { date: "2026-11-16", label: "Stead moves into its own repository" },
     ],
-    links: [{ label: "Live site", href: "https://jamborine.web.app" }],
+    links: [
+      { label: "Live site", href: "https://jamborine.web.app" },
+      { label: "Stead", href: "https://stead.web.app" },
+    ],
     shots: [
       shot("jamborine", 1, "The Jamborine home page with its Jamboree, Mashup and Stead buttons"),
       shot("jamborine", 2, "A Jamborine lobby with four players and a room code"),
@@ -324,52 +318,20 @@ export const projects: Project[] = [
       shot("jamborine", 5, "The Jamboree beat pads"),
       shot("jamborine", 6, "The Jamboree stage with a blob performing"),
       shot("jamborine", 7, "How to play Jamboree and Mashup"),
-    ],
-    keywords: "party games music beat mashup friends room",
-  },
-  {
-    slug: "stead",
-    title: "Stead",
-    status: "Live",
-    tagline: "One shared canvas, one pixel at a time.",
-    summary:
-      "I wanted to see what happens when strangers share a canvas and each gets a single pixel every half hour.",
-    does: "A shared pixel canvas where each player places one pixel every 30 minutes. A new canvas starts every 72 hours, with a chat beside it.",
-    story: [
-      "A canvas where everyone has one pixel per half hour rewards patience and coordination. I wanted to watch what people make under that limit.",
-    ],
-    features: [
-      "A shared pixel canvas. Each player can place one pixel every 30 minutes, a new canvas starts every 72 hours, and a chat sits beside the canvas.",
-    ],
-    build: [
-      "A browser app on Firebase Hosting, part of the Jamborine series.",
-    ],
-    next: [
-      "A gallery of past canvases.",
-    ],
-    timeline: [
-      { date: "2026-11-15", label: "First commit: a shared pixel canvas with rules, a room and a client" },
-      { date: "2026-11-15", label: "Linked from the Jamborine title screen" },
-      { date: "2026-11-16", label: "Moves into its own repository" },
-    ],
-    links: [{ label: "Live site", href: "https://stead.web.app" }],
-    shots: [
-      shot("stead", 1, "The Stead shared pixel canvas with its color palette"),
+      shot("stead", 1, "Stead, the shared pixel canvas, with its color palette"),
       shot("stead", 2, "The Stead canvas with a pixel chosen and the Place button ready"),
-      shot("stead", 3, "The Stead canvas on a phone"),
     ],
-    keywords: "pixel canvas shared place chat jamborine",
+    keywords: "party games music beat mashup friends room pixel canvas shared place chat stead",
   },
   {
     slug: "scrapyard",
     title: "Scrapyard",
     status: "In development",
-    tagline: "Dig up parts, fuse them, enter the Expo.",
-    summary:
-      "I wanted a collecting game in which combining parts matters more than owning them.",
-    does: "Your yard digs up parts, you fuse them into inventions, and a daily Expo decides whose invention is best. It is deployed but not finished.",
+    tagline: "Collect, combine, invent.",
+    summary: "Invention is mostly combining things nobody thought to put together. I wanted a game that rewards creativity over owning the most.",
+    does: "A collecting game where your yard digs up parts, you fuse two into an invention, and a daily Expo has players decide whose invention is best. It is deployed but not finished.",
     story: [
-      "I like collecting games where combining things matters more than owning them. Parts that fuse into new inventions came from that idea.",
+      "I like collecting games where combining things matters more than owning them. Parts that fuse into new inventions came from that idea, and a daily Expo where players judge one another's inventions makes it something people do together.",
     ],
     features: [
       "Your yard digs up parts. You fuse two parts into an invention and enter it in a daily Expo, where players decide whose invention is best. The game is deployed but not finished. The cards can also be opened, fused and traded inside Saxon Planner as Scrapyard Trading.",
@@ -402,11 +364,10 @@ export const projects: Project[] = [
     title: "Mazurka",
     status: "Live",
     tagline: "Write music and hear the harmony.",
-    summary:
-      "As a pianist I wanted a notation tool where the score itself is the interface.",
-    does: "A notation and composition studio in the browser. Harmonizing proposes changes instead of overwriting what you wrote.",
+    summary: "As a pianist I know how much music is lost when it cannot be written down. I wanted anyone with a melody in their head to be able to put it on the page and hear it harmonized.",
+    does: "A free notation and composition studio in the browser: write a melody on the staff, hear it play and ask for harmonies, which you accept or reject. It proposes changes and never overwrites what you wrote.",
     story: [
-      "Notation programs often route everything through menus. As a pianist I wanted the score to be the interface, with harmony help that suggests changes instead of replacing what I wrote.",
+      "As a pianist I wanted notation to feel like writing music, not operating software, with a harmony helper that teaches by suggesting rather than replacing what I wrote. It is free to open, so anyone with a melody in their head can write it down and hear what harmony could do for it.",
     ],
     features: [
       "A notation and composition studio in the browser. You write on the staff, hear it play and ask the harmonizer for candidates, which you accept or reject. It is free to open, and projects stay in your browser.",

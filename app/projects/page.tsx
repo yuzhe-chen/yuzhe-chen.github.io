@@ -35,7 +35,7 @@ export default function ProjectsPage() {
               Projects
             </h1>
             <p className="t-lead reveal" style={{ ["--d" as string]: "160ms" }}>
-              Tools for languages, a few games, and a planner for school.
+              Projects for learning languages, exploring history, making music and bringing people together.
             </p>
           </div>
         </section>
