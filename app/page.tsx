@@ -55,7 +55,7 @@ export default function Home() {
 
       <main>
         {bio.length > 0 && (
-          <section id="biography" className="ch ch-b" aria-labelledby="biography-h">
+          <section id="biography" className="ch ch-b ch-first" aria-labelledby="biography-h">
             <div className="wrap">
               {/* The name is the title: above the heading and the text, which
                   are then level with each other as they were. */}

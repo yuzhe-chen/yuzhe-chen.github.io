@@ -184,6 +184,11 @@ a {
   color: var(--fg);
   padding-block: var(--chapter);
 }
+/* The opening chapter: nothing above it but the bar, so it doesn't need a
+   chapter's worth of air over the name. */
+.ch-first {
+  padding-top: clamp(1.5rem, 3.5vw, 3rem);
+}
 .ch-b {
   background: var(--bg2);
   --card: var(--bg);
