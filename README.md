@@ -13,10 +13,13 @@ Which one applies often depends on the format — laptop (`lg` and up) or mobile
   writing. Changes to bands never affect it: it answers to `portrait-wash`,
   `portrait-fade-x` and `portrait-breathe`, not to `.heading-band` or
   `.section-fade`.
-- **Wallpaper** — the two-column picture format on laptops: the photograph fills
-  the whole section, running behind the label and the text beside it. Most
-  sections get one from `SectionWallpaper` in `app/page.tsx`; the Biography's is
-  the profile picture.
+- **Wallpaper** — the two-column picture format on laptops: the page is split
+  strictly in half, and the photograph fills the left half, fading rightward
+  into one solid colour (`--wash`) before it reaches the middle, where the text
+  column begins. Most sections get one from `SectionWallpaper` in
+  `app/page.tsx`; the Biography's is the profile picture. Venues and Languages
+  take no wallpaper: their picture sits at the foot of the pair
+  (`BottomPhoto`).
 - **Band** — the short strip of picture behind a heading on mobile, where the
   label sits above the writing rather than beside it. Rendered by `HeadingBand`
   in `app/page.tsx`; its height is derived from the label's own type size by

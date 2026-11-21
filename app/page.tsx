@@ -12,20 +12,38 @@ import {
 import {
   Columns,
   Entry,
-  LevelTag,
+  LevelPill,
   Portrait,
   Section,
-  VideoEmbed,
 } from "@/components/sections";
 import { SiteNav } from "@/components/site-nav";
+import { VideoRail } from "@/components/video-rail";
 import { nav } from "@/lib/nav";
+
+/** Counted from the record itself, so the numbers cannot drift from the list. */
+const honorTotal = awardRecord.reduce((n, g) => n + g.items.length, 0);
+const topLevel = awardRecord.reduce(
+  (n, g) =>
+    n +
+    g.items.filter((i) => i.level === "National" || i.level === "International")
+      .length,
+  0,
+);
+const stats = [
+  { n: honorTotal, l: "Honors on record" },
+  { n: topLevel, l: "National and international" },
+  { n: awardRecord.length, l: "Academic years on record" },
+  { n: venues.length, l: "Concert halls" },
+];
 
 /**
  * The photographs don't sit behind the whole page: each one belongs to a
  * section, and what it does there depends on the format.
  *
- * On laptop it fills the section behind the two-column row, fading rightward
- * into solid page colour before it reaches the text — a wallpaper. On mobile it
+ * On laptop the page is split strictly in half. The photograph fills the left
+ * half and fades into one solid colour before it reaches the middle, where the
+ * text column begins — a wallpaper. Venues and Languages are the exception:
+ * their picture sits at the foot of the pair instead. On mobile it
  * fills the section outright, under the writing as well as the label, and pays
  * for that with a far heavier wash.
  *
@@ -44,14 +62,18 @@ function Photo({
   base,
   position,
   overlay = "section-fade",
+  sizes = "100vw",
 }: {
   base: string;
   position: string;
+  /** What the browser should assume the picture's width is. */
+  sizes?: string;
   /**
    * The wash laid over the picture: `section-fade` where text sits beside it,
-   * `section-veil` where text sits on top of it.
+   * `section-veil` where text sits on top of it. `null` for none, where the
+   * caller lays one over a wider area than the picture.
    */
-  overlay?: string;
+  overlay?: string | null;
 }) {
   return (
     <>
@@ -60,13 +82,13 @@ function Photo({
       <img
         src={`${base}.webp`}
         srcSet={srcSet(base)}
-        sizes="100vw"
+        sizes={sizes}
         alt=""
         decoding="async"
         loading="lazy"
         className={`h-full w-full object-cover ${position}`}
       />
-      <div className={`${overlay} absolute inset-0`} />
+      {overlay && <div className={`${overlay} absolute inset-0`} />}
     </>
   );
 }
@@ -112,9 +134,35 @@ function SectionWallpaper({
   return (
     <div
       aria-hidden
-      className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
+      className="reveal-fade absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
     >
-      <Photo base={base} position={position} />
+      {/* The picture takes the left half and no more; the fade is laid over
+          the whole wallpaper, so it also fills the right half with colour. */}
+      <div className="absolute inset-y-0 left-0 w-1/2">
+        <Photo base={base} position={position} overlay={null} sizes="50vw" />
+      </div>
+      <div className="section-fade absolute inset-0" />
+    </div>
+  );
+}
+
+/**
+ * The picture at the foot of Venues and Languages: a background that fills
+ * the bottom of the pair edge to edge and fades upward into the page colour.
+ * The pair is padded by the same height (`photo-stage`), so it sits below the
+ * last card rather than behind it.
+ */
+function BottomPhoto({ base, position }: { base: string; position: string }) {
+  return (
+    <div
+      aria-hidden
+      className="photo-bottom reveal-fade absolute bottom-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
+    >
+      <Photo
+        base={base}
+        position={position}
+        overlay="bottom-fade"
+      />
     </div>
   );
 }
@@ -177,7 +225,7 @@ export default function Home() {
         * The crop is held high: the face is the reason the picture is here, and
         * a centred crop on a tall box puts the chin at the bottom edge.
         */}
-      <div className="relative h-[78svh] w-full overflow-hidden lg:hidden">
+      <div className="reveal-fade relative h-[78svh] w-full overflow-hidden lg:hidden">
         <Portrait
           light={profile.photoLight}
           name={profile.name}
@@ -214,6 +262,7 @@ export default function Home() {
         <div className="space-y-14 pt-14 [&>section:first-child]:border-t-0 sm:pt-[4.25rem] lg:space-y-20">
           {bio.length > 0 && (
             <Section
+              large
               id="biography"
               label="Biography"
               // On mobile the profile picture has already had the screen above
@@ -233,23 +282,18 @@ export default function Home() {
               backdrop={
                 <div
                   aria-hidden
-                  className="absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
+                  className="reveal-fade absolute inset-y-0 left-1/2 -z-10 hidden w-screen -translate-x-1/2 overflow-hidden lg:block"
                 >
-                  {/* Pulled left so the head clears the writing. The box is
-                      wider than the picture's aspect, so cover fills it across
-                      and crops top and bottom — horizontal object-position has
-                      nothing left to move, and shifting the box is what shifts
-                      the face. Its right edge still lands past the point where
-                      the fade above reaches solid colour, or the picture's own
-                      edge would show as a seam. */}
-                  <div className="portrait-breathe absolute inset-y-0 left-[-7%] w-[72%]">
+                  {/* The left half, and no more. The portrait is square and
+                      the half is close to it, so cover fills across and crops
+                      a little top and bottom. The crop is held high: on a very
+                      wide screen the half is wide and shallow, and a centred
+                      crop cuts straight through the head. */}
+                  <div className="portrait-breathe absolute inset-y-0 left-0 w-1/2">
                     <Portrait
                       light={profile.photoLight}
                       name=""
                       className="h-full w-full"
-                      // On a very wide screen this box is wide and shallow, and
-                      // a centred crop cuts straight through the head. Holding
-                      // the crop high keeps him in it.
                       position="object-[50%_26%]"
                     />
                   </div>
@@ -259,7 +303,13 @@ export default function Home() {
             >
               <div className="space-y-4 text-[17px] leading-7">
                 {bio.map((p, i) => (
-                  <p key={i}>{p}</p>
+                  <p
+                    key={i}
+                    className="reveal"
+                    style={{ ["--d" as string]: `${Math.min(i, 3) * 80}ms` }}
+                  >
+                    {p}
+                  </p>
                 ))}
               </div>
             </Section>
@@ -267,6 +317,7 @@ export default function Home() {
 
           {activities.length > 0 && (
             <Section
+              large
               id="activities"
               label="Activities"
               // Two different photographs, one per format: hero-bridge is the
@@ -287,9 +338,10 @@ export default function Home() {
               }
             >
               <Columns>
-                {activities.map((a) => (
+                {activities.map((a, i) => (
                   <Entry
                     key={a.title + a.org}
+                    index={i}
                     title={a.title}
                     meta={`${a.org} - ${a.period}`}
                     body={a.description}
@@ -300,47 +352,30 @@ export default function Home() {
           )}
 
           {videos.length > 0 && (
-            <Section
-              id="performances"
-              label="Performances"
-              // No picture in either format. The videos are the pictures here,
-              // and a photograph behind a grid of them was one too many.
-              below={
-                <ul className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-10">
-                  {videos.map((v) => (
-                    <VideoEmbed
-                      key={v.id}
-                      id={v.id}
-                      title={v.title}
-                      detail={v.detail}
-                    />
-                  ))}
-                </ul>
-              }
-            />
+            <Section large id="performances" label="Performances" stacked>
+              <VideoRail videos={videos} />
+            </Section>
           )}
 
           {awardRecord.length > 0 && (
-            <Section
-              id="honors"
-              label="Selected Honors"
-              // Laptop only. On mobile this is a long list of names and years,
-              // and it reads better off plain page colour; its photograph has
-              // gone to Activities at those widths.
-              backdrop={
-                <SectionWallpaper
-                  base={WALLPAPERS[1]}
-                  position="object-[50%_28%]"
-                />
-              }
-            >
-              <Columns>
+            <Section large id="honors" label="Selected Honors" stacked>
+              <ul className="stats">
+                {stats.map((s, i) => (
+                  <li
+                    key={s.l}
+                    className="reveal"
+                    style={{ ["--d" as string]: `${i * 80}ms` }}
+                  >
+                    <span className="stat-n">{s.n}</span>
+                    <span className="stat-l">{s.l}</span>
+                  </li>
+                ))}
+              </ul>
+              <ol className="years">
                 {awardRecord.map((group) => (
-                  <div key={group.year} className="mb-8">
-                    <p className="mb-2.5 text-[13px] uppercase tracking-wider text-muted">
-                      {group.year}
-                    </p>
-                    <ul className="space-y-2">
+                  <li key={group.year} className="year reveal">
+                    <h3 className="year-n">{group.year}</h3>
+                    <ul>
                       {group.items.map((item, i) => (
                         <li
                           key={item.title}
@@ -348,81 +383,73 @@ export default function Home() {
                           // the first academic entry rather than sitting in its
                           // own row, so there's nothing to collapse or overflow
                           // on a narrow screen.
-                          className={`text-[16px] leading-snug ${
+                          className={`award${
                             item.kind === "academic" &&
                             group.items[i - 1]?.kind === "music"
-                              ? "border-t border-rule pt-2.5"
+                              ? " sep"
                               : ""
                           }`}
                         >
-                          {item.title}
-                          <LevelTag level={item.level} />
+                          <span>{item.title}</span>
+                          <LevelPill level={item.level} />
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </li>
                 ))}
-              </Columns>
+              </ol>
             </Section>
           )}
 
-          {/* One wallpaper behind the pair on a laptop, rather than one each.
-              On mobile the two share it the way they always have — the same
-              photograph, cropped differently for each, so the pair reads as one
-              stretch of wall without either section repeating the other. */}
+          {/* The pair shares one picture, at its foot: rows for the venues,
+              cards for the languages, and the canal underneath. */}
           {(venues.length > 0 || languages.length > 0) && (
-            <div className="relative isolate space-y-14 lg:space-y-20 lg:pb-16">
-              <SectionWallpaper
-                base={WALLPAPERS[2]}
-                position="object-[50%_28%]"
-              />
+            <div className="photo-stage relative isolate space-y-14 lg:space-y-20">
+              <BottomPhoto base={WALLPAPERS[2]} position="object-[50%_60%]" />
 
               {venues.length > 0 && (
-                <Section
-                  id="venues"
-                  label="Venues"
-                  mobileBackdrop={
-                    <MobileBackdrop
-                      base={WALLPAPERS[2]}
-                      position="object-[50%_18%]"
-                    />
-                  }
-                >
-                  <Columns>
-                    {venues.map((v) => (
-                      <Entry key={v.name} title={v.name} meta={v.city} />
+                <Section large id="venues" label="Venues" stacked>
+                  <ul className="rows">
+                    {venues.map((v, i) => (
+                      <li
+                        key={v.name}
+                        className="row reveal"
+                        style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}
+                      >
+                        <span className="row-n">{v.name}</span>
+                        <span className="row-m">{v.city}</span>
+                      </li>
                     ))}
-                  </Columns>
+                  </ul>
                 </Section>
               )}
 
               {languages.length > 0 && (
-                <Section
-                  id="languages"
-                  label="Languages"
-                  mobileBackdrop={
-                    <MobileBackdrop
-                      base={WALLPAPERS[2]}
-                      position="object-[50%_70%]"
-                    />
-                  }
-                >
-                  <Columns>
-                    {languages.map((l) => (
-                      <Entry key={l.name} title={l.name} meta={l.level} />
+                <Section large id="languages" label="Languages" stacked>
+                  <ul className="langs">
+                    {languages.map((l, i) => (
+                      <li
+                        key={l.name}
+                        className="lang reveal"
+                        style={{ ["--d" as string]: `${(i % 3) * 80}ms` }}
+                      >
+                        <h3 className="lang-n">{l.name}</h3>
+                        <p>{l.level}</p>
+                      </li>
                     ))}
-                  </Columns>
+                  </ul>
                 </Section>
               )}
             </div>
           )}
 
           {writing.length > 0 && (
-            <Section id="writing" label="Writing">
+            <Section large id="writing" label="Writing">
               <Columns>
-                {writing.map((w) => (
+                {writing.map((w, i) => (
                   <Entry
                     key={w.title}
+                    index={i}
                     title={w.title}
                     meta={`${w.where} - ${w.year}`}
                     href={w.href}

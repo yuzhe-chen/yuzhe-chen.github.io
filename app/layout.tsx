@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { profile } from "@/lib/content";
+import { RevealInit } from "@/components/reveal";
 import "./globals.css";
 
 const inter = Inter({
@@ -59,8 +60,10 @@ export const metadata: Metadata = {
 };
 
 // Applies the saved theme before first paint, so a dark-mode visitor never
-// gets a white flash. Has to be inline and blocking to do that.
-const THEME_INIT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})()`;
+// gets a white flash, and marks the page as script-enabled so the reveal
+// styles hide things only when the script that shows them will run. Has to be
+// inline and blocking to do either.
+const THEME_INIT = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){d.setAttribute('data-theme',t)}}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -75,7 +78,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+      <body className="min-h-full flex flex-col antialiased">
+        {children}
+        <RevealInit />
+      </body>
     </html>
   );
 }

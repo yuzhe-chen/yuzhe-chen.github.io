@@ -15,6 +15,8 @@ export function Section({
   below,
   backdrop,
   mobileBackdrop,
+  stacked = false,
+  large = false,
 }: {
   id: string;
   label: string;
@@ -39,6 +41,18 @@ export function Section({
    * be asked which widths it covers.
    */
   mobileBackdrop?: ReactNode;
+  /**
+   * Heading above the content at full width, rather than the heading in the
+   * left half and the content in the right. For content that wants the whole
+   * row: the rail of videos, the honors, the rows and cards.
+   */
+  stacked?: boolean;
+  /**
+   * The home page's heading: large, in the Apple version's type, and revealed
+   * as it scrolls in. Without it the heading is the small `t-h2` that the
+   * Projects and Research pages use.
+   */
+  large?: boolean;
 }) {
   // Room under the text wherever a picture fills the section and would
   // otherwise stop dead on the last line of writing.
@@ -62,17 +76,33 @@ export function Section({
     >
       {backdrop}
       {mobileBackdrop}
-      {/* Label on the left, everything it introduces on the right, running to
-          the margin — there is no third column now that nothing is counted. */}
-      {/* More air under the label on mobile, where the photograph runs behind
-          the whole section and the writing would otherwise start hard against
-          the underside of the heading. */}
-      <div className="grid gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-x-10 lg:gap-y-6">
-        <div>
-          <Heading className={Heading === "h1" ? "display" : "t-h2"}>{label}</Heading>
+      {/* Two strict halves from `lg`: the label in the left one, everything it
+          introduces in the right. The gap is padding inside each half rather
+          than a grid gap, so the boundary is exactly the middle of the page
+          — which is where the wallpaper's fade has to be finished by. Stacked
+          sections put the heading above instead. */}
+      <div
+        className={
+          stacked ? "" : "grid gap-y-9 lg:grid-cols-2 lg:gap-y-6"
+        }
+      >
+        <div className={stacked ? "mb-9 lg:mb-12" : "lg:pr-10"}>
+          <Heading
+            className={
+              Heading === "h1"
+                ? "display"
+                : large
+                  ? "heading reveal"
+                  : "t-h2"
+            }
+          >
+            {label}
+          </Heading>
           {aside}
         </div>
-        <div className="lg:pt-2">{children}</div>
+        {children && (
+          <div className={stacked ? "" : "lg:pl-10 lg:pt-2"}>{children}</div>
+        )}
       </div>
       {below}
     </section>
@@ -82,10 +112,12 @@ export function Section({
 /**
  * Two-column flow, the way the reference sets its lists: entries run down the
  * first column, then continue in the second. Groups never split across columns.
+ * From `lg` the content is only half the page, so it takes one column there and
+ * goes back to two once the half is wide enough (`2xl`, 1536px) to hold them.
  */
 export function Columns({ children }: { children: ReactNode }) {
   return (
-    <div className="gap-x-10 md:columns-2 [&>*]:break-inside-avoid">
+    <div className="gap-x-10 md:columns-2 lg:columns-1 2xl:columns-2 [&>*]:break-inside-avoid">
       {children}
     </div>
   );
@@ -96,17 +128,28 @@ export function Entry({
   meta,
   body,
   href,
+  index,
   children,
 }: {
   title: string;
   meta?: string;
   body?: string;
   href?: string;
+  /** Position in its list. Giving one makes the entry reveal on scroll, later
+   *  the further down the list it is; without one it simply appears. */
+  index?: number;
   /** Anything that follows the body, such as a row of links. */
   children?: ReactNode;
 }) {
   return (
-    <div className="mb-6">
+    <div
+      className={`mb-6${index === undefined ? "" : " reveal"}`}
+      style={
+        index === undefined
+          ? undefined
+          : { ["--d" as string]: `${(index % 3) * 80}ms` }
+      }
+    >
       <p className="text-[17px] leading-snug">
         <TitleLink href={href}>{title}</TitleLink>
       </p>
@@ -194,48 +237,12 @@ export function TitleLink({
   );
 }
 
-export function VideoEmbed({
-  id,
-  title,
-  detail,
-}: {
-  id: string;
-  title: string;
-  detail?: string;
-}) {
-  return (
-    <li>
-      <div className="no-print aspect-video w-full overflow-hidden border border-rule">
-        <iframe
-          // nocookie so a visitor isn't tracked just for landing on the page
-          src={`https://www.youtube-nocookie.com/embed/${id}`}
-          title={title}
-          loading="lazy"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="h-full w-full border-0"
-        />
-      </div>
-      <p className="mt-2.5 text-[17px] leading-snug">
-        <TitleLink href={`https://www.youtube.com/watch?v=${id}`}>
-          {title}
-        </TitleLink>
-      </p>
-      {detail && (
-        <p className="mt-1 text-[15px] leading-snug text-muted">{detail}</p>
-      )}
-    </li>
-  );
-}
-
 /**
- * International and National read as the top tier; the rest stay quiet.
- * With an href it's a link that looks exactly like the plain tag.
+ * International and National read as the top tier, filled in; the rest are
+ * outlined.
  */
-export function LevelTag({ level }: { level: string }) {
+export function LevelPill({ level }: { level: string }) {
   const loud = level === "International" || level === "National";
-  const className = `ml-2 align-middle text-[11px] uppercase tracking-wider ${
-    loud ? "text-fg" : "text-muted"
-  }`;
+  const className = `pill${loud ? " loud" : ""}`;
   return <span className={className}>{level}</span>;
 }
