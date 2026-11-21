@@ -7,17 +7,30 @@
  * in. The pieces are never joined: the margins leave a clear space between any
  * two of them. But they are cut to fit. Wherever two pieces face each other in
  * the grid, one has a tab on that side and the other has a notch of the same
- * size in the same place, so each one could be pushed into the next. Which side
- * gets the tab, and where along the edge it sits, is picked at random from a
- * seeded generator, so every piece is different but the same on every build and
- * every visit.
+ * size in the same place, dead centre on the edge, so each one could be pushed
+ * into the next. Edges with nobody facing them are flat. Which side gets the tab
+ * and how big it is are picked at random from a seeded generator, so the pieces
+ * differ but are the same on every build and every visit.
  *
  * The grid is three across on a laptop, two on a tablet and one on a phone, and
  * who faces whom changes with it, so the outlines are worked out for each.
  */
 
 /** The margin the tabs stand in, as a share of the piece's own width. */
-export const PIECE_MARGIN = 0.09;
+export const PIECE_MARGIN = 0.085;
+/**
+ * How far each piece's box reaches into its neighbours' cells, as a share of the
+ * cell. The boxes overlap, the pieces inside them don't: this is what closes the
+ * space between two pieces without shrinking their tabs, which need the margin
+ * above to stand in. The gap between two bodies comes out at about 6% of a cell.
+ */
+export const PIECE_PULL = 0.066;
+/**
+ * How far a piece's body sits in from the edge of its cell once the boxes are
+ * pulled out. The grid is pulled out by this much on each side, so the outer
+ * pieces line up with the page's margin.
+ */
+export const PIECE_OUT = PIECE_MARGIN * (1 + 2 * PIECE_PULL) - PIECE_PULL;
 const CORNER = 0.03;
 
 /** A small seeded generator (mulberry32): the same seed gives the same run. */
@@ -50,14 +63,15 @@ export function puzzleLayout(n: number, cols: number, seed: number): string[] {
   const r = seeded(seed);
   const flat: Edge = { kind: 0, c: 0.5, nw: 0.09, d: 0.05 };
   const sides: Sides[] = Array.from({ length: n }, () => [flat, flat, flat, flat] as Sides);
-  const set = new Array<boolean[]>(n).fill([]).map(() => [false, false, false, false]);
 
   const fresh = (kind: 1 | -1): Edge => ({
     kind,
-    // where along the edge, how wide the neck, how deep
-    c: 0.5 + (r() - 0.5) * 0.26,
-    nw: 0.047 + r() * 0.016,
-    d: 0.06 + r() * 0.02,
+    // dead centre on its edge; how wide the neck is, how deep it goes. The depth
+    // stays within the gap between two bodies, so a tab never reaches the
+    // piece it faces.
+    c: 0.5,
+    nw: 0.036 + r() * 0.012,
+    d: 0.04 + r() * 0.012,
   });
   // Two pieces facing each other: a tab on one, the same notch on the other. The
   // two edges run in opposite directions, so the position is mirrored.
@@ -65,22 +79,13 @@ export function puzzleLayout(n: number, cols: number, seed: number): string[] {
     const out = fresh(r() < 0.5 ? 1 : -1);
     sides[a][ea] = out;
     sides[b][eb] = { ...out, kind: (out.kind * -1) as 1 | -1, c: 1 - out.c };
-    set[a][ea] = true;
-    set[b][eb] = true;
   };
 
   for (let k = 0; k < n; k++) {
     if (k % cols < cols - 1 && k + 1 < n) pair(k, RIGHT, k + 1, LEFT);
     if (k + cols < n) pair(k, BOTTOM, k + cols, TOP);
   }
-  // The outside edges: flat about a third of the time, otherwise a tab or notch.
-  for (let k = 0; k < n; k++) {
-    for (let e = 0; e < 4; e++) {
-      if (set[k][e]) continue;
-      const t = r();
-      sides[k][e] = t < 0.34 ? flat : fresh(t < 0.67 ? 1 : -1);
-    }
-  }
+  // The outside edges stay flat: they point at nothing.
   return sides.map(outline);
 }
 

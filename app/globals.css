@@ -585,7 +585,9 @@ a {
  */
 .puzzle {
   --cols: 1;
-  --edge: 0.09; /* set by the page from PIECE_MARGIN in lib/puzzle.ts */
+  /* both set by the page, from lib/puzzle.ts */
+  --edge: 0.03; /* how far the outer pieces sit in from the grid's edge */
+  --pull: 0.066; /* how far a piece's box reaches into its neighbours' cells */
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   margin: 0 calc(var(--edge) * -100% / (var(--cols) - 2 * var(--edge)));
@@ -604,6 +606,10 @@ a {
 }
 .pz-cell {
   display: flex;
+  /* The box is bigger than its cell and overlaps the neighbours'. Only the
+     boxes overlap, not the pieces cut out of them. Percentages here are of the
+     cell's width. */
+  margin: calc(var(--pull) * -100%);
 }
 .pz {
   position: relative;
@@ -628,7 +634,7 @@ a {
   transform: scale(1.02);
 }
 .pz-text {
-  padding: 19% 19% 17%;
+  padding: 21% 21% 19%;
 }
 .pz img {
   position: absolute;
@@ -676,6 +682,11 @@ a {
   }
   .pz {
     aspect-ratio: 1.15 / 1;
+  }
+  /* The piece is shorter than it is wide here, so its boxes overlap less
+     vertically, by the same share of their own height. */
+  .pz-cell {
+    margin-block: calc(var(--pull) * -87%);
   }
 }
 

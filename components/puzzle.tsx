@@ -1,5 +1,5 @@
 import { Img } from "@/components/img";
-import { PIECE_MARGIN, puzzleLayout } from "@/lib/puzzle";
+import { PIECE_OUT, PIECE_PULL, puzzleLayout } from "@/lib/puzzle";
 
 type Activity = {
   title: string;
@@ -100,9 +100,13 @@ export function Puzzle({
         </defs>
       </svg>
 
-      {/* The margin is set here, from the same number the outlines are drawn
-          with, so the grid is pulled out by exactly as much as the tabs need. */}
-      <ul className="puzzle" style={{ ["--edge" as string]: PIECE_MARGIN }}>
+      {/* How far the boxes overlap and how far the grid is pulled out are set
+          here, from the numbers the outlines are drawn with, so the two can't
+          drift apart. */}
+      <ul
+        className="puzzle"
+        style={{ ["--edge" as string]: PIECE_OUT, ["--pull" as string]: PIECE_PULL }}
+      >
         {cells.map((cell, i) => {
           const clip = clipVars(i);
           if (cell.kind === "photo") {
