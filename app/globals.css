@@ -1041,6 +1041,15 @@ a {
   outline: 3px solid var(--btn);
   outline-offset: 4px;
 }
+.stat-box {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--bg2);
+  font-size: var(--t-small);
+  font-weight: 600;
+  white-space: nowrap;
+}
 .status {
   color: var(--muted);
   font-size: var(--t-cap);

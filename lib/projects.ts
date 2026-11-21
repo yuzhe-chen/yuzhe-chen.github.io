@@ -16,6 +16,8 @@ export type Project = {
   status: "Live" | "In development";
   /** One short line for the gallery. */
   tagline: string;
+  /** An optional small fact shown in a box, such as how many people use it. */
+  stat?: string;
   /** The motivation in a sentence or two, for the box. */
   summary: string;
   /** What it does in a sentence or two, for the box. */
@@ -173,6 +175,7 @@ export const projects: Project[] = [
     title: "Saxon Planner",
     status: "Live",
     tagline: "A calmer school week.",
+    stat: "300+ users",
     summary: "School is stressful when everything lives in a different place. I wanted students to see, at a glance, what is due and what comes next.",
     does: "A planner built around how my school's days actually run: classes, a calendar that knows the two kinds of school day, assignments, resources for each class, news, and chat for study sessions.",
     story: [

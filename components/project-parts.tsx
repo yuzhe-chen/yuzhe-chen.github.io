@@ -20,6 +20,11 @@ export function ProjectCard({ p }: { p: Project }) {
         </div>
         <p>{p.summary}</p>
         <p>{p.does}</p>
+        {p.stat && (
+          <p>
+            <span className="stat-box">{p.stat}</span>
+          </p>
+        )}
         <div className="cta-row">
           {site && (
             <a className="btn btn-sm" href={site.href} target="_blank" rel="noopener noreferrer">

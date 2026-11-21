@@ -89,6 +89,11 @@ export default async function ProjectPage({
                 </a>
               )}
             </div>
+            {p.stat && (
+              <p className="reveal" style={{ ["--d" as string]: "320ms", marginTop: "var(--sp-3)" }}>
+                <span className="stat-box">{p.stat}</span>
+              </p>
+            )}
           </div>
           <div className="pp-shot reveal-scale" style={{ ["--d" as string]: "200ms" }}>
             <Img
