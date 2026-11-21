@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/projects";
+import { Img } from "@/components/img";
 
 const AUTOPLAY_MS = 5200;
 
-/** Where a card sits relative to the centred one, wrapping around. */
+/** Where a card sits relative to the centered one, wrapping around. */
 function position(i: number, active: number, n: number): "0" | "-1" | "1" | "far" {
   let d = (((i - active) % n) + n) % n;
   if (d > n / 2) d -= n;
@@ -26,11 +26,10 @@ function Chevron({ dir }: { dir: "l" | "r" }) {
 }
 
 /**
- * The floating wheel: the current project centred and large, the one before and
- * the one after showing at either side, turning on its own until it is paused,
- * hovered or focused. Clicking a side card brings it to the middle; clicking the
- * middle card jumps to its box further down the page, when there is one, and
- * outlines it. Each card has a "Read more" button to the project's own page.
+ * The floating wheel: the current project centered and large, the one before
+ * and the one after showing at either side, turning on its own until it is
+ * paused, hovered or focused. Clicking a side card brings it to the middle;
+ * clicking the middle card jumps to its box below and outlines it.
  */
 export function ProjectGallery({ projects }: { projects: Project[] }) {
   const n = projects.length;
@@ -79,7 +78,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
 
   return (
     <section
-      className="wheel pj-focus"
+      className="wheel"
       aria-roledescription="carousel"
       aria-label="Projects, use the left and right arrow keys"
       tabIndex={0}
@@ -130,17 +129,16 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
               }}
             >
               <div className="wheel-img fade-img">
-                <Image
+                <Img
                   src={p.shots[0].src}
                   alt={here ? p.shots[0].alt : ""}
                   width={1280}
                   height={800}
-                  sizes="(min-width: 900px) 760px, 78vw"
                   loading={i < 3 ? "eager" : "lazy"}
                 />
               </div>
               <div className="wheel-copy">
-                <h3 className="card-title">{p.title}</h3>
+                <h3 className="t-h3">{p.title}</h3>
                 <p>{p.tagline}</p>
                 <Link
                   className="btn btn-sm"
@@ -158,7 +156,7 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
 
       <div className="wheel-ctl no-print">
         <div className="ctl-pill">
-          <button type="button" className="ctl-btn" aria-label="Previous project" onClick={() => go(-1)}>
+          <button type="button" className="ibtn" aria-label="Previous project" onClick={() => go(-1)}>
             <Chevron dir="l" />
           </button>
           <ul className="dots">
@@ -174,14 +172,14 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
               </li>
             ))}
           </ul>
-          <button type="button" className="ctl-btn" aria-label="Next project" onClick={() => go(1)}>
+          <button type="button" className="ibtn" aria-label="Next project" onClick={() => go(1)}>
             <Chevron dir="r" />
           </button>
         </div>
         {!reduced && (
           <button
             type="button"
-            className="ctl-pill ctl-btn"
+            className="ibtn ctl-pill"
             style={{ width: 44, height: 44 }}
             aria-label={paused ? "Start rotating" : "Pause rotating"}
             aria-pressed={paused}

@@ -4,6 +4,8 @@ import { profile } from "@/lib/content";
 import { RevealInit } from "@/components/reveal";
 import "./globals.css";
 
+// The fallback for systems without San Francisco. Apple devices use their own
+// system font through the stack in globals.css.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -59,26 +61,25 @@ export const metadata: Metadata = {
   },
 };
 
-// Applies the saved theme before first paint, so a dark-mode visitor never
-// gets a white flash, and marks the page as script-enabled so the reveal
-// styles hide things only when the script that shows them will run. Has to be
-// inline and blocking to do either.
-const THEME_INIT = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){d.setAttribute('data-theme',t)}}catch(e){}})()`;
+// Sets the saved theme and marks the page as script-enabled before first paint,
+// so there is no white flash and the reveal styles apply only when scripts run.
+// Has to be inline and blocking to do either.
+const INIT = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){d.setAttribute('data-theme',t)}}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // The theme script below stamps data-theme on this element before React
-    // hydrates, which React would otherwise report as a mismatch. The
-    // attribute is deliberate, so tell React to leave it alone.
+    // The script below stamps data-theme and the js class on this element
+    // before React hydrates, which React would otherwise report as a mismatch.
+    // Both are deliberate, so tell React to leave them alone.
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} h-full scroll-smooth`}
+      className={`${inter.variable} h-full`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+        <script dangerouslySetInnerHTML={{ __html: INIT }} />
       </head>
-      <body className="min-h-full flex flex-col antialiased">
+      <body className="flex min-h-full flex-col antialiased">
         {children}
         <RevealInit />
       </body>

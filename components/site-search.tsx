@@ -16,7 +16,7 @@ const HIDDEN_HREF = "/research/";
 function SearchIcon() {
   return (
     <svg
-      className="h-[19px] w-[19px] shrink-0 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
+      className="h-5 w-5 shrink-0 stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden
@@ -35,7 +35,7 @@ export function SearchButton({ className = "" }: { className?: string }) {
       aria-label="Search the site"
       aria-haspopup="dialog"
       onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}
-      className={`nav-tab icon-pop inline-flex shrink-0 items-center justify-center px-2 py-2 sm:px-3 ${className}`}
+      className={`ibtn ${className}`}
     >
       <SearchIcon />
     </button>
@@ -123,7 +123,7 @@ export function SearchOverlay() {
 
   return createPortal(
     <div
-      className="no-print fixed inset-0 z-[60] bg-bg/80 px-5 pt-[12vh]"
+      className="search-scrim no-print"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) close();
       }}
@@ -132,10 +132,10 @@ export function SearchOverlay() {
         role="dialog"
         aria-modal="true"
         aria-label="Search the site"
-        className="mx-auto w-full max-w-xl border border-fg bg-bg"
+        className="search-box"
         onKeyDown={onKeyDown}
       >
-        <div className="flex items-center gap-3 border-b border-rule px-4">
+        <div className="search-top">
           <SearchIcon />
           <input
             ref={inputRef}
@@ -149,24 +149,18 @@ export function SearchOverlay() {
             autoCapitalize="off"
             spellCheck={false}
             enterKeyHint="go"
-            placeholder="Search pages and projects"
+            placeholder="Search"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
               setActive(0);
             }}
-            className="h-14 w-full bg-transparent text-[16px] text-fg placeholder:text-muted focus:outline-none"
           />
-          <button
-            type="button"
-            onClick={close}
-            aria-label="Close search"
-            className="shrink-0 px-2 py-2 text-[14px] font-semibold text-muted hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
+          <button type="button" className="t-cap muted" onClick={close} aria-label="Close search">
             Esc
           </button>
         </div>
-        <ul id={listId} role="listbox" aria-label="Suggestions" className="max-h-[50vh] overflow-y-auto">
+        <ul id={listId} role="listbox" aria-label="Suggestions" className="search-list">
           {results.map((r, i) => (
             <li
               key={r.href + r.title}
@@ -178,21 +172,17 @@ export function SearchOverlay() {
                 e.preventDefault();
                 go(r.href);
               }}
-              className={`flex cursor-pointer items-baseline justify-between gap-4 border-b border-rule px-4 py-3 last:border-b-0 ${
-                i === active ? "bg-fg text-bg" : ""
-              }`}
+              className="search-item"
             >
               <span className="min-w-0">
-                <span className="block text-[16px] font-semibold leading-snug">{r.title}</span>
-                <span className={`block truncate text-[14px] leading-snug ${i === active ? "text-bg/80" : "text-muted"}`}>
-                  {r.description}
-                </span>
+                <span className="search-t">{r.title}</span>
+                <span className="search-d">{r.description}</span>
               </span>
-              <span className={`shrink-0 text-[13px] ${i === active ? "text-bg/80" : "text-muted"}`}>{r.kind}</span>
+              <small>{r.kind}</small>
             </li>
           ))}
           {query.trim() !== "" && results.length === 0 && (
-            <li className="px-4 py-3 text-[14px] text-muted" role="presentation">
+            <li className="search-item muted" role="presentation">
               Nothing matches that.
             </li>
           )}

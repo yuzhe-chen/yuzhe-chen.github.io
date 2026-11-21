@@ -4,19 +4,16 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * Adds `is-in` to every .reveal, .reveal-scale and .reveal-fade element as it
- * scrolls into view; the rules in globals.css do the animating. They only hide
- * anything when scripts run (html.js, set in the layout before first paint), so
- * a visitor without JavaScript sees everything, and reduced motion shows it all
- * at once.
+ * Adds `is-in` to every .reveal and .reveal-scale element as it scrolls into
+ * view. The styles only hide them when scripts run (html.js), so nothing is
+ * hidden for a visitor without JavaScript. Reduced motion shows everything
+ * at once (see globals.css).
  */
 export function RevealInit() {
   const path = usePathname();
   useEffect(() => {
     const els = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".reveal, .reveal-scale, .reveal-fade",
-      ),
+      document.querySelectorAll<HTMLElement>(".reveal, .reveal-scale"),
     );
     if (!("IntersectionObserver" in window)) {
       els.forEach((e) => e.classList.add("is-in"));
