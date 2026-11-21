@@ -562,6 +562,48 @@ a {
     top: calc(var(--nav-h) + var(--sp-5));
   }
 }
+/* ---- cards ------------------------------------------------------------- */
+.cards {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 700px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .cards.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-4);
+  border-radius: var(--r-card);
+  background: var(--card);
+}
+.card .t-h3 {
+  margin-bottom: var(--sp-1);
+}
+.card-meta {
+  margin: 0 0 var(--sp-2);
+  color: var(--muted);
+  font-size: var(--t-small);
+}
+.card-body {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--t-small);
+  line-height: 1.5;
+}
+
+/* ---- honors ------------------------------------------------------------ */
 .years {
   display: grid;
   gap: var(--sp-5);
