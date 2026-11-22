@@ -13,6 +13,7 @@ import { SiteNav } from "@/components/site-nav";
 import { Footer } from "@/components/footer";
 import { VideoGrid } from "@/components/video-grid";
 import { Img } from "@/components/img";
+import { Etym } from "@/components/etym";
 import { Puzzle } from "@/components/puzzle";
 import { nav } from "@/lib/nav";
 
@@ -70,6 +71,7 @@ export default function Home() {
                 <h2 id="biography-h" className="t-h2 reveal">
                   Biography
                 </h2>
+                <Etym k="biography" />
                 {profile.photoLight && (
                   <figure className="bio-photo reveal-scale">
                     <Img
@@ -102,6 +104,7 @@ export default function Home() {
                 <h2 id="activities-h" className="t-h2">
                   Activities
                 </h2>
+                <Etym k="activities" />
               </div>
               <Puzzle activities={activities} photos={["/hero-bridge", "/hero-houses"]} />
             </div>
@@ -115,6 +118,7 @@ export default function Home() {
                 <h2 id="performances-h" className="t-h2">
                   Performances
                 </h2>
+                <Etym k="performances" />
               </div>
             </div>
             <div className="wrap">
@@ -130,6 +134,7 @@ export default function Home() {
                 <h2 id="honors-h" className="t-h2">
                   Selected Honors
                 </h2>
+                <Etym k="honors" />
               </div>
               <ol className="years">
                 {awardRecord.map((g) => (
@@ -162,6 +167,7 @@ export default function Home() {
                 <h2 id="venues-h" className="t-h2">
                   Venues
                 </h2>
+                <Etym k="venues" />
               </div>
               <ul className="rows">
                 {venues.map((v) => (
@@ -182,6 +188,7 @@ export default function Home() {
                 <h2 id="languages-h" className="t-h2">
                   Languages
                 </h2>
+                <Etym k="languages" />
               </div>
               <ul className="langs">
                 {languages.map((l, i) => (

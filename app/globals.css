@@ -155,6 +155,15 @@ a {
   line-height: 1.4;
   letter-spacing: -0.01em;
 }
+.etym-line {
+  display: block;
+}
+.etym {
+  margin: var(--sp-1) 0 0;
+  color: var(--muted);
+  font-size: var(--t-small);
+  letter-spacing: -0.01em;
+}
 .muted {
   color: var(--muted);
 }
