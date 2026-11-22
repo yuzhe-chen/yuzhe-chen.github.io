@@ -14,6 +14,7 @@ import { Footer } from "@/components/footer";
 import { VideoGrid } from "@/components/video-grid";
 import { Img } from "@/components/img";
 import { Etym } from "@/components/etym";
+import { Greeting } from "@/components/greeting";
 import { Puzzle } from "@/components/puzzle";
 import { nav } from "@/lib/nav";
 
@@ -59,9 +60,9 @@ export default function Home() {
         {bio.length > 0 && (
           <section id="biography" className="ch ch-b ch-first" aria-labelledby="biography-h">
             <div className="wrap">
-              {/* The name is the title: above the heading and the text, which
-                  are then level with each other as they were. */}
-              <h1 className="bio-name reveal">{profile.shortName}</h1>
+              {/* The title: a greeting that turns over, then the name. Above the
+                  heading and the text, which are level with each other. */}
+              <Greeting name={profile.shortName} />
               <div className="bio-grid">
               {/* The left column holds the heading and the portrait, and sticks
                   as one while the biography scrolls past. The portrait takes

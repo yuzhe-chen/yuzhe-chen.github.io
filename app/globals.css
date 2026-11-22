@@ -558,6 +558,20 @@ a {
   letter-spacing: -0.04em;
   line-height: 1.06;
 }
+.greet {
+  display: inline-block;
+  transition: opacity 0.35s ease;
+}
+.greet.is-out {
+  opacity: 0;
+}
+/* On a phone every greeting wraps to two lines, so two lines are kept for the
+   title, and what is under it doesn't move as the greeting changes. */
+@media (max-width: 639px) {
+  .bio-name {
+    min-height: 2.2em;
+  }
+}
 /* The portrait takes the width of its column and is as tall as that makes it. */
 .bio-photo {
   margin: var(--sp-4) 0 0;
