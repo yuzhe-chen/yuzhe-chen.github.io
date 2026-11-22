@@ -10,10 +10,10 @@
  * what the page opens on, and what is on the page for search engines.
  */
 export const greetings = [
-  { code: "en", before: "Hello, I'm" },
+  { code: "en", before: "Hi, I'm" },
   { code: "fr", before: "Bonjour, je suis" },
   { code: "es", before: "Hola, soy" },
-  { code: "zh-Hans", before: "你好，我叫", name: "陈语辙" },
+  { code: "zh-Hans", before: "你好，我是", name: "陈语辙" },
   { code: "de", before: "Hallo, ich bin" },
   { code: "it", before: "Ciao, sono" },
   { code: "la", before: "Salvē, ego sum" },

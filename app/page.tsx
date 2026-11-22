@@ -65,7 +65,7 @@ export default function Home() {
             <div className="wrap">
               {/* The title: a greeting that turns over, then the name. Above the
                   heading and the text, which are level with each other. */}
-              <Greeting name={profile.shortName} />
+              <Greeting name="Julian" label={profile.name} />
               <div className="bio-grid">
               {/* The left column holds the heading and the portrait, and sticks
                   as one while the biography scrolls past. The portrait takes

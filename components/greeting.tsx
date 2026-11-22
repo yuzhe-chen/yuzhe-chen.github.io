@@ -13,10 +13,10 @@ const FADE_MS = 500;
  *
  * It opens on English, or on the visitor's own language if it is one of these,
  * and stays on English throughout for anyone who has asked their device for
- * reduced motion. The heading is named "Yuzhe Chen" for screen readers, which
+ * reduced motion. The heading is named with his full name for screen readers, which
  * would otherwise have the whole thing read out again each time it changed.
  */
-export function Greeting({ name }: { name: string }) {
+export function Greeting({ name, label }: { name: string; label: string }) {
   const [i, setI] = useState(0);
   const [out, setOut] = useState(false);
   const hover = useRef(false);
@@ -55,7 +55,7 @@ export function Greeting({ name }: { name: string }) {
   return (
     <h1
       className="bio-name reveal"
-      aria-label={name}
+      aria-label={label}
       onMouseEnter={() => (hover.current = true)}
       onMouseLeave={() => (hover.current = false)}
     >
