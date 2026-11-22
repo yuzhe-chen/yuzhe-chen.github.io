@@ -22,9 +22,9 @@ export const PIECE_MARGIN = 0.085;
  * How far each piece's box reaches into its neighbours' cells, as a share of the
  * cell. The boxes overlap, the pieces inside them don't: this is what closes the
  * space between two pieces without shrinking their tabs, which need the margin
- * above to stand in. The gap between two bodies comes out at about 6% of a cell.
+ * above to stand in. The gap between two bodies comes out at about 9% of a cell.
  */
-export const PIECE_PULL = 0.066;
+export const PIECE_PULL = 0.05;
 /**
  * How far a piece's body sits in from the edge of its cell once the boxes are
  * pulled out. The grid is pulled out by this much on each side, so the outer

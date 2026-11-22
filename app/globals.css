@@ -587,7 +587,7 @@ a {
   --cols: 1;
   /* both set by the page, from lib/puzzle.ts */
   --edge: 0.03; /* how far the outer pieces sit in from the grid's edge */
-  --pull: 0.066; /* how far a piece's box reaches into its neighbours' cells */
+  --pull: 0.05; /* how far a piece's box reaches into its neighbours' cells */
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   margin: 0 calc(var(--edge) * -100% / (var(--cols) - 2 * var(--edge)));
