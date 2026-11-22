@@ -60,7 +60,16 @@ export function Greeting({ name }: { name: string }) {
       onMouseLeave={() => (hover.current = false)}
     >
       <span className={`greet${out ? " is-out" : ""}`} aria-hidden>
-        <span lang={g.code}>{g.before}</span> {name}
+        {g.name ? (
+          <span lang={g.code}>
+            {g.before}
+            {g.name}
+          </span>
+        ) : (
+          <>
+            <span lang={g.code}>{g.before}</span> {name}
+          </>
+        )}
       </span>
     </h1>
   );
