@@ -557,10 +557,12 @@ a {
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.06;
+  /* very slightly softer than the body black */
+  color: color-mix(in srgb, var(--fg) 86%, var(--bg));
 }
 .greet {
   display: inline-block;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.5s ease;
 }
 .greet.is-out {
   opacity: 0;
@@ -592,6 +594,13 @@ a {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: var(--sp-6);
     align-items: start;
+  }
+  /* The first line of the text starts level with the top of the "o" in
+     the heading (x-height), not with the top of the heading's box. Measured:
+     the o rises 0.371em of the heading from its box top; a capital in the
+     body rises 0.366em of the body from its. */
+  .bio-copy {
+    padding-top: calc(var(--t-h2) * 0.371 - 1.3125rem * 0.366);
   }
   .bio-grid > :first-child {
     position: sticky;

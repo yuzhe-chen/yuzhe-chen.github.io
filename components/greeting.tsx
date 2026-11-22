@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { greetings } from "@/lib/greetings";
 
-const EVERY_MS = 3800;
-const FADE_MS = 350;
+const EVERY_MS = 5500;
+const FADE_MS = 500;
 
 /**
  * The title: a greeting in one of the languages he speaks, then his name, which
