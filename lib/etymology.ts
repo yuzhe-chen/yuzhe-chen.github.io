@@ -5,9 +5,9 @@
  * person present, the present infinitive, the perfect and the supine), a noun by
  * its nominative, its genitive and its gender.
  *
- * No dots anywhere, so the gender is a bare "m" or "f", never "m." or "f.", and
- * nothing is abbreviated with a full stop. A string is plain text and `{ t }` is
- * a foreign term, set in italics.
+ * No middle dots (the "·" kind) anywhere. The gender is written the usual way,
+ * with a full stop: "m." and "f.". A string is plain text and `{ t }` is a
+ * foreign term, set in italics.
  *
  * A heading of two words gets a line for each, in the order of the words, so
  * "Selected Honors" has a line for "select" and one for "honor".
@@ -18,7 +18,7 @@ export type Etymology = EtymPart[];
 
 export const etymologies: Record<string, Etymology[]> = {
   biography: [
-    ["Greek ", { t: "bíos, bíou, m" }, ", “life” + ", { t: "-graphía" }, ", “writing”"],
+    ["Greek ", { t: "bíos, bíou, m." }, ", “life” + ", { t: "-graphía" }, ", “writing”"],
   ],
   activities: [
     ["Latin ", { t: "agō, agere, ēgī, āctum" }, ", “to do”"],
@@ -28,7 +28,7 @@ export const etymologies: Record<string, Etymology[]> = {
   ],
   honors: [
     ["Latin ", { t: "sēligō, sēligere, sēlēgī, sēlēctum" }, ", “to choose out”"],
-    ["Latin ", { t: "honor, honōris, m" }, ", “esteem, dignity”"],
+    ["Latin ", { t: "honor, honōris, m." }, ", “esteem, dignity”"],
   ],
   venues: [
     [
@@ -42,6 +42,6 @@ export const etymologies: Record<string, Etymology[]> = {
     ],
   ],
   languages: [
-    ["Latin ", { t: "lingua, linguae, f" }, ", “tongue”"],
+    ["Latin ", { t: "lingua, linguae, f." }, ", “tongue”"],
   ],
 };
