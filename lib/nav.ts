@@ -7,8 +7,8 @@ const all: (NavItem & { show: boolean })[] = [
   { id: "activities", label: "Activities", show: activities.length > 0 },
   { id: "performances", label: "Performances", show: videos.length > 0 },
   { id: "honors", label: "Awards", show: awardRecord.length > 0 },
-  { id: "venues", label: "Venues", show: venues.length > 0 },
   { id: "projects", label: "Projects", href: "/projects/", show: true },
+  { id: "venues", label: "Venues", show: venues.length > 0 },
 ];
 
 /** The bar's tabs on the home page: sections scroll, Projects is its own page. */

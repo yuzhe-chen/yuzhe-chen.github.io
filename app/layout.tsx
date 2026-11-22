@@ -73,6 +73,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // Both are deliberate, so tell React to leave them alone.
     <html
       lang="en"
+      // Next 16 leaves a page-wide smooth scroll alone on navigation, so a new
+      // page would glide down from wherever the last one was left. This asks
+      // it to jump to the top first, as it did before.
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${inter.variable} h-full`}
     >

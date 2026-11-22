@@ -17,6 +17,9 @@ import { Etym } from "@/components/etym";
 import { Greeting } from "@/components/greeting";
 import { Puzzle } from "@/components/puzzle";
 import { nav } from "@/lib/nav";
+import { projects } from "@/lib/projects";
+import { ProjectGallery } from "@/components/project-gallery";
+import Link from "next/link";
 
 /**
  * Structured data. The prose on this page tells a reader who Julian is; this
@@ -161,8 +164,27 @@ export default function Home() {
           </section>
         )}
 
+        <section id="projects" className="ch ch-b" aria-labelledby="projects-h">
+          <div className="wrap">
+            <div className="ch-head center reveal">
+              <h2 id="projects-h" className="t-h2">
+                Projects
+              </h2>
+              <p className="t-lead">Tools for learning languages, exploring history and making music.</p>
+            </div>
+          </div>
+          <ProjectGallery projects={projects} />
+          <div className="wrap">
+            <div className="cta-row" style={{ justifyContent: "center", marginTop: "var(--sp-4)" }}>
+              <Link className="btn" href="/projects/">
+                View all projects
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {venues.length > 0 && (
-          <section id="venues" className="ch ch-b" aria-labelledby="venues-h">
+          <section id="venues" className="ch" aria-labelledby="venues-h">
             <div className="wrap">
               <div className="ch-head reveal">
                 <h2 id="venues-h" className="t-h2">
@@ -183,7 +205,7 @@ export default function Home() {
         )}
 
         {languages.length > 0 && (
-          <section id="languages" className="ch" aria-labelledby="languages-h">
+          <section id="languages" className="ch ch-b" aria-labelledby="languages-h">
             <div className="wrap">
               <div className="ch-head reveal">
                 <h2 id="languages-h" className="t-h2">
