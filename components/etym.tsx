@@ -4,10 +4,9 @@ import { etymologies } from "@/lib/etymology";
 export function Etym({ k }: { k: keyof typeof etymologies }) {
   return (
     <p className="etym reveal" style={{ ["--d" as string]: "80ms" }}>
-      {etymologies[k].map((e) => (
-        <span key={e.word} className="etym-line">
-          {e.word} ·{" "}
-          {e.parts.map((p, i) => (typeof p === "string" ? p : <em key={i}>{p.t}</em>))}
+      {etymologies[k].map((parts, n) => (
+        <span key={n} className="etym-line">
+          {parts.map((p, i) => (typeof p === "string" ? p : <em key={i}>{p.t}</em>))}
         </span>
       ))}
     </p>

@@ -1,54 +1,47 @@
 /**
  * The small line of etymology under each section's heading: where the word
- * comes from. Each was checked against Wiktionary's etymology for the word
- * itself. A string is plain text and `{ t }` is a foreign term, set in italics.
+ * comes from. Each was checked against Wiktionary's entry for the word itself,
+ * and the Latin is given in full: a verb by its four principal parts (the first
+ * person present, the present infinitive, the perfect and the supine), a noun by
+ * its nominative, its genitive and its gender.
  *
- * A heading of two words gets a line for each, so "Selected Honors" has
- * "select" and "honor".
+ * No dots anywhere, so the gender is a bare "m" or "f", never "m." or "f.", and
+ * nothing is abbreviated with a full stop. A string is plain text and `{ t }` is
+ * a foreign term, set in italics.
+ *
+ * A heading of two words gets a line for each, in the order of the words, so
+ * "Selected Honors" has a line for "select" and one for "honor".
  */
 export type EtymPart = string | { t: string };
 
-export type Etymology = { word: string; parts: EtymPart[] };
+export type Etymology = EtymPart[];
 
 export const etymologies: Record<string, Etymology[]> = {
   biography: [
-    {
-      word: "biography",
-      parts: ["Greek ", { t: "bíos" }, ", “life” + ", { t: "-graphía" }, ", “writing”"],
-    },
+    ["Greek ", { t: "bíos, bíou, m" }, ", “life” + ", { t: "-graphía" }, ", “writing”"],
   ],
   activities: [
-    {
-      word: "active",
-      parts: ["Latin ", { t: "āctīvus" }, ", from ", { t: "agere" }, ", “to do”"],
-    },
+    ["Latin ", { t: "agō, agere, ēgī, āctum" }, ", “to do”"],
   ],
   performances: [
-    {
-      word: "perform",
-      parts: ["Old French ", { t: "parfornir" }, ", “to accomplish”"],
-    },
+    ["Old French ", { t: "parfornir" }, ", “to accomplish”"],
   ],
   honors: [
-    {
-      word: "select",
-      parts: ["Latin ", { t: "sēligere" }, ", “to choose out”"],
-    },
-    {
-      word: "honor",
-      parts: ["Latin ", { t: "honor" }, ", “esteem, dignity”"],
-    },
+    ["Latin ", { t: "sēligō, sēligere, sēlēgī, sēlēctum" }, ", “to choose out”"],
+    ["Latin ", { t: "honor, honōris, m" }, ", “esteem, dignity”"],
   ],
   venues: [
-    {
-      word: "venue",
-      parts: ["Old French ", { t: "venue" }, ", from ", { t: "venir" }, ", “to come”"],
-    },
+    [
+      "Old French ",
+      { t: "venue" },
+      ", from ",
+      { t: "venir" },
+      ", from Latin ",
+      { t: "veniō, venīre, vēnī, ventum" },
+      ", “to come”",
+    ],
   ],
   languages: [
-    {
-      word: "language",
-      parts: ["Latin ", { t: "lingua" }, ", “tongue”"],
-    },
+    ["Latin ", { t: "lingua, linguae, f" }, ", “tongue”"],
   ],
 };
