@@ -14,12 +14,36 @@ export type ResearchIdea = {
 
 export const researchIdeas: ResearchIdea[] = [
   {
+    title: "The Fairfax County Mother Tongue Project",
+    area: "Linguistics and community",
+    question:
+      "In which FCPS attendance areas can someone get daily life done in their home language, and where is help missing?",
+    method:
+      "Map census counts of each language and of residents who speak English less than \"very well\" onto the 24 high school areas, then set them against services checked by hand, in the spirit of ethnolinguistic vitality. Underway at isoglosses.github.io.",
+  },
+  {
+    title: "Do Mandarin Songs Respect the Tones?",
+    area: "Music and linguistics",
+    question:
+      "When a melody sets Mandarin words, how often does its rise and fall agree with the tones, and does that differ between pop songs, art songs and hymns translated from English?",
+    method:
+      "Score tone-melody agreement syllable by syllable in a sample of each kind of song, the way it has been measured for Cantonese, and compare the three groups.",
+  },
+  {
+    title: "Auto-Translated School Messages",
+    area: "Linguistics and community",
+    question:
+      "How accurate are the machine translations of school messages that families receive in Spanish, Chinese, Korean and Vietnamese?",
+    method:
+      "Collect real notices, have native speakers score the translations, and sort the errors by type (idioms, school terms like \"early release,\" dates), then write a guide to wording that translates well.",
+  },
+  {
     title: "Harmonizing Latin with Opera",
     area: "Music and Latin",
     question:
       "Can the way composers have already set words to music tell us how new Latin text wants to be harmonized?",
     method:
-      "Sort the settings of Latin words in past operas by rhythm and interval, then use the groups to propose harmonies for new Latin text.",
+      "Few operas are in Latin, so start from Latin sacred music, which has a large digitized body (Palestrina in music21): sort how syllables are set by rhythm and interval, then use the groups to propose harmonies for new Latin text.",
   },
   {
     title: "Rameau's French vs. Carmen's \"French\"",
@@ -27,7 +51,7 @@ export const researchIdeas: ResearchIdea[] = [
     question:
       "How does each opera treat the French language, when one follows its rhythm and the other borrows an invented \"Spanish\" color?",
     method:
-      "Compare the rhythm of spoken French with the rhythm of the vocal lines in sample passages from each opera.",
+      "Measure the rhythm of spoken French and of each opera's vocal lines with the normalized pairwise variability index (nPVI), the measure Patel and Daniele used in 2003 to compare English and French music with speech.",
   },
   {
     title: "Music and Racism",
@@ -35,7 +59,7 @@ export const researchIdeas: ResearchIdea[] = [
     question:
       "Music has been used to fight racism and also to justify it. What made the difference?",
     method:
-      "Collect documented examples from both sides and compare who used the music, for what audience and in what setting.",
+      "Narrow it to one case, such as one song or genre used on both sides in one country and period, then compare who used it, for what audience and in what setting.",
   },
   {
     title: "What Seniors Listen To, by Mood",

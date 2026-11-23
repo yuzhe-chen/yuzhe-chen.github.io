@@ -25,7 +25,7 @@ export default function ResearchPage() {
               Research
             </h1>
             <p className="t-lead reveal" style={{ ["--d" as string]: "160ms" }}>
-              None of these has been run, and none has a result yet.
+              Only the Mother Tongue map is underway, and none has a result yet.
             </p>
           </div>
         </section>
