@@ -472,11 +472,17 @@ a {
 }
 
 /* ---- reveal ------------------------------------------------------------ */
-/* sections no longer fade in on scroll (vibe-code checklist): everything is simply there */
-.js .reveal,
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
 .js .reveal-scale {
-  opacity: 1;
-  transform: none;
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 1s var(--ease), transform 1.1s var(--ease);
+  transition-delay: var(--d, 0ms);
 }
 .js .reveal.is-in,
 .js .reveal-scale.is-in {
