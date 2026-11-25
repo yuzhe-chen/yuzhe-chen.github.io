@@ -47,8 +47,8 @@ export const projects: Project[] = [
     title: "ProfeGPT",
     status: "Live",
     tagline: "Six languages, and the reasons behind each word.",
-    summary: "Learning a language is learning how other people think and speak. I wanted learners to meet each word in real sentences, with a tutor that is honest about what it knows.",
-    does: "Helps people learn Spanish, French, Italian, German, Dutch and Portuguese: translations, every verb conjugated, a dictionary with real example sentences, and a tutor whose answers can be traced back to their source.",
+    summary: "Learning a language is learning how other people think and speak. I wanted learners to meet each word in sentences people actually say, with a tutor that is honest about what it knows.",
+    does: "Helps people learn Spanish, French, Italian, German, Dutch and Portuguese: translations, every verb conjugated, a dictionary with example sentences from published texts, and a tutor whose answers can be traced back to their source.",
     story: [
       "In Spanish class I kept switching between a translator, a conjugation chart, a dictionary and a chat window, and none of them showed me how the language is actually used. Learning a language should feel like stepping into another culture, not juggling tabs.",
       "I wanted one place where every answer shows its source, with example sentences drawn from a corpus of real text, and a tutor that says plainly when it does not know. A learner should be able to trust what they are being taught.",
@@ -175,7 +175,7 @@ export const projects: Project[] = [
     title: "Saxon Planner",
     status: "Live",
     tagline: "A calmer school week.",
-    stat: "300+ users",
+    stat: "390+ accounts",
     summary: "School is stressful when everything lives in a different place. I wanted students to see, at a glance, what is due and what comes next.",
     does: "A planner built around how my school's days actually run: classes, a calendar that knows the two kinds of school day, assignments, resources for each class, news, and chat for study sessions.",
     story: [
@@ -254,7 +254,7 @@ export const projects: Project[] = [
     summary: "History sticks when it is a story. I set seven mysteries in seven eras, so a daily puzzle becomes a small lesson in when things happened.",
     does: "A daily history puzzle on a train through time: seven passengers die in seven eras, you date each death from its clue, then name the murderer.",
     story: [
-      "I prefer puzzles that reward close reading over quick reflexes, and I like that a mystery can quietly teach. A train that passes through history gave me a reason to place seven deaths in seven different eras, and a new case each day gives people a reason to come back.",
+      "I prefer puzzles that reward close reading over quick reflexes, and I like that a mystery can teach. A train that passes through history gave me a reason to place seven deaths in seven different eras, and a new case each day gives people a reason to come back.",
     ],
     features: [
       "You date each death by placing a clue on a timeline, lock in your pin and photograph the murderer's train. A rule book explains the scoring, and there is a list of trains to choose from. Orange Pip is a multiplayer mode.",
@@ -400,7 +400,7 @@ export const projects: Project[] = [
     slug: "ambicant",
     title: "Ambicant",
     status: "Live",
-    tagline: "Typing, reimagined.",
+    tagline: "Typing that looks like a person wrote it.",
     summary:
       "I wanted text to arrive the way typing does, with natural pauses, and a way to paste only what changed.",
     does: "A set of Chrome extensions. Candid and Ambicant type text at a chosen speed with human touches, and Poignant pastes only the parts that changed.",
@@ -423,7 +423,7 @@ export const projects: Project[] = [
     ],
     links: [{ label: "Live site", href: "https://ambicant.web.app" }],
     shots: [
-      shot("ambicant", 1, "The Ambicant home page with the extension popup: Typing, reimagined"),
+      shot("ambicant", 1, "The Ambicant home page with the extension popup"),
       shot("ambicant", 2, "The Candid, Ambicant and Poignant popups side by side, the typing rings charged"),
       shot("ambicant", 3, "The Touches tabs of Candid and Ambicant with their human typing options"),
       shot("ambicant", 4, "The Poignant popup switched on beside the Candid popup"),
